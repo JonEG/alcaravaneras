@@ -638,27 +638,6 @@ function initializeInstagramConsent() {
   }
 }
 
-function initializeNauticalMap() {
-  const mapElement = $("nautical-map");
-  if (!mapElement || !window.L) return;
-
-  const map = L.map(mapElement).setView([28.1308, -15.4282], 15);
-  const openSeaMapBase = L.tileLayer("https://t2.openseamap.org/tile/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openseamap.org/en/faq" target="_blank" rel="noreferrer">OpenSeaMap</a> / OpenStreetMap contributors',
-  });
-  const seamarks = L.tileLayer("https://t1.openseamap.org/seamark/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: '&copy; <a href="https://www.openseamap.org/en/faq" target="_blank" rel="noreferrer">OpenSeaMap</a>',
-  });
-
-  openSeaMapBase.addTo(map);
-  seamarks.addTo(map);
-  L.control.layers({ "OpenSeaMap": openSeaMapBase }, { "Señales náuticas": seamarks }, { collapsed: true }).addTo(map);
-  L.marker([28.1308, -15.4282]).addTo(map).bindPopup("Las Alcaravaneras");
-  mapElement.classList.add("is-loaded");
-}
-
 ["daily-forecast", "wind-forecast", "tide-week"].forEach((id) => {
   $(id).addEventListener("click", (event) => {
     const dayButton = event.target.closest("button[data-day]");
@@ -686,5 +665,4 @@ loadMarineForecast();
 loadBathingWaterQuality();
 loadWaterSamples();
 initializeInstagramConsent();
-initializeNauticalMap();
 bindTideHover();

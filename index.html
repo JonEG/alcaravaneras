@@ -9,10 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%230d4847'/%3E%3Cpath d='M15 58c12-13 23 13 35 0s23 13 35 0M15 73c12-13 23 13 35 0s23 13 35 0' fill='none' stroke='%23f2bd78' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -20,7 +18,7 @@
       <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
         <nav id="site-nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a><a href="#agua">El agua</a><a href="#mapa">Mapa náutico</a><a href="#instagram">Instagram</a>
+        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a><a href="#agua">El agua</a><a href="#instagram">Instagram</a>
       </nav>
     </header>
 
@@ -213,25 +211,6 @@
             </article>
           </div>
           <p class="water-note">La clasificación anual resume la temporada y no refleja incidencias puntuales del día. Para decidir si bañarte, consulta los avisos y controles vigentes de NÁYADE.</p>
-        </div>
-      </section>
-
-      <section class="chart-section" id="mapa">
-        <div class="content-wrap">
-          <div class="section-heading chart-heading">
-            <div><p class="eyebrow">Cartografía de apoyo</p><h2>Mapa náutico</h2><p class="section-description">Explora las señales y referencias náuticas alrededor de Las Alcaravaneras y el Puerto de Las Palmas.</p></div>
-          </div>
-          <div class="nautical-map-frame">
-            <div class="nautical-map" id="nautical-map" role="region" aria-label="Mapa interactivo de OpenStreetMap con señales náuticas de OpenSeaMap">
-              <p class="map-fallback">El mapa interactivo no está disponible. <a href="https://map.openseamap.org/?zoom=15&amp;lat=28.1308&amp;lon=-15.4282&amp;mlat=28.1308&amp;mlon=-15.4282&amp;mtext=Las%20Alcaravaneras&amp;layers=BTTFFFTFFTF0FFFFFFFFFF" target="_blank" rel="noreferrer">Abrir OpenSeaMap</a>.</p>
-            </div>
-          </div>
-          <div class="chart-links">
-            <a href="https://map.openseamap.org/?zoom=15&amp;lat=28.1308&amp;lon=-15.4282&amp;mlat=28.1308&amp;mlon=-15.4282&amp;mtext=Las%20Alcaravaneras&amp;layers=BTTFFFTFFTF0FFFFFFFFFF" target="_blank" rel="noreferrer">Abrir mapa completo <span>↗</span></a>
-            <a href="https://armada.defensa.gob.es/ihm/Aplicaciones/Catalogo/CatalogoWeb.html" target="_blank" rel="noreferrer">Catálogo oficial IHM <span>↗</span></a>
-            <a href="https://armada.defensa.gob.es/ihm/Aplicaciones/Avisos/Index_GAN_v1.html" target="_blank" rel="noreferrer">Avisos a los navegantes <span>↗</span></a>
-          </div>
-          <p class="map-warning">OpenSeaMap es cartografía comunitaria de apoyo; puede tener datos incompletos y no sustituye cartas náuticas oficiales actualizadas, publicaciones ni avisos a los navegantes. En el catálogo IHM se puede consultar la carta 6100, «Puerto de Las Palmas»; confirma allí la edición y las correcciones vigentes antes de navegar.</p>
         </div>
       </section>
 
