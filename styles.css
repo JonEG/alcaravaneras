@@ -72,3 +72,28 @@
   .section-heading h2{font-size:30px}
   .tide-extremes{gap:14px}
 }
+
+/* Accessible text contrast for forecast labels and secondary data. */
+.weather-section .eyebrow,.wind-section .eyebrow,.tide-section .eyebrow,.chart-section .eyebrow{color:#665338}
+.section-description{color:#5f5544}
+.updated{color:#4e514a}
+.condition{color:#5b5142}
+.current-stats div>span,.current-stats small{color:#5b5142}
+.forecast-low{color:#4d5751}
+.forecast-card.is-today .forecast-low,.forecast-card.is-today .forecast-rain{color:#fff}
+.forecast-rain{color:#45596f}
+.weather-hour-time{color:#514b40}
+.data-credit{color:#5c5549}
+.wind-day span:first-child,.wind-day small{color:#4d5751}
+.wind-day .wind-gust,.wind-day .wind-bf{color:#4f4c3e}
+.wind-day.is-selected span:first-child,.wind-day.is-selected small,.wind-day.is-selected .wind-gust,.wind-day.is-selected .wind-bf{color:#fff}
+.wind-section-label,.wind-week-title{color:#594d39}
+.hour-time,.hour-dir,.hour-gust{color:#4f4c3e}
+.tide-datum,.tide-extremes small{color:#53625b}
+.tide-gridlabel,.tide-hour-label{fill:#5e665f}
+.tide-day-extreme small,.tide-day-extreme strong{color:#4e514a}
+.tide-day.is-selected .tide-day-extreme small,.tide-day.is-selected .tide-day-extreme em,.tide-day.is-selected .tide-day-extreme strong{color:#fff}
+.tide-disclaimer{color:#5c5549}
+.tide-disclaimer a{color:#3f5960}
+
+:root{--muted:#4e514a}
