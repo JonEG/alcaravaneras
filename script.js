@@ -6,16 +6,16 @@ let marineData = null;
 let selectedDay = null;
 
 const weatherDescriptions = (code) => {
-  if (code === 0) return ["Despejado", "☀"];
-  if (code === 1) return ["Mayormente despejado", "◒"];
-  if (code === 2) return ["Parcialmente nuboso", "◒"];
-  if (code === 3) return ["Nublado", "☁"];
-  if ([45, 48].includes(code)) return ["Bruma", "≋"];
-  if ([51, 53, 55, 56, 57].includes(code)) return ["Llovizna", "☂"];
-  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return ["Lluvia", "☂"];
-  if ([71, 73, 75, 77, 85, 86].includes(code)) return ["Granizo", "❄"];
-  if ([95, 96, 99].includes(code)) return ["Tormenta", "ϟ"];
-  return ["Condiciones variables", "☁"];
+  if (code === 0) return ["Despejado", "☀️"];
+  if (code === 1) return ["Mayormente despejado", "🌤️"];
+  if (code === 2) return ["Parcialmente nuboso", "⛅"];
+  if (code === 3) return ["Nublado", "☁️"];
+  if ([45, 48].includes(code)) return ["Bruma", "🌫️"];
+  if ([51, 53, 55, 56, 57].includes(code)) return ["Llovizna", "🌦️"];
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return ["Lluvia", "🌧️"];
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return ["Nieve", "🌨️"];
+  if ([95, 96, 99].includes(code)) return ["Tormenta", "⛈️"];
+  return ["Condiciones variables", "🌥️"];
 };
 
 const directionName = (degrees) => {
@@ -68,7 +68,7 @@ function renderWeatherHourly(data, day = selectedDay) {
     const chance = data.hourly.precipitation_probability[index] ?? 0;
     const isPast = day === today && time < currentHour;
     const isCurrent = day === today && time.slice(0, 13) === currentHour;
-    const label = dateAt(time, { hour: "2-digit" });
+    const label = dateAt(time, { hour: "2-digit", minute: "2-digit" });
     return `<div class="weather-hour${isCurrent ? " is-current" : ""}${isPast ? " is-past" : ""}" title="${label} · ${description} · ${Math.round(data.hourly.temperature_2m[index])}° · lluvia ${chance}%"><span class="weather-hour-time">${label}</span><span class="weather-hour-icon" aria-hidden="true">${icon}</span><strong>${Math.round(data.hourly.temperature_2m[index])}°</strong><span class="weather-hour-rain">${chance >= 20 ? `💧 ${chance}%` : " "}</span></div>`;
   }).join("");
 }
@@ -79,7 +79,7 @@ function renderHourly(data, day = selectedDay) {
   const hours = data.hourly.time.map((time, index) => ({ time, index })).filter(({ time }) => time.startsWith(day));
   $("hourly-forecast").innerHTML = hours.map(({ time, index: i }) => {
     const speed = Math.round(data.hourly.wind_speed_10m[i] || 0);
-    const label = dateAt(time, { hour: "2-digit" });
+    const label = dateAt(time, { hour: "2-digit", minute: "2-digit" });
     const direction = data.hourly.wind_direction_10m[i];
     const gusts = Math.round(data.hourly.wind_gusts_10m[i] || 0);
     const isPast = day === today && time < currentHour;
