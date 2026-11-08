@@ -298,10 +298,18 @@ function renderWaterSamples(result) {
 
   tableBody.replaceChildren(...result.samples.slice(0, 3).map((sample) => {
     const row = document.createElement("tr");
+    const sampleResult = sample.observation || "";
+    const isUnsuitable = /no apta|insuficiente/i.test(sampleResult);
+    const isSuitable = /apta/i.test(sampleResult) && !isUnsuitable;
+    const resultLabel = isUnsuitable ? "No Apto" : isSuitable ? "Apto" : sampleResult || "Sin dato";
+    const resultCell = document.createElement("td");
+    resultCell.textContent = resultLabel;
+    resultCell.dataset.quality = isUnsuitable ? "poor" : isSuitable ? "good" : "unavailable";
+    if (sampleResult) resultCell.title = sampleResult;
     const date = document.createElement("time");
     date.dateTime = sample.date;
     date.textContent = sample.dateLabel;
-    [date, sample.ecoli, sample.enterococci, sample.observation].forEach((value) => {
+    [resultCell, date, sample.ecoli, sample.enterococci].forEach((value) => {
       const cell = document.createElement("td");
       if (value instanceof Node) cell.append(value);
       else cell.textContent = value ?? "—";
