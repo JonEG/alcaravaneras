@@ -124,16 +124,20 @@
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .water-section{padding:72px 0 78px;background:#e7deca}
 .water-section .section-heading{margin-bottom:26px}
-.water-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.water-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
 .water-card{min-width:0;padding:25px 28px 23px;border-radius:15px;background:#f6f3ed;display:flex;flex-direction:column;align-items:flex-start}
-.water-temperature{background:#e3f7ed}
+.water-temperature{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:14px 22px;background:#e3f7ed}
 .water-card-heading{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;color:#315c56}
+.water-temperature .water-card-heading{width:100%;margin:0 0 3px;gap:8px}
 .water-card-heading>span:first-child{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4e514a}
 .water-card-heading>span:last-child{font-size:22px;font-weight:400;color:#277e7c}
-.water-temperature-value{font-family:var(--serif);font-size:clamp(58px,7vw,83px);line-height:.95;letter-spacing:-3px;color:#183b39}
-.water-temperature-value span{font-family:var(--sans);font-size:21px;letter-spacing:0;margin-left:5px}
+.water-temperature-value{font-family:var(--serif);font-size:38px;line-height:1;letter-spacing:-1.5px;color:#183b39;white-space:nowrap}
+.water-temperature-value span{font-family:var(--sans);font-size:13px;letter-spacing:0;margin-left:4px}
 .water-card-description{font-size:12px;line-height:1.6;color:#4e514a;margin:12px 0 8px}
 .water-data-time{font-size:10px;line-height:1.55;color:#53625b;margin:0 0 16px}
+.water-temperature .water-card-description{margin:4px 0 2px;font-size:10px}
+.water-temperature .water-data-time{margin:0;font-size:9px}
+.water-temperature .water-source{margin-top:4px}
 .water-source-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:auto}
 .water-source{font-size:10px;font-weight:600;color:#365f62;text-underline-offset:3px}
 .water-source:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:2px}
@@ -148,7 +152,14 @@
   .water-grid{grid-template-columns:1fr;gap:10px}
   .water-card{padding:21px 20px}
   .water-card-heading{margin-bottom:13px}
-  .water-temperature-value{font-size:66px}
+  .water-temperature{padding:12px 14px}
+  .water-temperature .water-card-heading{gap:6px}
+  .water-temperature .water-card-heading>span:first-child{font-size:8px;letter-spacing:.6px}
+  .water-temperature .water-card-heading>span:last-child{font-size:16px}
+  .water-temperature-value{font-size:34px}
+  .water-temperature-value span{font-size:11px}
+  .water-temperature .water-card-description{font-size:8px;line-height:1.35}
+  .water-temperature .water-data-time,.water-temperature .water-source{font-size:8px}
   .water-quality-status{font-size:35px}
 }
 .water-samples{width:100%;margin:9px 0 18px}
