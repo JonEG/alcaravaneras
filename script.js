@@ -481,7 +481,36 @@ async function loadMarineForecast() {
 }
 
 const INSTAGRAM_OEMBED_URL = "https://graph.facebook.com/v26.0/instagram_oembed";
+const INSTAGRAM_CONSENT_KEY = "alcaravaneras.instagram-consent";
 let instagramEmbedScriptPromise;
+
+function getInstagramConsent() {
+  try {
+    return localStorage.getItem(INSTAGRAM_CONSENT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function saveInstagramConsent(value) {
+  try {
+    localStorage.setItem(INSTAGRAM_CONSENT_KEY, value);
+  } catch (error) {
+    console.warn("No se pudo guardar la preferencia de Instagram en este navegador:", error);
+  }
+}
+
+function restoreInstagramLink(container) {
+  const postUrl = container.dataset.instagramPost;
+  const username = new URL(postUrl).pathname.split("/").filter(Boolean)[0];
+  const link = document.createElement("a");
+  link.href = postUrl;
+  link.target = "_blank";
+  link.rel = "noreferrer";
+  link.textContent = `Ver publicación de @${username} en Instagram ↗`;
+  container.replaceChildren(link);
+  container.classList.add("is-link-fallback");
+}
 
 function loadInstagramEmbedScript() {
   if (window.instgrm?.Embeds?.process) return Promise.resolve();
@@ -491,7 +520,10 @@ function loadInstagramEmbedScript() {
       script.src = "https://www.instagram.com/embed.js";
       script.async = true;
       script.onload = resolve;
-      script.onerror = () => reject(new Error("No se pudo cargar el script de Instagram."));
+      script.onerror = () => {
+        instagramEmbedScriptPromise = null;
+        reject(new Error("No se pudo cargar el script de Instagram."));
+      };
       document.head.append(script);
     });
   }
@@ -514,12 +546,7 @@ async function loadInstagramPosts() {
       const data = await response.json();
       const embed = new DOMParser().parseFromString(data.html || "", "text/html").querySelector("blockquote.instagram-media");
       if (!embed) throw new Error("Meta oEmbed no devolvió el bloque de publicación.");
-      const fallbackLink = container.querySelector("a");
       container.replaceChildren(embed);
-      if (fallbackLink) {
-        fallbackLink.hidden = true;
-        container.append(fallbackLink);
-      }
       return true;
     } catch (error) {
       container.classList.add("is-link-fallback");
@@ -535,10 +562,7 @@ async function loadInstagramPosts() {
     } catch (error) {
       console.warn("No se pudo activar el renderizado de Instagram:", error);
       posts.forEach((container) => {
-        container.querySelector("blockquote.instagram-media")?.remove();
-        const fallbackLink = container.querySelector("a");
-        if (fallbackLink) fallbackLink.hidden = false;
-        container.classList.add("is-link-fallback");
+        if (container.querySelector("blockquote.instagram-media")) restoreInstagramLink(container);
       });
       return 0;
     }
@@ -555,35 +579,63 @@ function initializeInstagramConsent() {
   const status = $("instagram-consent-status");
   const posts = [...document.querySelectorAll("[data-instagram-post]")];
 
+  const showPreferenceControl = (preference, message) => {
+    controls.hidden = false;
+    controls.querySelector("span").textContent = message;
+    disableButton.dataset.preference = preference;
+    disableButton.textContent = preference === "accepted" ? "Desactivar" : "Cambiar preferencia";
+  };
+
   acceptButton?.addEventListener("click", async () => {
     acceptButton.disabled = true;
+    rejectButton.disabled = true;
     status.textContent = "Conectando con Instagram…";
     const loadedCount = await loadInstagramPosts();
     acceptButton.disabled = false;
+    rejectButton.disabled = false;
     if (loadedCount > 0) {
+      saveInstagramConsent("accepted");
       consentPanel.hidden = true;
-      controls.hidden = false;
-      controls.querySelector("span").textContent = `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`;
+      showPreferenceControl("accepted", `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`);
       return;
     }
     status.textContent = "No se pudieron cargar las publicaciones. Los enlaces directos siguen disponibles.";
   });
 
   rejectButton?.addEventListener("click", () => {
-    status.textContent = "Instagram permanece bloqueado. Puedes abrir los enlaces directos sin cargar los embeds.";
+    saveInstagramConsent("rejected");
+    consentPanel.hidden = true;
+    showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
   });
 
   disableButton?.addEventListener("click", () => {
-    posts.forEach((container) => {
-      container.querySelector("blockquote.instagram-media")?.remove();
-      const fallbackLink = container.querySelector("a");
-      if (fallbackLink) fallbackLink.hidden = false;
-      container.classList.add("is-link-fallback");
-    });
+    if (disableButton.dataset.preference === "accepted") {
+      saveInstagramConsent("rejected");
+      posts.forEach(restoreInstagramLink);
+      showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
+      return;
+    }
     controls.hidden = true;
     consentPanel.hidden = false;
-    status.textContent = "Contenido incrustado desactivado para esta visita.";
+    status.textContent = "";
   });
+
+  const savedConsent = getInstagramConsent();
+  if (savedConsent === "accepted") {
+    consentPanel.hidden = true;
+    showPreferenceControl("accepted", "Cargando publicaciones de Instagram…");
+    loadInstagramPosts().then((loadedCount) => {
+      showPreferenceControl(
+        "accepted",
+        loadedCount > 0
+          ? `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`
+          : "Instagram autorizado, pero las publicaciones no están disponibles ahora."
+      );
+    });
+  } else if (savedConsent === "rejected") {
+    consentPanel.hidden = true;
+    showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
+  }
 }
 
 function initializeNauticalMap() {
