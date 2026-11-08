@@ -63,29 +63,33 @@ function renderWeatherHourly(data, day = selectedDay) {
   const today = data.current.time.slice(0, 10);
   const currentHour = data.current.time.slice(0, 13);
   const hours = data.hourly.time.map((time, index) => ({ time, index })).filter(({ time }) => time.startsWith(day));
-  $("weather-hourly").innerHTML = hours.map(({ time, index }) => {
+  const timeline = $("weather-hourly");
+  timeline.innerHTML = hours.map(({ time, index }) => {
     const [description, icon] = weatherDescriptions(data.hourly.weather_code[index]);
     const chance = data.hourly.precipitation_probability[index] ?? 0;
     const isPast = day === today && time < currentHour;
     const isCurrent = day === today && time.slice(0, 13) === currentHour;
-    const label = dateAt(time, { hour: "2-digit", minute: "2-digit" });
+    const label = new Date(time).toLocaleTimeString("es-ES", { timeZone: "Atlantic/Canary", hour: "2-digit", minute: "2-digit" });
     return `<div class="weather-hour${isCurrent ? " is-current" : ""}${isPast ? " is-past" : ""}" title="${label} · ${description} · ${Math.round(data.hourly.temperature_2m[index])}° · lluvia ${chance}%"><span class="weather-hour-time">${label}</span><span class="weather-hour-icon" aria-hidden="true">${icon}</span><strong>${Math.round(data.hourly.temperature_2m[index])}°</strong><span class="weather-hour-rain">${chance >= 20 ? `💧 ${chance}%` : " "}</span></div>`;
   }).join("");
+  timeline.scrollLeft = 0;
 }
 
 function renderHourly(data, day = selectedDay) {
   const today = data.current.time.slice(0, 10);
   const currentHour = data.current.time.slice(0, 13);
   const hours = data.hourly.time.map((time, index) => ({ time, index })).filter(({ time }) => time.startsWith(day));
-  $("hourly-forecast").innerHTML = hours.map(({ time, index: i }) => {
+  const timeline = $("hourly-forecast");
+  timeline.innerHTML = hours.map(({ time, index: i }) => {
     const speed = Math.round(data.hourly.wind_speed_10m[i] || 0);
-    const label = dateAt(time, { hour: "2-digit", minute: "2-digit" });
+    const label = new Date(time).toLocaleTimeString("es-ES", { timeZone: "Atlantic/Canary", hour: "2-digit", minute: "2-digit" });
     const direction = data.hourly.wind_direction_10m[i];
     const gusts = Math.round(data.hourly.wind_gusts_10m[i] || 0);
     const isPast = day === today && time < currentHour;
     const isCurrent = day === today && time.slice(0, 13) === currentHour;
     return `<div class="hour-column${isCurrent ? " is-current" : ""}${isPast ? " is-past" : ""}" title="${label}: ${speed} km/h, rachas ${gusts} km/h, ${directionName(direction)}"><span class="hour-time">${label}</span><span class="hour-arrow" style="transform:rotate(${direction}deg)" aria-hidden="true">➤</span><strong class="hour-value">${speed} <small>km/h</small></strong><span class="hour-dir">${directionName(direction)}</span><span class="hour-gust">R. ${gusts}</span></div>`;
   }).join("");
+  timeline.scrollLeft = 0;
 }
 
 function renderWindWeek(data) {
@@ -123,7 +127,7 @@ function renderTideWeek(data) {
     const low = values.reduce((best, point) => point.value < best.value ? point : best, values[0]);
     const label = index === 0 ? "HOY" : dateAt(`${day}T12:00`, { weekday: "short", day: "numeric" }).toLocaleUpperCase("es-ES");
     const selected = day === selectedDay;
-    return `<button class="tide-day${selected ? " is-selected" : ""}" type="button" data-day="${day}" aria-pressed="${selected}" title="Nivel modelado respecto a la media global; hoy: ${today === day ? "día actual" : label}"><span class="tide-day-name">${label}</span><span class="tide-day-extreme"><small>Pleamar aprox.</small><strong>${high.value.toFixed(2)} m</strong><em>${high.time.slice(11, 16)}</em></span><span class="tide-day-extreme"><small>Bajamar aprox.</small><strong>${low.value.toFixed(2)} m</strong><em>${low.time.slice(11, 16)}</em></span></button>`;
+    return `<button class="tide-day${selected ? " is-selected" : ""}" type="button" data-day="${day}" aria-pressed="${selected}" title="Nivel modelado respecto a la media global; hoy: ${today === day ? "día actual" : label}"><span class="tide-day-name">${label}</span><span class="tide-day-extreme"><small>Pleamar aprox.</small><em>${high.time.slice(11, 16)}</em><strong>${high.value.toFixed(2)} m</strong></span><span class="tide-day-extreme"><small>Bajamar aprox.</small><em>${low.time.slice(11, 16)}</em><strong>${low.value.toFixed(2)} m</strong></span></button>`;
   }).join("");
 }
 
