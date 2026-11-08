@@ -97,3 +97,25 @@
 .tide-disclaimer a{color:#3f5960}
 
 :root{--muted:#4e514a}
+/* Make the tide trend and next turning point the primary current reading. */
+.tide-current{align-items:center}
+.tide-current>div.tide-overview{flex:1;min-width:0;display:grid;grid-template-columns:minmax(130px,.8fr) minmax(170px,1.2fr);grid-template-rows:auto auto;align-items:center;column-gap:18px;row-gap:10px}
+.tide-current-primary,.next-tide{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.tide-current .tide-label,.next-tide>span{font-size:10px;font-weight:600;color:#4e514a}
+.tide-current .tide-current-primary strong{font-family:var(--sans);font-size:23px;font-weight:700;line-height:1.15;color:#183b39}
+.tide-current .next-tide strong{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.1;color:#183b39;white-space:nowrap}
+.tide-level-secondary{grid-column:1/-1;display:flex;align-items:baseline;gap:5px;flex-wrap:wrap;font-size:9px;color:#4e514a}
+.tide-current .tide-level-secondary>strong{font-family:var(--sans);font-size:11px;font-weight:600;color:#183b39}
+.tide-current .tide-level-secondary>strong small{font-family:var(--sans);font-size:9px}
+.tide-current .tide-level-secondary .tide-datum{font-size:8px;color:#53625b}
+.tide-extremes{flex:1;justify-content:flex-end;gap:20px}
+.tide-extremes>span{gap:5px;min-width:95px}
+.tide-extreme-label{font-size:9px;font-weight:600;color:#4e514a}
+.tide-extremes>span>strong{display:flex;align-items:baseline;gap:7px;font-family:var(--sans);font-size:14px;font-weight:700;color:#183b39;white-space:nowrap}
+.tide-extremes>span>strong time{font:inherit}
+.tide-extremes>span>strong small{font-size:9px;font-weight:400;color:#53625b}
+@media(max-width:620px){
+  .tide-current{align-items:stretch}
+  .tide-current>div.tide-overview{width:100%;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);column-gap:10px}
+  .tide-extremes{width:100%;justify-content:flex-start;gap:24px}
+}

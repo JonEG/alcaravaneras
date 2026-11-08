@@ -95,7 +95,11 @@
             <div><p class="eyebrow">Marea</p><h2>Nivel del mar</h2><p class="section-description">Estimación horaria sincronizada con el día seleccionado en las previsiones.</p></div>
           </div>
           <div class="tide-current">
-            <div><span class="tide-label">Nivel estimado ahora</span><strong><span id="current-tide">--</span> <small>m</small></strong><span class="tide-datum">respecto al nivel medio global</span></div>
+            <div class="tide-overview">
+              <div class="tide-current-primary"><span class="tide-label">La marea ahora</span><strong id="tide-trend">Calculando…</strong></div>
+              <div class="next-tide" aria-live="polite"><span id="next-tide-label">Próxima pleamar o bajamar</span><strong id="next-tide-time">--:--</strong></div>
+              <span class="tide-level-secondary">Nivel estimado ahora <strong><span id="current-tide">--</span> <small>m</small></strong><span class="tide-datum">respecto al nivel medio global</span></span>
+            </div>
             <div class="tide-extremes" id="tide-extremes"><span>Calculando niveles del día…</span></div>
           </div>
           <div class="wind-week-title tide-week-title">Previsión de marea · 7 días <span class="week-hint">Selecciona un día para ver su curva</span></div>

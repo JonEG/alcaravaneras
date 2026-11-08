@@ -131,6 +131,16 @@ function renderTideWeek(data) {
   }).join("");
 }
 
+function findTideTurningPoints(points) {
+  return points.slice(1, -1).flatMap((point, index) => {
+    const previous = points[index].value;
+    const next = points[index + 2].value;
+    if (point.value >= previous && point.value > next) return [{ ...point, type: "pleamar" }];
+    if (point.value <= previous && point.value < next) return [{ ...point, type: "bajamar" }];
+    return [];
+  });
+}
+
 function renderTide(data, day = selectedDay) {
   if (!data?.current || !data?.hourly) return;
   selectedDay ??= data.current.time.slice(0, 10);
@@ -139,12 +149,49 @@ function renderTide(data, day = selectedDay) {
   $("current-tide").textContent = Number.isFinite(currentLevel) ? currentLevel.toFixed(2) : "—";
   const times = data.hourly.time;
   const values = data.hourly.sea_level_height_msl;
-  const points = times.map((time, index) => ({ time, index, value: values[index] })).filter((point) => point.time.startsWith(day) && Number.isFinite(point.value));
+  const allPoints = times.map((time, index) => ({ time, index, value: values[index] })).filter((point) => Number.isFinite(point.value));
+  const today = data.current.time.slice(0, 10);
+  const todayPoints = allPoints.filter((point) => point.time.startsWith(today));
+  const futurePoints = allPoints.filter((point) => point.time > data.current.time);
+  const trendSamples = futurePoints.slice(0, 4);
+  let trendDelta = trendSamples.length && Number.isFinite(currentLevel) ? trendSamples[0].value - currentLevel : 0;
+  if (Math.abs(trendDelta) < 0.01) {
+    for (let index = 1; index < trendSamples.length; index += 1) {
+      trendDelta = trendSamples[index].value - trendSamples[index - 1].value;
+      if (Math.abs(trendDelta) >= 0.01) break;
+    }
+  }
+  const trend = Math.abs(trendDelta) >= 0.01 ? (trendDelta > 0 ? "Subiendo" : "Bajando") : "—";
+  $("tide-trend").textContent = trend;
+
+  const nextExtreme = findTideTurningPoints(allPoints).find((point) => point.time > data.current.time);
+  if (nextExtreme) {
+    const eventDay = nextExtreme.time.slice(0, 10);
+    const eventDayLabel = eventDay === today ? "hoy" : dateAt(`${eventDay}T12:00`, { weekday: "short", day: "numeric" }).replace(".", "");
+    $("next-tide-label").textContent = `Próxima ${nextExtreme.type} · ${eventDayLabel}`;
+    $("next-tide-time").textContent = nextExtreme.time.slice(11, 16);
+  } else {
+    $("next-tide-label").textContent = trend === "Subiendo" ? "Próxima pleamar" : "Próxima bajamar";
+    $("next-tide-time").textContent = "—";
+  }
+
+  if (todayPoints.length) {
+    const high = todayPoints.reduce((best, point) => point.value > best.value ? point : best, todayPoints[0]);
+    const low = todayPoints.reduce((best, point) => point.value < best.value ? point : best, todayPoints[0]);
+    const todayExtremes = [
+      { type: "Pleamar aprox.", point: high },
+      { type: "Bajamar aprox.", point: low },
+    ].sort((a, b) => a.point.time.localeCompare(b.point.time));
+    $("tide-extremes").innerHTML = todayExtremes.map(({ type, point }) => `<span><span class="tide-extreme-label">${type}</span><strong><time datetime="${point.time}">${point.time.slice(11, 16)}</time><small>${point.value.toFixed(2)} m</small></strong></span>`).join("");
+  } else {
+    $("tide-extremes").innerHTML = "";
+  }
+
+  const points = allPoints.filter((point) => point.time.startsWith(day));
   const label = selectedDayLabel(day, data.current.time.slice(0, 10));
   $("tide-hourly-title").textContent = `${label} · nivel del mar por horas`;
   if (!points.length) {
     $("tide-chart").innerHTML = '<p class="loading-row">No hay datos horarios de marea para este día.</p>';
-    $("tide-extremes").innerHTML = "";
     return;
   }
 
@@ -172,10 +219,6 @@ function renderTide(data, day = selectedDay) {
   const currentPoint = day === data.current.time.slice(0, 10) ? coordinates.find((point) => point.time.slice(0, 13) === currentHour) : null;
   const currentMarker = currentPoint ? `<line class="tide-current-marker" x1="${currentPoint.x}" y1="${top}" x2="${currentPoint.x}" y2="${bottom}"/><circle class="tide-current-dot" cx="${currentPoint.x}" cy="${currentPoint.y}" r="5"/>` : "";
   const hourlyPoints = coordinates.map((point) => `<g class="tide-point" data-time="${point.time.slice(11, 16)}" data-level="${point.value.toFixed(2)}" data-x="${point.x.toFixed(1)}" data-y="${point.y.toFixed(1)}" tabindex="0" role="img" aria-label="${point.time.slice(11, 16)} · nivel del mar ${point.value.toFixed(2)} metros"><line class="tide-hover-line" x1="${point.x}" y1="${top}" x2="${point.x}" y2="${bottom}"/><circle class="tide-hit" cx="${point.x}" cy="${point.y}" r="13"/><circle class="tide-dot" cx="${point.x}" cy="${point.y}" r="3"/></g>`).join("");
-  const minPoint = points.reduce((best, point) => point.value < best.value ? point : best, points[0]);
-  const maxPoint = points.reduce((best, point) => point.value > best.value ? point : best, points[0]);
-  const timeLabel = (time) => time.slice(11, 16);
-  $("tide-extremes").innerHTML = `<span>Pleamar aprox.<strong>${maxPoint.value.toFixed(2)} m</strong><small>${timeLabel(maxPoint.time)}</small></span><span>Bajamar aprox.<strong>${minPoint.value.toFixed(2)} m</strong><small>${timeLabel(minPoint.time)}</small></span>`;
   $("tide-chart").innerHTML = `<svg viewBox="0 0 1000 205" role="img" aria-label="Curva estimada del nivel del mar para ${label}"><g>${grid}</g><path class="tide-area" d="${area}"/><path class="tide-line" d="${path}"/>${currentMarker}<g>${hourlyPoints}</g><g>${hourMarks}</g></svg><div class="tide-tooltip" id="tide-tooltip" role="status" hidden></div>`;
 }
 
