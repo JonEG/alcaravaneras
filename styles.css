@@ -30,3 +30,38 @@
 
 /* Keep the scrolling header above Leaflet's high-z-index panes. */
 .site-header{z-index:1000}.site-header.scrolled{position:fixed;z-index:1000}.nautical-map-frame{position:relative;z-index:0}
+
+/* Phone layouts: preserve readable type, touch targets, and room for the wind dashboard. */
+@media(max-width:620px){
+  .site-header.nav-open nav a{color:#f6f3ed;display:inline-flex;align-items:center;min-height:44px}
+  .hero-content{width:86vw}
+  .hero h1{font-size:clamp(40px,13vw,80px);letter-spacing:-.045em;line-height:.9}
+  .weather-hourly,.wind-chart{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .compass-card{padding:14px}
+  .compass-layout{grid-template-columns:76px repeat(2,minmax(0,1fr));grid-template-rows:auto auto;gap:12px;min-height:0}
+  .compass{grid-row:1 / span 2;width:72px;height:72px}
+  .wind-reading{grid-column:2;align-items:flex-start}
+  .gust-reading{grid-column:3;align-items:flex-start}
+  .beaufort-reading{grid-column:2 / 4;flex-direction:row;align-items:center;justify-self:stretch;justify-content:space-between;gap:8px}
+  .gust-reading,.beaufort-reading{font-size:9px}
+  .beaufort-reading strong{font-size:16px}
+  .nautical-map-frame{height:min(66svh,440px);min-height:300px}
+  .chart-links a{justify-content:space-between;min-height:44px}
+  .nautical-map .leaflet-control-zoom a{width:36px;height:36px;line-height:36px}
+  .nautical-map .leaflet-control-layers-toggle{width:36px;height:36px}
+}
+@media(max-width:360px){
+  .site-header{padding:14px 5vw}
+  .wordmark{font-size:19px}
+  .hero-content{width:88vw;margin-left:6vw}
+  .hero-kicker{flex-wrap:wrap}
+  .current-temp-group{min-width:80px}
+  .current-stats{flex-basis:100%;border-left:0;border-top:1px solid rgba(24,59,57,.17);padding:11px 0 0;margin:0}
+  .compass-layout{grid-template-columns:68px repeat(2,minmax(0,1fr));gap:10px 8px}
+  .compass{width:66px;height:66px}
+  .wind-reading>strong{font-size:19px}
+  .gust-reading strong{font-size:18px}
+  .beaufort-reading strong{font-size:14px}
+  .section-heading h2{font-size:30px}
+  .tide-extremes{gap:14px}
+}
