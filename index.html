@@ -18,7 +18,7 @@
       <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
         <nav id="site-nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a>
+        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a>
       </nav>
     </header>
 
@@ -45,13 +45,13 @@
           <article class="weather-now">
             <span class="weather-icon" id="current-icon" aria-hidden="true">☀</span>
             <div class="current-temp-group"><span class="temperature" id="current-temp">--°</span><span class="condition" id="current-condition">Consultando el cielo</span></div>
-            <div class="current-stats"><div><span>Máx / Mín</span><strong><span id="today-high">--</span>° / <span id="today-low">--</span>°</strong></div><div><span>Viento</span><strong><span id="current-wind">--</span> km/h</strong></div><div><span>Lluvia</span><strong><span id="current-rain">--</span>%</strong></div></div>
+            <div class="current-stats"><div><span>Máx / Mín · <span id="summary-day">hoy</span></span><strong><span id="today-high">--</span>° / <span id="today-low">--</span>°</strong></div><div><span>Lluvia máx.</span><strong><span id="current-rain">--</span>%</strong></div></div>
           </article>
           <article class="forecast">
-            <div class="wind-section-label">Hoy · evolución por horas</div>
-            <div class="today-hourly weather-hourly" id="weather-hourly"><div class="loading-row">Cargando evolución de hoy…</div></div>
-            <div class="wind-week-title">Previsión 7 días</div>
+            <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
             <div class="forecast-list" id="daily-forecast"><div class="loading-row">Cargando previsión…</div></div>
+            <div class="wind-section-label" id="weather-hourly-title">Hoy · evolución por horas</div>
+            <div class="today-hourly weather-hourly" id="weather-hourly"><div class="loading-row">Cargando evolución de hoy…</div></div>
           </article>
         </div>
         <p class="data-credit">Previsión meteorológica para Las Alcaravaneras · Datos de <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
@@ -78,12 +78,29 @@
               </div>
             </article>
             <article class="wind-forecast">
-              <div class="wind-section-label">Hoy · evolución por horas</div>
-              <div class="wind-chart" id="hourly-forecast"><div class="loading-row">Cargando condiciones…</div></div>
-              <div class="wind-week-title">Previsión 7 días</div>
+              <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
               <div class="wind-week" id="wind-forecast"><div class="loading-row">Cargando previsión…</div></div>
+              <div class="wind-section-label" id="wind-hourly-title">Hoy · evolución por horas</div>
+              <div class="wind-chart" id="hourly-forecast"><div class="loading-row">Cargando condiciones…</div></div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section class="tide-section" id="marea">
+        <div class="content-wrap">
+          <div class="section-heading tide-heading">
+            <div><p class="eyebrow">Marea</p><h2>Nivel del mar</h2><p class="section-description">Estimación horaria sincronizada con el día seleccionado en las previsiones.</p></div>
+          </div>
+          <div class="tide-current">
+            <div><span class="tide-label">Nivel estimado ahora</span><strong><span id="current-tide">--</span> <small>m</small></strong><span class="tide-datum">respecto al nivel medio global</span></div>
+            <div class="tide-extremes" id="tide-extremes"><span>Calculando niveles del día…</span></div>
+          </div>
+          <div class="wind-week-title tide-week-title">Previsión de marea · 7 días <span class="week-hint">Selecciona un día para ver su curva</span></div>
+          <div class="tide-week" id="tide-week"><div class="loading-row">Cargando previsión semanal…</div></div>
+          <div class="tide-curve-heading"><div class="wind-section-label" id="tide-hourly-title">Hoy · nivel del mar por horas</div><span>Pasa el cursor por la curva para ver la hora y el nivel</span></div>
+          <div class="tide-chart-wrap" id="tide-chart"><p class="loading-row">Cargando previsión de marea…</p></div>
+          <p class="tide-disclaimer">Estimación de Météo-France / Copernicus Marine vía <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Open-Meteo</a>, con resolución aproximada de 8 km y precisión limitada en zonas costeras. Nivel relativo a la media global; no utilizar para navegación.</p>
         </div>
       </section>
 
