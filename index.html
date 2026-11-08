@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Consulta el tiempo y el viento, hoy y durante los próximos siete días, en Las Alcaravaneras, Las Palmas de Gran Canaria.">
+    <title>El tiempo y el viento — Las Alcaravaneras</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%230d4847'/%3E%3Cpath d='M15 58c12-13 23 13 35 0s23 13 35 0M15 73c12-13 23 13 35 0s23 13 35 0' fill='none' stroke='%23f2bd78' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
+        <nav id="site-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-shade"></div>
+        <div class="hero-content">
+          <p class="hero-kicker">Las Palmas de Gran Canaria <span></span> Previsión local</p>
+          <h1 id="hero-title">Las<br>Alcaravaneras</h1>
+          <p class="hero-intro">El tiempo y el viento, hora a hora y día a día, en Las Palmas de Gran Canaria.</p>
+          <a class="hero-scroll" href="#tiempo"><span class="scroll-icon">↓</span> Ver previsión</a>
+        </div>
+        <div class="hero-stamp" aria-hidden="true"><span>28° 07′ N</span><i></i><span>15° 25′ O</span></div>
+      </section>
+
+      <section class="weather-section" id="tiempo">
+        <div class="content-wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">El tiempo</p><h2>Tiempo en Las Alcaravaneras</h2><p class="section-description">Condiciones actuales y previsión para los próximos 7 días.</p></div>
+          <span class="updated"><i></i><span id="updated-at">Actualizando previsión…</span></span>
+        </div>
+
+        <div class="weather-dashboard">
+          <article class="weather-now">
+            <span class="weather-icon" id="current-icon" aria-hidden="true">☀</span>
+            <div class="current-temp-group"><span class="temperature" id="current-temp">--°</span><span class="condition" id="current-condition">Consultando el cielo</span></div>
+            <div class="current-stats"><div><span>Máx / Mín</span><strong><span id="today-high">--</span>° / <span id="today-low">--</span>°</strong></div><div><span>Viento</span><strong><span id="current-wind">--</span> km/h</strong></div><div><span>Lluvia</span><strong><span id="current-rain">--</span>%</strong></div></div>
+          </article>
+          <article class="forecast">
+            <div class="wind-section-label">Hoy · evolución por horas</div>
+            <div class="today-hourly weather-hourly" id="weather-hourly"><div class="loading-row">Cargando evolución de hoy…</div></div>
+            <div class="wind-week-title">Previsión 7 días</div>
+            <div class="forecast-list" id="daily-forecast"><div class="loading-row">Cargando previsión…</div></div>
+          </article>
+        </div>
+        <p class="data-credit">Previsión meteorológica para Las Alcaravaneras · Datos de <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
+        </div>
+      </section>
+
+      <section class="wind-section" id="viento">
+        <div class="content-wrap wind-wrap">
+          <div class="section-heading wind-heading">
+            <div><p class="eyebrow">Viento</p><h2>Condiciones de viento</h2><p class="section-description">Velocidad, dirección y rachas para navegantes y deportistas.</p></div>
+          </div>
+          <div class="wind-dashboard">
+            <article class="compass-card">
+              <div class="compass-layout">
+                <div class="compass" aria-label="Rosa de los vientos">
+                  <span class="direction dir-n">N</span><span class="direction dir-e">E</span><span class="direction dir-s">S</span><span class="direction dir-w">O</span>
+                  <span class="compass-ring ring-one"></span><span class="compass-ring ring-two"></span>
+                  <span class="compass-cross cross-v"></span><span class="compass-cross cross-h"></span>
+                  <span class="compass-needle" id="compass-needle"><i></i></span><span class="compass-center"></span>
+                </div>
+                <div class="wind-reading"><span class="wind-direction" id="current-direction">—</span><strong><span id="current-wind-large">--</span><small>km/h velocidad</small></strong></div>
+                <div class="gust-reading"><strong><span id="current-gusts">--</span></strong><span>km/h rachas</span></div>
+                <div class="beaufort-reading"><strong><span>Bf <b id="beaufort-number">—</b></span></strong><span id="beaufort-name">Escala Beaufort</span></div>
+              </div>
+            </article>
+            <article class="wind-forecast">
+              <div class="wind-section-label">Hoy · evolución por horas</div>
+              <div class="wind-chart" id="hourly-forecast"><div class="loading-row">Cargando condiciones…</div></div>
+              <div class="wind-week-title">Previsión 7 días</div>
+              <div class="wind-week" id="wind-forecast"><div class="loading-row">Cargando previsión…</div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer"><a class="wordmark" href="#inicio">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><a href="#inicio" class="back-top">Volver arriba ↑</a></footer>
+  </body>
+</html>
