@@ -480,6 +480,112 @@ async function loadMarineForecast() {
   }
 }
 
+const INSTAGRAM_OEMBED_URL = "https://graph.facebook.com/v26.0/instagram_oembed";
+let instagramEmbedScriptPromise;
+
+function loadInstagramEmbedScript() {
+  if (window.instgrm?.Embeds?.process) return Promise.resolve();
+  if (!instagramEmbedScriptPromise) {
+    instagramEmbedScriptPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error("No se pudo cargar el script de Instagram."));
+      document.head.append(script);
+    });
+  }
+  return instagramEmbedScriptPromise;
+}
+
+async function loadInstagramPosts() {
+  const posts = [...document.querySelectorAll("[data-instagram-post]")];
+  const rendered = await Promise.all(posts.map(async (container) => {
+    const postUrl = container.dataset.instagramPost;
+    const endpoint = new URL(INSTAGRAM_OEMBED_URL);
+    endpoint.searchParams.set("url", postUrl);
+    endpoint.searchParams.set("maxwidth", "540");
+    endpoint.searchParams.set("hidecaption", "true");
+    endpoint.searchParams.set("omitscript", "true");
+
+    try {
+      const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
+      if (!response.ok) throw new Error(`Meta oEmbed returned ${response.status}`);
+      const data = await response.json();
+      const embed = new DOMParser().parseFromString(data.html || "", "text/html").querySelector("blockquote.instagram-media");
+      if (!embed) throw new Error("Meta oEmbed no devolvió el bloque de publicación.");
+      const fallbackLink = container.querySelector("a");
+      container.replaceChildren(embed);
+      if (fallbackLink) {
+        fallbackLink.hidden = true;
+        container.append(fallbackLink);
+      }
+      return true;
+    } catch (error) {
+      container.classList.add("is-link-fallback");
+      console.warn(`No se pudo incrustar la publicación de Instagram ${postUrl}:`, error);
+      return false;
+    }
+  }));
+
+  if (rendered.some(Boolean)) {
+    try {
+      await loadInstagramEmbedScript();
+      window.instgrm?.Embeds?.process();
+    } catch (error) {
+      console.warn("No se pudo activar el renderizado de Instagram:", error);
+      posts.forEach((container) => {
+        container.querySelector("blockquote.instagram-media")?.remove();
+        const fallbackLink = container.querySelector("a");
+        if (fallbackLink) fallbackLink.hidden = false;
+        container.classList.add("is-link-fallback");
+      });
+      return 0;
+    }
+  }
+  return rendered.filter(Boolean).length;
+}
+
+function initializeInstagramConsent() {
+  const consentPanel = $("instagram-consent");
+  const acceptButton = $("load-instagram-posts");
+  const rejectButton = $("keep-instagram-blocked");
+  const controls = $("instagram-controls");
+  const disableButton = $("disable-instagram-posts");
+  const status = $("instagram-consent-status");
+  const posts = [...document.querySelectorAll("[data-instagram-post]")];
+
+  acceptButton?.addEventListener("click", async () => {
+    acceptButton.disabled = true;
+    status.textContent = "Conectando con Instagram…";
+    const loadedCount = await loadInstagramPosts();
+    acceptButton.disabled = false;
+    if (loadedCount > 0) {
+      consentPanel.hidden = true;
+      controls.hidden = false;
+      controls.querySelector("span").textContent = `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`;
+      return;
+    }
+    status.textContent = "No se pudieron cargar las publicaciones. Los enlaces directos siguen disponibles.";
+  });
+
+  rejectButton?.addEventListener("click", () => {
+    status.textContent = "Instagram permanece bloqueado. Puedes abrir los enlaces directos sin cargar los embeds.";
+  });
+
+  disableButton?.addEventListener("click", () => {
+    posts.forEach((container) => {
+      container.querySelector("blockquote.instagram-media")?.remove();
+      const fallbackLink = container.querySelector("a");
+      if (fallbackLink) fallbackLink.hidden = false;
+      container.classList.add("is-link-fallback");
+    });
+    controls.hidden = true;
+    consentPanel.hidden = false;
+    status.textContent = "Contenido incrustado desactivado para esta visita.";
+  });
+}
+
 function initializeNauticalMap() {
   const mapElement = $("nautical-map");
   if (!mapElement || !window.L) return;
@@ -527,5 +633,6 @@ loadForecast();
 loadMarineForecast();
 loadBathingWaterQuality();
 loadWaterSamples();
+initializeInstagramConsent();
 initializeNauticalMap();
 bindTideHover();
