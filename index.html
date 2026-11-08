@@ -20,7 +20,7 @@
       <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
         <nav id="site-nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a><a href="#mapa">Mapa náutico</a>
+        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a><a href="#agua">El agua</a><a href="#mapa">Mapa náutico</a>
       </nav>
     </header>
 
@@ -107,6 +107,35 @@
           <div class="tide-curve-heading"><div class="wind-section-label" id="tide-hourly-title">Hoy · nivel del mar por horas</div><span>Toca la curva o pasa el cursor para ver la hora y el nivel</span></div>
           <div class="tide-chart-wrap" id="tide-chart"><p class="loading-row">Cargando previsión de marea…</p></div>
           <p class="tide-disclaimer">Estimación de Météo-France / Copernicus Marine vía <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Open-Meteo</a>, con resolución aproximada de 8 km y precisión limitada en zonas costeras. Nivel relativo a la media global; no utilizar para navegación.</p>
+        </div>
+      </section>
+
+      <section class="water-section" id="agua" aria-labelledby="water-title">
+        <div class="content-wrap">
+          <div class="section-heading water-heading">
+            <div><p class="eyebrow">Temperatura y calidad</p><h2 id="water-title">El agua de Las Alcaravaneras</h2><p class="section-description">Temperatura superficial estimada y última clasificación sanitaria oficial.</p></div>
+          </div>
+          <div class="water-grid">
+            <article class="water-card water-temperature" aria-labelledby="water-temperature-title">
+              <div class="water-card-heading"><span class="water-card-kicker">Temperatura del mar</span><span aria-hidden="true">≈</span></div>
+              <h3 id="water-temperature-title" class="visually-hidden">Temperatura superficial del mar</h3>
+              <div class="water-temperature-value" id="sea-temperature" aria-live="polite">--<span>°C</span></div>
+              <p class="water-card-description">Temperatura superficial estimada en la zona.</p>
+              <p class="water-data-time" id="sea-temperature-time">Cargando dato del modelo…</p>
+              <a class="water-source" href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Modelo marino · Open-Meteo <span aria-hidden="true">↗</span></a>
+            </article>
+            <article class="water-card water-quality" aria-labelledby="water-quality-status">
+              <div class="water-card-heading"><span class="water-card-kicker">Calidad del agua de baño</span><span aria-hidden="true">●</span></div>
+              <h3 id="water-quality-status" class="water-quality-status" data-quality="loading">Consultando clasificación…</h3>
+              <p class="water-card-description" id="water-quality-season">Última temporada oficial disponible: 2025.</p>
+              <p class="water-data-time" id="water-quality-detail">Clasificación anual basada en los controles microbiológicos oficiales.</p>
+              <div class="water-source-links">
+                <a class="water-source" id="water-quality-eea-link" href="https://www.eea.europa.eu/en/analysis/maps-and-charts/state-of-bathing-waters-in-2025" target="_blank" rel="noreferrer">Mapa y clasificación · EEA <span aria-hidden="true">↗</span></a>
+                <a class="water-source" href="https://nayadeciudadano.sanidad.gob.es/Splayas/" target="_blank" rel="noreferrer">Consultar avisos y controles en NÁYADE <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          </div>
+          <p class="water-note">La clasificación anual resume la temporada y no refleja incidencias puntuales del día. Para decidir si bañarte, consulta los avisos y controles vigentes de NÁYADE.</p>
         </div>
       </section>
 

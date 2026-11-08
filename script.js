@@ -1,5 +1,6 @@
 const API_URL = "https://api.open-meteo.com/v1/forecast?latitude=28.1308&longitude=-15.4282&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Atlantic%2FCanary&forecast_days=7&wind_speed_unit=kmh";
-const MARINE_API_URL = "https://marine-api.open-meteo.com/v1/marine?latitude=28.1308&longitude=-15.4282&current=sea_level_height_msl&hourly=sea_level_height_msl&timezone=Atlantic%2FCanary&forecast_days=7&cell_selection=sea";
+const MARINE_API_URL = "https://marine-api.open-meteo.com/v1/marine?latitude=28.1308&longitude=-15.4282&current=sea_level_height_msl,sea_surface_temperature&hourly=sea_level_height_msl,sea_surface_temperature&timezone=Atlantic%2FCanary&forecast_days=7&cell_selection=sea";
+const BATHING_WATER_API_URL = "https://marine.discomap.eea.europa.eu/arcgis/rest/services/BathingWater/BathingWater_Dyna_WM_2025/MapServer/3/query";
 const $ = (id) => document.getElementById(id);
 let forecastData = null;
 let marineData = null;
@@ -222,6 +223,66 @@ function renderTide(data, day = selectedDay) {
   $("tide-chart").innerHTML = `<svg viewBox="0 0 1000 205" role="img" aria-label="Curva estimada del nivel del mar para ${label}"><g>${grid}</g><path class="tide-area" d="${area}"/><path class="tide-line" d="${path}"/>${currentMarker}<g>${hourlyPoints}</g><g>${hourMarks}</g></svg><div class="tide-tooltip" id="tide-tooltip" role="status" hidden></div>`;
 }
 
+function renderSeaTemperature(data) {
+  const temperature = data?.current?.sea_surface_temperature;
+  const time = data?.current?.time;
+  if (!Number.isFinite(temperature)) {
+    $("sea-temperature").innerHTML = `—<span>°C</span>`;
+    $("sea-temperature-time").textContent = "Temperatura del mar temporalmente no disponible.";
+    return;
+  }
+  $("sea-temperature").innerHTML = `${temperature.toFixed(1)}<span>°C</span>`;
+  if (time) {
+    const date = dateAt(`${time.slice(0, 10)}T12:00`, { day: "numeric", month: "short" });
+    $("sea-temperature-time").textContent = `Dato del modelo · ${date} · ${time.slice(11, 16)} h (Canarias)`;
+  }
+}
+
+async function loadBathingWaterQuality() {
+  const statusElement = $("water-quality-status");
+  const detailElement = $("water-quality-detail");
+  if (!statusElement || !detailElement) {
+    console.error("No se pudo cargar la clasificación del agua de baño: faltan elementos de la sección de agua.");
+    return;
+  }
+  const params = new URLSearchParams({
+    where: "countryCode = 'ES' AND bathingWaterName LIKE '%ALCARAVANERAS%'",
+    outFields: "bathingWaterName,qualityStatus,bwProfileLink,bathingWaterIdentifier",
+    returnGeometry: "false",
+    f: "json",
+  });
+  try {
+    const response = await fetch(`${BATHING_WATER_API_URL}?${params}`, { headers: { Accept: "application/json" } });
+    if (!response.ok) throw new Error(`Bathing water service returned ${response.status}`);
+    const result = await response.json();
+    if (result.error) throw new Error(result.error.message || "Bathing water service returned an error");
+    const features = (result.features ?? []).map(({ attributes }) => attributes).filter((item) => item?.bathingWaterName?.toLocaleUpperCase("es-ES").includes("ALCARAVANERAS"));
+    if (!features.length) throw new Error("No bathing water classification was found for Las Alcaravaneras");
+
+    const ratings = {
+      Poor: { label: "Insuficiente", key: "poor", rank: 0 },
+      "Not classified": { label: "Sin clasificar", key: "unclassified", rank: 1 },
+      Sufficient: { label: "Suficiente", key: "sufficient", rank: 2 },
+      Good: { label: "Buena", key: "good", rank: 3 },
+      Excellent: { label: "Excelente", key: "excellent", rank: 4 },
+    };
+    const availableRatings = features.map((item) => ratings[item.qualityStatus]).filter(Boolean);
+    if (!availableRatings.length) throw new Error("No usable classification was returned");
+    const rating = [...availableRatings].sort((a, b) => a.rank - b.rank)[0];
+    const points = new Set(features.map((item) => item.bathingWaterName)).size;
+    statusElement.textContent = rating.label;
+    statusElement.dataset.quality = rating.key;
+    detailElement.textContent = availableRatings.some((item) => item.key !== rating.key)
+      ? `Temporada 2025 · se muestra el resultado más desfavorable de ${points} puntos de muestreo.`
+      : `Temporada 2025 · clasificación anual de ${points} puntos de muestreo.`;
+  } catch (error) {
+    console.error("No se pudo cargar la clasificación del agua de baño:", error);
+    statusElement.textContent = "Clasificación no disponible";
+    statusElement.dataset.quality = "unavailable";
+    detailElement.textContent = "Consulta la información y los avisos vigentes en NÁYADE.";
+  }
+}
+
 function showTidePoint(point) {
   if (!point) return;
   const chart = $("tide-chart");
@@ -329,11 +390,14 @@ async function loadMarineForecast() {
     if (!response.ok) throw new Error(`Marine service returned ${response.status}`);
     marineData = await response.json();
     renderTide(marineData);
+    renderSeaTemperature(marineData);
   } catch (error) {
     console.error("No se pudo cargar la previsión de marea:", error);
     $("current-tide").textContent = "—";
     $("tide-extremes").textContent = "Marea temporalmente no disponible";
     $("tide-chart").innerHTML = '<p class="loading-row">No se pudo cargar la previsión de marea.</p>';
+    $("sea-temperature").innerHTML = `—<span>°C</span>`;
+    $("sea-temperature-time").textContent = "Temperatura del mar temporalmente no disponible.";
   }
 }
 
@@ -382,5 +446,6 @@ document.querySelectorAll("#site-nav a").forEach((link) => link.addEventListener
 }));
 loadForecast();
 loadMarineForecast();
+loadBathingWaterQuality();
 initializeNauticalMap();
 bindTideHover();
