@@ -167,6 +167,11 @@
 .water-samples-table td:last-child{color:#245c3c;font-weight:600}
 @media(max-width:620px){.water-samples{margin:7px 0 15px}.water-samples h4{font-size:9px}.water-samples-table{font-size:8px}}
 
+/* Contrast adjustments for Lighthouse's reported secondary text. */
+.wind-section .section-description{color:#514737}
+.water-section .eyebrow,.instagram-section .eyebrow{color:#5f4c32}
+.hour-column .hour-value small{font-size:8px;color:#33443d}
+
 /* Curated Instagram posts from the beach and nearby area. */
 .instagram-section{padding:72px 0 78px;background:#f6f3ed}
 .instagram-section .section-heading{margin-bottom:27px}

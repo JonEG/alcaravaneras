@@ -483,6 +483,7 @@ async function loadMarineForecast() {
 const INSTAGRAM_OEMBED_URL = "https://graph.facebook.com/v26.0/instagram_oembed";
 const INSTAGRAM_CONSENT_KEY = "alcaravaneras.instagram-consent";
 let instagramEmbedScriptPromise;
+let instagramFrameObserver;
 
 function getInstagramConsent() {
   try {
@@ -510,6 +511,26 @@ function restoreInstagramLink(container) {
   link.textContent = `Ver publicación de @${username} en Instagram ↗`;
   container.replaceChildren(link);
   container.classList.add("is-link-fallback");
+}
+
+function titleInstagramFrames(grid) {
+  grid.querySelectorAll("iframe").forEach((frame) => {
+    if (frame.title.trim()) return;
+    const container = frame.closest("[data-instagram-post]");
+    const username = container
+      ? new URL(container.dataset.instagramPost).pathname.split("/").filter(Boolean)[0]
+      : null;
+    frame.title = username ? `Publicación de @${username} en Instagram` : "Publicación de Instagram";
+  });
+}
+
+function watchInstagramFrames(grid) {
+  if (!grid) return;
+  if (!instagramFrameObserver) {
+    instagramFrameObserver = new MutationObserver(() => titleInstagramFrames(grid));
+    instagramFrameObserver.observe(grid, { childList: true, subtree: true });
+  }
+  titleInstagramFrames(grid);
 }
 
 function loadInstagramEmbedScript() {
@@ -559,6 +580,7 @@ async function loadInstagramPosts() {
     try {
       await loadInstagramEmbedScript();
       window.instgrm?.Embeds?.process();
+      titleInstagramFrames(document.querySelector(".instagram-grid"));
     } catch (error) {
       console.warn("No se pudo activar el renderizado de Instagram:", error);
       posts.forEach((container) => {
@@ -578,6 +600,7 @@ function initializeInstagramConsent() {
   const disableButton = $("disable-instagram-posts");
   const status = $("instagram-consent-status");
   const posts = [...document.querySelectorAll("[data-instagram-post]")];
+  watchInstagramFrames(document.querySelector(".instagram-grid"));
 
   const showPreferenceControl = (preference, message) => {
     controls.hidden = false;
