@@ -1,6 +1,7 @@
 const API_URL = "https://api.open-meteo.com/v1/forecast?latitude=28.1308&longitude=-15.4282&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,precipitation_probability,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=Atlantic%2FCanary&forecast_days=7&wind_speed_unit=kmh";
 const MARINE_API_URL = "https://marine-api.open-meteo.com/v1/marine?latitude=28.1308&longitude=-15.4282&current=sea_level_height_msl,sea_surface_temperature&hourly=sea_level_height_msl,sea_surface_temperature&timezone=Atlantic%2FCanary&forecast_days=7&cell_selection=sea";
 const BATHING_WATER_API_URL = "https://marine.discomap.eea.europa.eu/arcgis/rest/services/BathingWater/BathingWater_Dyna_WM_2025/MapServer/3/query";
+const WATER_SAMPLES_URL = "data/latest-water-samples.json";
 const $ = (id) => document.getElementById(id);
 let forecastData = null;
 let marineData = null;
@@ -283,6 +284,50 @@ async function loadBathingWaterQuality() {
   }
 }
 
+function renderWaterSamples(result) {
+  const tableBody = $("water-samples");
+  const updatedElement = $("water-samples-updated");
+  if (!tableBody || !updatedElement || !Array.isArray(result.samples) || !result.samples.length) return;
+
+  tableBody.replaceChildren(...result.samples.slice(0, 3).map((sample) => {
+    const row = document.createElement("tr");
+    const date = document.createElement("time");
+    date.dateTime = sample.date;
+    date.textContent = sample.dateLabel;
+    [date, sample.ecoli, sample.enterococci, sample.observation].forEach((value) => {
+      const cell = document.createElement("td");
+      if (value instanceof Node) cell.append(value);
+      else cell.textContent = value ?? "—";
+      row.append(cell);
+    });
+    return row;
+  }));
+
+  if (result.updatedAt) {
+    const updated = new Date(result.updatedAt);
+    const label = new Intl.DateTimeFormat("es-ES", { timeZone: "Atlantic/Canary", dateStyle: "short", timeStyle: "short" }).format(updated);
+    updatedElement.textContent = `Datos de respaldo sincronizados · ${label} (hora canaria)`;
+  } else {
+    updatedElement.textContent = "Muestras de NÁYADE · actualización automática diaria";
+  }
+}
+
+async function loadWaterSamples() {
+  const tableBody = $("water-samples");
+  const updatedElement = $("water-samples-updated");
+  if (!tableBody || !updatedElement) return;
+
+  try {
+    const response = await fetch(`${WATER_SAMPLES_URL}?t=${Date.now()}`, { headers: { Accept: "application/json" }, cache: "no-store" });
+    if (!response.ok) throw new Error(`Water samples file returned ${response.status}`);
+    renderWaterSamples(await response.json());
+  } catch (error) {
+    console.error("No se pudieron cargar las muestras de NÁYADE:", error);
+    tableBody.innerHTML = '<tr><td colspan="4">Muestras temporalmente no disponibles. Consulta NÁYADE.</td></tr>';
+    updatedElement.textContent = "No se pudieron cargar las muestras.";
+  }
+}
+
 function showTidePoint(point) {
   if (!point) return;
   const chart = $("tide-chart");
@@ -447,5 +492,6 @@ document.querySelectorAll("#site-nav a").forEach((link) => link.addEventListener
 loadForecast();
 loadMarineForecast();
 loadBathingWaterQuality();
+loadWaterSamples();
 initializeNauticalMap();
 bindTideHover();

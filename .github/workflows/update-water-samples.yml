@@ -1,0 +1,36 @@
+name: Update bathing-water samples
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-samples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch the latest NÁYADE samples
+        run: python scripts/update_water_samples.py
+
+      - name: Publish updated sample data
+        run: |
+          if git diff --quiet -- data/latest-water-samples.json; then
+            echo "No new bathing-water samples to publish."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/latest-water-samples.json
+          git commit -m "Update latest bathing-water samples"
+          git push

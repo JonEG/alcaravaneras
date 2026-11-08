@@ -151,3 +151,14 @@
   .water-temperature-value{font-size:66px}
   .water-quality-status{font-size:35px}
 }
+.water-samples{width:100%;margin:9px 0 18px}
+.water-samples h4{font-family:var(--sans);font-size:10px;font-weight:700;color:#33433c;margin:0 0 8px}
+.water-table-wrap{width:100%;overflow-x:auto;border:1px solid rgba(24,59,57,.17);border-radius:9px;background:#fffdf8;scrollbar-color:#b8ad92 transparent;scrollbar-width:thin}
+.water-table-wrap:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.water-samples-table{width:100%;min-width:490px;border-collapse:collapse;text-align:left;font-size:9px;color:#33433c}
+.water-samples-table th,.water-samples-table td{padding:9px 8px;border-bottom:1px solid rgba(24,59,57,.12);vertical-align:top}
+.water-samples-table th{font-size:8px;font-weight:700;color:#4e514a;background:#f3efe5}
+.water-samples-table tbody tr:last-child td{border-bottom:0}
+.water-samples-table td:first-child,.water-samples-table time{font-weight:600;white-space:nowrap}
+.water-samples-table td:last-child{color:#245c3c;font-weight:600}
+@media(max-width:620px){.water-samples{margin:7px 0 15px}.water-samples h4{font-size:9px}.water-samples-table{font-size:8px}}
