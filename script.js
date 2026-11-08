@@ -165,6 +165,7 @@ function renderTide(data, day = selectedDay) {
   }
   const trend = Math.abs(trendDelta) >= 0.01 ? (trendDelta > 0 ? "Subiendo" : "Bajando") : "—";
   $("tide-trend").textContent = trend;
+  $("summary-tide-trend").textContent = trend;
 
   const nextExtreme = findTideTurningPoints(allPoints).find((point) => point.time > data.current.time);
   if (nextExtreme) {
@@ -172,9 +173,13 @@ function renderTide(data, day = selectedDay) {
     const eventDayLabel = eventDay === today ? "hoy" : dateAt(`${eventDay}T12:00`, { weekday: "short", day: "numeric" }).replace(".", "");
     $("next-tide-label").textContent = `Próxima ${nextExtreme.type} · ${eventDayLabel}`;
     $("next-tide-time").textContent = nextExtreme.time.slice(11, 16);
+    $("summary-tide-next-label").textContent = `Próxima ${nextExtreme.type} · ${eventDayLabel}`;
+    $("summary-tide-next-time").textContent = nextExtreme.time.slice(11, 16);
   } else {
     $("next-tide-label").textContent = trend === "Subiendo" ? "Próxima pleamar" : "Próxima bajamar";
     $("next-tide-time").textContent = "—";
+    $("summary-tide-next-label").textContent = trend === "Subiendo" ? "Próxima pleamar" : "Próxima bajamar";
+    $("summary-tide-next-time").textContent = "—";
   }
 
   if (todayPoints.length) {
@@ -230,9 +235,11 @@ function renderSeaTemperature(data) {
   if (!Number.isFinite(temperature)) {
     $("sea-temperature").innerHTML = `—<span>°C</span>`;
     $("sea-temperature-time").textContent = "Temperatura del mar temporalmente no disponible.";
+    $("summary-sea-temperature").innerHTML = `—<small>°C</small>`;
     return;
   }
   $("sea-temperature").innerHTML = `${temperature.toFixed(1)}<span>°C</span>`;
+  $("summary-sea-temperature").innerHTML = `${temperature.toFixed(1)}<small>°C</small>`;
   if (time) {
     const date = dateAt(`${time.slice(0, 10)}T12:00`, { day: "numeric", month: "short" });
     $("sea-temperature-time").textContent = `Dato del modelo · ${date} · ${time.slice(11, 16)} h (Canarias)`;
@@ -303,6 +310,12 @@ function renderWaterSamples(result) {
     return row;
   }));
 
+  const latestSample = result.samples[0];
+  const sampleStatus = (latestSample.observation || "").replace(/^zona\s*/i, "").trim();
+  $("summary-water-quality").textContent = sampleStatus || "Sin dato";
+  $("summary-water-quality").dataset.quality = /no apta|insuficiente/i.test(sampleStatus) ? "poor" : "good";
+  $("summary-water-quality-date").textContent = `Última muestra · ${latestSample.dateLabel}`;
+
   if (result.updatedAt) {
     const updated = new Date(result.updatedAt);
     const label = new Intl.DateTimeFormat("es-ES", { timeZone: "Atlantic/Canary", dateStyle: "short", timeStyle: "short" }).format(updated);
@@ -325,6 +338,9 @@ async function loadWaterSamples() {
     console.error("No se pudieron cargar las muestras de NÁYADE:", error);
     tableBody.innerHTML = '<tr><td colspan="4">Muestras temporalmente no disponibles. Consulta NÁYADE.</td></tr>';
     updatedElement.textContent = "No se pudieron cargar las muestras.";
+    $("summary-water-quality").textContent = "Sin dato";
+    $("summary-water-quality").dataset.quality = "unavailable";
+    $("summary-water-quality-date").textContent = "Consulta NÁYADE";
   }
 }
 
@@ -378,9 +394,16 @@ function render(data) {
   $("current-temp").textContent = `${Math.round(current.temperature_2m)}°`;
   $("current-condition").textContent = description;
   $("current-icon").textContent = icon;
+  $("summary-weather-temp").textContent = `${Math.round(current.temperature_2m)}°`;
+  $("summary-weather-condition").textContent = description;
+  $("summary-weather-icon").textContent = icon;
   $("current-wind-large").textContent = Math.round(current.wind_speed_10m);
   $("current-gusts").textContent = Math.round(current.wind_gusts_10m);
   $("current-direction").textContent = directionName(current.wind_direction_10m);
+  $("summary-wind-speed").textContent = Math.round(current.wind_speed_10m);
+  $("summary-wind-direction").textContent = directionName(current.wind_direction_10m);
+  $("summary-wind-gusts").textContent = Math.round(current.wind_gusts_10m);
+  $("today-summary-updated").textContent = `Actualizado · ${dateAt(current.time, { hour: "2-digit", minute: "2-digit" })} h`;
   $("compass-needle").style.transform = `rotate(${current.wind_direction_10m}deg)`;
   const [level, name] = beaufort(current.wind_speed_10m);
   $("beaufort-number").textContent = level;
@@ -422,6 +445,13 @@ async function loadForecast() {
   } catch (error) {
     console.error("No se pudo cargar la previsión meteorológica:", error);
     $("updated-at").textContent = "Previsión temporalmente no disponible";
+    $("today-summary-updated").textContent = "Previsión temporalmente no disponible";
+    $("summary-weather-icon").textContent = "—";
+    $("summary-weather-temp").textContent = "—";
+    $("summary-weather-condition").textContent = "Tiempo no disponible";
+    $("summary-wind-speed").textContent = "—";
+    $("summary-wind-direction").textContent = "—";
+    $("summary-wind-gusts").textContent = "—";
     $("weather-hourly").innerHTML = '<p class="loading-row">No se pudo cargar la evolución de hoy.</p>';
     $("daily-forecast").innerHTML = '<p class="loading-row">No se pudo cargar la previsión. Vuelve a intentarlo más tarde.</p>';
     $("hourly-forecast").innerHTML = '<p class="loading-row">Consulta las condiciones de viento más tarde.</p>';
@@ -438,6 +468,10 @@ async function loadMarineForecast() {
     renderSeaTemperature(marineData);
   } catch (error) {
     console.error("No se pudo cargar la previsión de marea:", error);
+    $("summary-tide-trend").textContent = "Sin datos";
+    $("summary-tide-next-label").textContent = "Marea no disponible";
+    $("summary-tide-next-time").textContent = "—";
+    $("summary-sea-temperature").innerHTML = `—<small>°C</small>`;
     $("current-tide").textContent = "—";
     $("tide-extremes").textContent = "Marea temporalmente no disponible";
     $("tide-chart").innerHTML = '<p class="loading-row">No se pudo cargar la previsión de marea.</p>';

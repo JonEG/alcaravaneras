@@ -173,3 +173,25 @@
 .water-samples-table td:first-child,.water-samples-table time{font-weight:600;white-space:nowrap}
 .water-samples-table td:last-child{color:#245c3c;font-weight:600}
 @media(max-width:620px){.water-samples{margin:7px 0 15px}.water-samples h4{font-size:9px}.water-samples-table{font-size:8px}}
+
+/* Today's combined conditions card. */
+.today-summary{padding:17px 0;background:#f6f3ed}
+.today-summary-card{overflow:hidden;border:1px solid rgba(24,59,57,.12);border-radius:14px;background:#e3f7ed}
+.today-summary-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 19px 10px}
+.today-summary-header h2{margin:0;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#365b53}
+.today-summary-header>span{font-size:8px;color:#53625b}
+.today-summary-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:0 8px 10px}
+.today-summary-item{min-width:0;display:flex;flex-direction:column;gap:5px;padding:9px 12px 10px;border-left:1px solid rgba(24,59,57,.13);color:#183b39;text-decoration:none;transition:background-color .15s ease}
+.today-summary-item:first-child{border-left:0}
+.today-summary-item:hover{background:rgba(255,255,255,.35)}
+.today-summary-item:focus-visible{position:relative;outline:3px solid var(--coral);outline-offset:-3px;border-radius:7px}
+.today-summary-label{font-size:8px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:#4e6258}
+.today-summary-main{min-width:0;display:flex;align-items:center;gap:7px;min-height:31px}
+.today-summary-main>span[aria-hidden="true"]{font-size:19px;line-height:1}
+.today-summary-main strong{overflow:hidden;font-family:var(--serif);font-size:23px;font-weight:500;line-height:1.1;text-overflow:ellipsis;white-space:nowrap;color:#183b39}
+.today-summary-main strong[data-quality="good"]{color:#245c3c}
+.today-summary-main strong[data-quality="poor"]{color:#a33f35}
+.today-summary-main strong small{font-family:var(--sans);font-size:10px;font-weight:500}
+.today-summary-detail{overflow:hidden;font-size:8px;line-height:1.4;text-overflow:ellipsis;white-space:nowrap;color:#53625b}
+@media(max-width:850px){.today-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.today-summary-item:nth-child(4){border-left:0}.today-summary-item:nth-child(n+4){border-top:1px solid rgba(24,59,57,.13)}}
+@media(max-width:620px){.today-summary{padding:12px 0}.today-summary-header{padding:12px 13px 7px}.today-summary-header h2{font-size:9px}.today-summary-header>span{font-size:7px}.today-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 5px 7px}.today-summary-item{gap:4px;padding:8px 8px 9px}.today-summary-item:nth-child(3),.today-summary-item:nth-child(5){border-left:0}.today-summary-item:nth-child(4){border-left:1px solid rgba(24,59,57,.13)}.today-summary-item:nth-child(3){border-top:1px solid rgba(24,59,57,.13)}.today-summary-item:nth-child(4){border-top:1px solid rgba(24,59,57,.13)}.today-summary-item:nth-child(5){border-top:1px solid rgba(24,59,57,.13)}.today-summary-label{font-size:7px}.today-summary-main{min-height:27px}.today-summary-main strong{font-size:20px}.today-summary-main>span[aria-hidden="true"]{font-size:17px}.today-summary-detail{font-size:7px}}

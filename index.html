@@ -36,6 +36,44 @@
         <div class="hero-stamp" aria-hidden="true"><span>28° 07′ N</span><i></i><span>15° 25′ O</span></div>
       </section>
 
+      <section class="today-summary" id="resumen" aria-labelledby="today-summary-title">
+        <div class="content-wrap">
+          <article class="today-summary-card">
+            <header class="today-summary-header">
+              <h2 id="today-summary-title">Hoy en Las Alcaravaneras</h2>
+              <span id="today-summary-updated">Actualizando datos…</span>
+            </header>
+            <div class="today-summary-grid">
+              <a class="today-summary-item" href="#tiempo">
+                <span class="today-summary-label">Tiempo</span>
+                <span class="today-summary-main"><span id="summary-weather-icon" aria-hidden="true">☀</span><strong id="summary-weather-temp">--°</strong></span>
+                <span class="today-summary-detail" id="summary-weather-condition">Consultando…</span>
+              </a>
+              <a class="today-summary-item" href="#viento">
+                <span class="today-summary-label">Viento</span>
+                <span class="today-summary-main"><strong><span id="summary-wind-speed">--</span><small> km/h</small></strong></span>
+                <span class="today-summary-detail"><span id="summary-wind-direction">—</span> · rachas <span id="summary-wind-gusts">--</span> km/h</span>
+              </a>
+              <a class="today-summary-item" href="#marea">
+                <span class="today-summary-label">Marea</span>
+                <span class="today-summary-main"><strong id="summary-tide-trend">Calculando…</strong></span>
+                <span class="today-summary-detail"><span id="summary-tide-next-label">Próxima pleamar o bajamar</span> · <span id="summary-tide-next-time">--:--</span></span>
+              </a>
+              <a class="today-summary-item" href="#agua">
+                <span class="today-summary-label">Temperatura del agua</span>
+                <span class="today-summary-main"><strong id="summary-sea-temperature">--<small>°C</small></strong></span>
+                <span class="today-summary-detail">Temperatura superficial estimada</span>
+              </a>
+              <a class="today-summary-item" href="#agua">
+                <span class="today-summary-label">Calidad del agua</span>
+                <span class="today-summary-main"><strong id="summary-water-quality">Consultando…</strong></span>
+                <span class="today-summary-detail" id="summary-water-quality-date">Última muestra oficial</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="weather-section" id="tiempo">
         <div class="content-wrap">
         <div class="section-heading">
