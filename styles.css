@@ -179,7 +179,7 @@
 .instagram-section .section-heading{margin-bottom:27px}
 .instagram-heading h2{font-size:clamp(36px,5vw,58px);letter-spacing:-2px}
 .instagram-location-link{flex:0 0 auto;padding-bottom:5px;font-size:10px;font-weight:600;color:#365f62;text-underline-offset:3px}
-.instagram-consent,.instagram-controls{max-width:900px;margin:0 auto 17px;padding:16px 18px;border:1px solid rgba(24,59,57,.15);border-radius:12px;background:#ebe7de}
+.instagram-consent,.instagram-controls{max-width:960px;margin:0 auto 17px;padding:16px 18px;border:1px solid rgba(24,59,57,.15);border-radius:12px;background:#ebe7de}
 .instagram-consent[hidden],.instagram-controls[hidden]{display:none!important}
 .instagram-consent>p:first-child{margin:0;color:#4e514a;font-size:11px;line-height:1.65}
 .instagram-consent a{color:#365f62;text-underline-offset:2px}
