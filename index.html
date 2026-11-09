@@ -256,20 +256,101 @@
           </div>
         </div>
       </section>
-<section class="map-section" id="ubicacion" aria-labelledby="map-title">
-  <div class="content-wrap">
-    <div class="section-heading map-heading">
-      <div>
-        <p class="eyebrow">Ubicación</p>
-        <h2 id="map-title">Playa de las Alcaravaneras</h2>
-        <p class="section-description">Mapa interactivo de la ubicación.</p>
-      </div>
-    </div>
-    <div class="map-wrapper" style="text-align:center;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.5182075264083!2d-15.431565025421142!3d28.130708675942557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc40956d383c4fe3%3A0xeccb40a4e8a7fd48!2sPlaya%20de%20las%20Alcaravaneras!5e0!3m2!1ses!2sde!4v1794228459444!5m2!1ses!2sde" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    </div>
-  </div>
-</section>
+      <section class="map-section" id="ubicacion" aria-labelledby="map-title">
+        <div class="content-wrap">
+          <div class="section-heading map-heading">
+            <div>
+              <p class="eyebrow">Ubicación</p>
+              <h2 id="map-title">Playa de las Alcaravaneras</h2>
+              <p class="section-description">Mapa interactivo de la ubicación.</p>
+            </div>
+          </div>
+          <div class="video-consent" id="map-consent" aria-describedby="map-consent-description">
+            <p id="map-consent-description">Al cargar el mapa, tu navegador se conectará a Google Maps y compartirá tu dirección IP y datos técnicos. Se utiliza el modo de privacidad mejorada. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
+            <div class="video-consent-actions">
+              <button id="load-map" type="button">Aceptar y cargar mapa</button>
+              <button class="video-consent-reject" id="keep-map-blocked" type="button">Seguir sin cargar</button>
+              <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
+            </div>
+          </div>
+          <div class="video-controls" id="map-controls" hidden>
+            <span id="map-consent-status" aria-live="polite">Mapa de Google Maps activado.</span>
+            <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
+            <button id="disable-map" type="button">Desactivar mapa</button>
+          </div>
+          <div class="map-wrapper">
+            <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.5182075264083!2d-15.431565025421142!3d28.130708675942557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc40956d383c4fe3%3A0xeccb40a4e8a7fd48!2sPlaya%20de%20las%20Alcaravaneras!5e0!3m2!1ses!2sde!4v1794228459444!5m2%3F1ses%2F2de" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" hidden></iframe>
+          </div>
+          <script>
+            (function() {
+              var MAP_CONSENT_KEY = 'alcaravaneras.map-consent';
+              var consent = document.getElementById('map-consent');
+              var controls = document.getElementById('map-controls');
+              var status = document.getElementById('map-consent-status');
+              var iframe = document.getElementById('map-iframe');
+              var loadBtn = document.getElementById('load-map');
+              var rejectBtn = document.getElementById('keep-map-blocked');
+              var disableBtn = document.getElementById('disable-map');
+
+              function getMapConsent() {
+                try { return localStorage.getItem(MAP_CONSENT_KEY); } catch { return null; }
+              }
+
+              function saveMapConsent(value) {
+                try {
+                  localStorage.setItem(MAP_CONSENT_KEY, value);
+                } catch (error) {
+                  console.warn('No se pudo guardar la preferencia del mapa en este navegador:', error);
+                }
+              }
+
+              function showPreferenceControl(preference, message) {
+                controls.hidden = false;
+                status.textContent = message;
+                disableBtn.dataset.preference = preference;
+                disableBtn.textContent = preference === 'accepted' ? 'Desactivar mapa' : 'Cambiar preferencia';
+              }
+
+              function loadMap() {
+                iframe.removeAttribute('hidden');
+                consent.hidden = true;
+                showPreferenceControl('accepted', 'Mapa de Google Maps activado.');
+              }
+
+              loadBtn.addEventListener('click', function() {
+                saveMapConsent('accepted');
+                loadMap();
+              });
+
+              rejectBtn.addEventListener('click', function() {
+                saveMapConsent('rejected');
+                consent.hidden = true;
+                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
+              });
+
+              disableBtn.addEventListener('click', function() {
+                if (disableBtn.dataset.preference === 'rejected') {
+                  controls.hidden = true;
+                  consent.hidden = false;
+                  return;
+                }
+                saveMapConsent('rejected');
+                iframe.setAttribute('hidden', '');
+                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
+              });
+
+              // Restore saved preference on page load
+              var saved = getMapConsent();
+              if (saved === 'accepted') {
+                loadMap();
+              } else if (saved === 'rejected') {
+                consent.hidden = true;
+                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
+              }
+            })();
+          </script>
+        </div>
+      </section>
 
     </main>
 
