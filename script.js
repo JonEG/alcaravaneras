@@ -490,6 +490,7 @@ async function loadMarineForecast() {
 
 const INSTAGRAM_OEMBED_URL = "https://graph.facebook.com/v26.0/instagram_oembed";
 const INSTAGRAM_CONSENT_KEY = "alcaravaneras.instagram-consent";
+const YOUTUBE_CONSENT_KEY = "alcaravaneras.youtube-consent";
 let instagramEmbedScriptPromise;
 let instagramFrameObserver;
 
@@ -506,6 +507,22 @@ function saveInstagramConsent(value) {
     localStorage.setItem(INSTAGRAM_CONSENT_KEY, value);
   } catch (error) {
     console.warn("No se pudo guardar la preferencia de Instagram en este navegador:", error);
+  }
+}
+
+function getYoutubeConsent() {
+  try {
+    return localStorage.getItem(YOUTUBE_CONSENT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function saveYoutubeConsent(value) {
+  try {
+    localStorage.setItem(YOUTUBE_CONSENT_KEY, value);
+  } catch (error) {
+    console.warn("No se pudo guardar la preferencia de YouTube en este navegador:", error);
   }
 }
 
@@ -669,6 +686,68 @@ function initializeInstagramConsent() {
   }
 }
 
+function initializeYoutubeConsent() {
+  const consent = $("youtube-consent");
+  const loadButton = $("load-youtube-video");
+  const rejectButton = $("keep-youtube-blocked");
+  const controls = $("youtube-controls");
+  const disableButton = $("disable-youtube-video");
+  const status = $("youtube-consent-status");
+  const player = $("youtube-player");
+  if (!consent || !loadButton || !rejectButton || !controls || !disableButton || !status || !player) return;
+
+  const showPreferenceControl = (preference, message) => {
+    controls.hidden = false;
+    status.textContent = message;
+    disableButton.dataset.preference = preference;
+    disableButton.textContent = preference === "accepted" ? "Desactivar" : "Cambiar preferencia";
+  };
+
+  const loadVideo = () => {
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/_9LTWEetwJY?feature=oembed";
+    iframe.title = "Alcaravaneras Beach — Las Palmas — Gran Canaria — Canary Islands — Spain, en 8K";
+    iframe.loading = "eager";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.setAttribute("allowfullscreen", "");
+    player.replaceChildren(iframe);
+    player.hidden = false;
+    consent.hidden = true;
+    showPreferenceControl("accepted", "Vídeo activado desde YouTube.");
+  };
+
+  loadButton.addEventListener("click", () => {
+    saveYoutubeConsent("accepted");
+    loadVideo();
+  });
+  rejectButton.addEventListener("click", () => {
+    saveYoutubeConsent("rejected");
+    consent.hidden = true;
+    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
+  });
+  disableButton.addEventListener("click", () => {
+    if (disableButton.dataset.preference === "rejected") {
+      controls.hidden = true;
+      consent.hidden = false;
+      return;
+    }
+    saveYoutubeConsent("rejected");
+    player.replaceChildren();
+    player.hidden = true;
+    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
+  });
+
+  const savedConsent = getYoutubeConsent();
+  if (savedConsent === "accepted") {
+    consent.hidden = true;
+    loadVideo();
+  } else if (savedConsent === "rejected") {
+    consent.hidden = true;
+    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
+  }
+}
+
 ["daily-forecast", "wind-forecast", "tide-week"].forEach((id) => {
   $(id).addEventListener("click", (event) => {
     const dayButton = event.target.closest("button[data-day]");
@@ -695,5 +774,6 @@ loadForecast();
 loadMarineForecast();
 loadBathingWaterQuality();
 loadWaterSamples();
+initializeYoutubeConsent();
 initializeInstagramConsent();
 bindTideHover();

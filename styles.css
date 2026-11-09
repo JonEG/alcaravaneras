@@ -198,6 +198,24 @@
 @media(max-width:1200px){.instagram-grid{columns:2}}
 @media(max-width:620px){.instagram-section{padding:52px 0 58px}.instagram-section .section-heading{align-items:flex-start;flex-direction:column;gap:13px;margin-bottom:20px}.instagram-heading h2{font-size:35px}.instagram-location-link{font-size:9px}.instagram-consent,.instagram-controls{padding:13px;margin-bottom:12px}.instagram-consent>p:first-child{font-size:10px}.instagram-controls{font-size:9px}.instagram-grid{columns:1}.instagram-grid .instagram-post{margin-bottom:11px}.instagram-grid .instagram-media{max-width:540px!important;margin:0 auto!important}}
 
+/* Privacy-enhanced, click-to-load video embed. */
+.video-section{padding:72px 0 78px;background:#e9e5dc}
+.video-heading{margin-bottom:26px}
+.video-consent,.video-controls{max-width:960px;margin:0 auto 14px;padding:16px 18px;border:1px solid rgba(24,59,57,.15);border-radius:12px;background:#f6f3ed}
+.video-consent[hidden],.video-controls[hidden],.video-player[hidden]{display:none!important}
+.video-consent>p{margin:0;color:#4e514a;font-size:11px;line-height:1.65}
+.video-consent a{color:#365f62;text-underline-offset:2px}
+.video-consent-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px}
+.video-consent-actions button,.video-controls button{min-height:38px;padding:9px 13px;border:1px solid #365f62;border-radius:6px;background:#365f62;color:#fff;font:600 10px var(--sans);cursor:pointer}
+.video-consent-actions .video-consent-reject{background:transparent;color:#365f62}
+.video-consent-actions a{font-size:10px}
+.video-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#4e514a;font-size:10px}
+.video-controls a{font-size:10px;color:#365f62;text-underline-offset:2px}
+.video-consent-actions button:focus-visible,.video-controls button:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.video-player{position:relative;width:min(960px,100%);aspect-ratio:16/9;margin:0 auto;overflow:hidden;border-radius:13px;background:#183b39;box-shadow:0 8px 24px rgba(24,59,57,.12)}
+.video-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(max-width:620px){.video-section{padding:52px 0 58px}.video-heading{align-items:flex-start;flex-direction:column;gap:13px;margin-bottom:20px}.video-heading h2{font-size:35px}.video-consent,.video-controls{padding:13px;margin-bottom:12px}.video-consent>p{font-size:10px}.video-controls{font-size:9px}}
+
 /* Today's combined conditions card. */
 .today-summary{padding:17px 0;background:#f6f3ed}
 .today-summary-card{overflow:hidden;border:1px solid rgba(24,59,57,.12);border-radius:14px;background:#e3f7ed}

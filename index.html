@@ -32,7 +32,7 @@
     </style>
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=video-consent-2" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -203,6 +203,28 @@
             </article>
           </div>
           <p class="water-note">La clasificación anual resume la temporada y no refleja incidencias puntuales del día. Para decidir si bañarte, consulta los avisos y controles vigentes de NÁYADE.</p>
+        </div>
+      </section>
+
+      <section class="video-section" id="video" aria-labelledby="video-title">
+        <div class="content-wrap">
+          <div class="section-heading video-heading">
+            <div><p class="eyebrow">Las Alcaravaneras en vídeo</p><h2 id="video-title">La playa en movimiento</h2><p class="section-description">Un vídeo compartido de Las Alcaravaneras.</p></div>
+          </div>
+          <div class="video-consent" id="youtube-consent" aria-describedby="youtube-consent-description">
+            <p id="youtube-consent-description">Al cargar el vídeo, tu navegador se conectará a YouTube/Google y compartirá tu dirección IP y datos técnicos. Usamos el modo de privacidad mejorada de YouTube. Guardaremos tu elección en este navegador hasta que la cambies o borres sus datos. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
+            <div class="video-consent-actions">
+              <button id="load-youtube-video" type="button">Aceptar y cargar vídeo</button>
+              <button class="video-consent-reject" id="keep-youtube-blocked" type="button">Seguir sin cargar</button>
+              <a href="https://www.youtube.com/watch?v=_9LTWEetwJY" target="_blank" rel="noreferrer">Ver en YouTube ↗</a>
+            </div>
+          </div>
+          <div class="video-controls" id="youtube-controls" hidden>
+            <span id="youtube-consent-status" aria-live="polite"></span>
+            <a href="https://www.youtube.com/watch?v=_9LTWEetwJY" target="_blank" rel="noreferrer">Si no carga, ver en YouTube ↗</a>
+            <button id="disable-youtube-video" type="button">Desactivar vídeo</button>
+          </div>
+          <div class="video-player" id="youtube-player" hidden></div>
         </div>
       </section>
 
