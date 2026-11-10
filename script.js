@@ -489,14 +489,13 @@ async function loadMarineForecast() {
 }
 
 const INSTAGRAM_OEMBED_URL = "https://graph.facebook.com/v26.0/instagram_oembed";
-const INSTAGRAM_CONSENT_KEY = "alcaravaneras.instagram-consent";
-const YOUTUBE_CONSENT_KEY = "alcaravaneras.youtube-consent";
 let instagramEmbedScriptPromise;
 let instagramFrameObserver;
 
 function getInstagramConsent() {
   try {
-    return localStorage.getItem(INSTAGRAM_CONSENT_KEY);
+    const consent = window.AlcaravanerasConsent;
+    return !consent?.chosen() ? null : consent.has("instagram") ? "accepted" : "rejected";
   } catch {
     return null;
   }
@@ -504,7 +503,7 @@ function getInstagramConsent() {
 
 function saveInstagramConsent(value) {
   try {
-    localStorage.setItem(INSTAGRAM_CONSENT_KEY, value);
+    window.AlcaravanerasConsent?.update("instagram", value === "accepted");
   } catch (error) {
     console.warn("No se pudo guardar la preferencia de Instagram en este navegador:", error);
   }
@@ -512,7 +511,8 @@ function saveInstagramConsent(value) {
 
 function getYoutubeConsent() {
   try {
-    return localStorage.getItem(YOUTUBE_CONSENT_KEY);
+    const consent = window.AlcaravanerasConsent;
+    return !consent?.chosen() ? null : consent.has("youtube") ? "accepted" : "rejected";
   } catch {
     return null;
   }
@@ -520,7 +520,7 @@ function getYoutubeConsent() {
 
 function saveYoutubeConsent(value) {
   try {
-    localStorage.setItem(YOUTUBE_CONSENT_KEY, value);
+    window.AlcaravanerasConsent?.update("youtube", value === "accepted");
   } catch (error) {
     console.warn("No se pudo guardar la preferencia de YouTube en este navegador:", error);
   }
@@ -622,67 +622,24 @@ function initializeInstagramConsent() {
   const acceptButton = $("load-instagram-posts");
   const rejectButton = $("keep-instagram-blocked");
   const controls = $("instagram-controls");
-  const disableButton = $("disable-instagram-posts");
-  const status = $("instagram-consent-status");
-  const posts = [...document.querySelectorAll("[data-instagram-post]")];
   watchInstagramFrames(document.querySelector(".instagram-grid"));
 
-  const showPreferenceControl = (preference, message) => {
-    controls.hidden = false;
-    controls.querySelector("span").textContent = message;
-    disableButton.dataset.preference = preference;
-    disableButton.textContent = preference === "accepted" ? "Desactivar" : "Cambiar preferencia";
-  };
-
-  acceptButton?.addEventListener("click", async () => {
-    acceptButton.disabled = true;
-    rejectButton.disabled = true;
-    status.textContent = "Conectando con Instagram…";
-    const loadedCount = await loadInstagramPosts();
-    acceptButton.disabled = false;
-    rejectButton.disabled = false;
-    if (loadedCount > 0) {
-      saveInstagramConsent("accepted");
-      consentPanel.hidden = true;
-      showPreferenceControl("accepted", `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`);
-      return;
-    }
-    status.textContent = "No se pudieron cargar las publicaciones. Los enlaces directos siguen disponibles.";
+  acceptButton?.addEventListener("click", () => {
+    saveInstagramConsent("accepted");
   });
 
   rejectButton?.addEventListener("click", () => {
     saveInstagramConsent("rejected");
-    consentPanel.hidden = true;
-    showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
-  });
-
-  disableButton?.addEventListener("click", () => {
-    if (disableButton.dataset.preference === "accepted") {
-      saveInstagramConsent("rejected");
-      posts.forEach(restoreInstagramLink);
-      showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
-      return;
-    }
-    controls.hidden = true;
-    consentPanel.hidden = false;
-    status.textContent = "";
   });
 
   const savedConsent = getInstagramConsent();
   if (savedConsent === "accepted") {
     consentPanel.hidden = true;
-    showPreferenceControl("accepted", "Cargando publicaciones de Instagram…");
-    loadInstagramPosts().then((loadedCount) => {
-      showPreferenceControl(
-        "accepted",
-        loadedCount > 0
-          ? `Instagram activado · ${loadedCount} de ${posts.length} publicaciones cargadas.`
-          : "Instagram autorizado, pero las publicaciones no están disponibles ahora."
-      );
-    });
+    controls.hidden = true;
+    loadInstagramPosts();
   } else if (savedConsent === "rejected") {
-    consentPanel.hidden = true;
-    showPreferenceControl("rejected", "Instagram bloqueado. Puedes abrir los enlaces directos.");
+    consentPanel.hidden = false;
+    controls.hidden = true;
   }
 }
 
@@ -691,17 +648,8 @@ function initializeYoutubeConsent() {
   const loadButton = $("load-youtube-video");
   const rejectButton = $("keep-youtube-blocked");
   const controls = $("youtube-controls");
-  const disableButton = $("disable-youtube-video");
-  const status = $("youtube-consent-status");
   const player = $("youtube-player");
-  if (!consent || !loadButton || !rejectButton || !controls || !disableButton || !status || !player) return;
-
-  const showPreferenceControl = (preference, message) => {
-    controls.hidden = false;
-    status.textContent = message;
-    disableButton.dataset.preference = preference;
-    disableButton.textContent = preference === "accepted" ? "Desactivar" : "Cambiar preferencia";
-  };
+  if (!consent || !loadButton || !rejectButton || !controls || !player) return;
 
   const loadVideo = () => {
     const iframe = document.createElement("iframe");
@@ -714,28 +662,14 @@ function initializeYoutubeConsent() {
     player.replaceChildren(iframe);
     player.hidden = false;
     consent.hidden = true;
-    showPreferenceControl("accepted", "Vídeo activado desde YouTube.");
+    controls.hidden = true;
   };
 
   loadButton.addEventListener("click", () => {
     saveYoutubeConsent("accepted");
-    loadVideo();
   });
   rejectButton.addEventListener("click", () => {
     saveYoutubeConsent("rejected");
-    consent.hidden = true;
-    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
-  });
-  disableButton.addEventListener("click", () => {
-    if (disableButton.dataset.preference === "rejected") {
-      controls.hidden = true;
-      consent.hidden = false;
-      return;
-    }
-    saveYoutubeConsent("rejected");
-    player.replaceChildren();
-    player.hidden = true;
-    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
   });
 
   const savedConsent = getYoutubeConsent();
@@ -743,10 +677,49 @@ function initializeYoutubeConsent() {
     consent.hidden = true;
     loadVideo();
   } else if (savedConsent === "rejected") {
-    consent.hidden = true;
-    showPreferenceControl("rejected", "Vídeo bloqueado. Puedes cambiar esta preferencia.");
+    consent.hidden = false;
+    controls.hidden = true;
   }
 }
+
+document.addEventListener("site-consent-change", (event) => {
+  const choices = event.detail;
+  const instagramPanel = $("instagram-consent");
+  const instagramControls = $("instagram-controls");
+  if (choices.instagram) {
+    instagramPanel.hidden = true;
+    instagramControls.hidden = true;
+    loadInstagramPosts();
+  } else {
+    document.querySelectorAll("[data-instagram-post]").forEach(restoreInstagramLink);
+    instagramPanel.hidden = false;
+    instagramControls.hidden = true;
+  }
+
+  const youtubePanel = $("youtube-consent");
+  const youtubeControls = $("youtube-controls");
+  const player = $("youtube-player");
+  if (choices.youtube) {
+    youtubePanel.hidden = true;
+    youtubeControls.hidden = true;
+    if (!player.querySelector("iframe")) {
+      const frame = document.createElement("iframe");
+      frame.src = "https://www.youtube-nocookie.com/embed/_9LTWEetwJY?feature=oembed";
+      frame.title = "Alcaravaneras Beach — Las Palmas — Gran Canaria — Canary Islands — Spain, en 8K";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.setAttribute("allowfullscreen", "");
+      player.replaceChildren(frame);
+      player.hidden = false;
+    }
+  } else {
+    player.replaceChildren();
+    player.hidden = true;
+    youtubePanel.hidden = false;
+    youtubeControls.hidden = true;
+  }
+});
 
 ["daily-forecast", "wind-forecast", "tide-week"].forEach((id) => {
   $(id).addEventListener("click", (event) => {

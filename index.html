@@ -32,7 +32,8 @@
     </style>
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
-    <script src="script.js?v=video-consent-2" defer></script>
+    <script src="privacy-consent.js?v=consent-1" defer></script>
+    <script src="script.js?v=privacy-consent-1" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -265,95 +266,39 @@
               <p class="section-description">Mapa interactivo de la ubicación.</p>
             </div>
           </div>
-          <div class="video-consent" id="map-consent" aria-describedby="map-consent-description">
-            <p id="map-consent-description">Al cargar el mapa, tu navegador se conectará a Google Maps y compartirá tu dirección IP y datos técnicos. Se utiliza el modo de privacidad mejorada. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
-            <div class="video-consent-actions">
-              <button id="load-map" type="button">Aceptar y cargar mapa</button>
-              <button class="video-consent-reject" id="keep-map-blocked" type="button">Seguir sin cargar</button>
-              <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
-            </div>
-          </div>
-          <div class="video-controls" id="map-controls" hidden>
-            <span id="map-consent-status" aria-live="polite">Mapa de Google Maps activado.</span>
-            <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
-            <button id="disable-map" type="button">Desactivar mapa</button>
-          </div>
           <div class="map-wrapper">
-            <iframe id="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.5182075264083!2d-15.431565025421142!3d28.130708675942557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc40956d383c4fe3%3A0xeccb40a4e8a7fd48!2sPlaya%20de%20las%20Alcaravaneras!5e0!3m2!1ses!2sde!4v1794228459444!5m2%3F1ses%2F2de" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" hidden></iframe>
+            <div class="video-consent map-consent" id="map-placeholder" aria-describedby="map-consent-description">
+              <p id="map-consent-description">Al cargar el mapa, tu navegador se conectará a Google Maps y compartirá tu dirección IP y datos técnicos. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
+              <div class="video-consent-actions">
+                <button type="button" data-accept-category="maps">Aceptar y cargar mapa</button>
+                <button class="video-consent-reject" type="button" data-reject-category="maps">Seguir sin cargar</button>
+                <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
+              </div>
+            </div>
+            <iframe id="map-iframe" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.5182075264083!2d-15.431565025421142!3d28.130708675942557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc40956d383c4fe3%3A0xeccb40a4e8a7fd48!2sPlaya%20de%20las%20Alcaravaneras!5e0!3m2!1ses!2sde!4v1794228459444!5m2%3F1ses%2F2de" title="Mapa de Playa de las Alcaravaneras en Google Maps" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" hidden></iframe>
           </div>
-          <script>
-            (function() {
-              var MAP_CONSENT_KEY = 'alcaravaneras.map-consent';
-              var consent = document.getElementById('map-consent');
-              var controls = document.getElementById('map-controls');
-              var status = document.getElementById('map-consent-status');
-              var iframe = document.getElementById('map-iframe');
-              var loadBtn = document.getElementById('load-map');
-              var rejectBtn = document.getElementById('keep-map-blocked');
-              var disableBtn = document.getElementById('disable-map');
-
-              function getMapConsent() {
-                try { return localStorage.getItem(MAP_CONSENT_KEY); } catch { return null; }
-              }
-
-              function saveMapConsent(value) {
-                try {
-                  localStorage.setItem(MAP_CONSENT_KEY, value);
-                } catch (error) {
-                  console.warn('No se pudo guardar la preferencia del mapa en este navegador:', error);
-                }
-              }
-
-              function showPreferenceControl(preference, message) {
-                controls.hidden = false;
-                status.textContent = message;
-                disableBtn.dataset.preference = preference;
-                disableBtn.textContent = preference === 'accepted' ? 'Desactivar mapa' : 'Cambiar preferencia';
-              }
-
-              function loadMap() {
-                iframe.removeAttribute('hidden');
-                consent.hidden = true;
-                showPreferenceControl('accepted', 'Mapa de Google Maps activado.');
-              }
-
-              loadBtn.addEventListener('click', function() {
-                saveMapConsent('accepted');
-                loadMap();
-              });
-
-              rejectBtn.addEventListener('click', function() {
-                saveMapConsent('rejected');
-                consent.hidden = true;
-                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
-              });
-
-              disableBtn.addEventListener('click', function() {
-                if (disableBtn.dataset.preference === 'rejected') {
-                  controls.hidden = true;
-                  consent.hidden = false;
-                  return;
-                }
-                saveMapConsent('rejected');
-                iframe.setAttribute('hidden', '');
-                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
-              });
-
-              // Restore saved preference on page load
-              var saved = getMapConsent();
-              if (saved === 'accepted') {
-                loadMap();
-              } else if (saved === 'rejected') {
-                consent.hidden = true;
-                showPreferenceControl('rejected', 'Mapa bloqueado. Puedes cambiar esta preferencia.');
-              }
-            })();
-          </script>
         </div>
       </section>
 
     </main>
 
-    <footer class="site-footer"><a class="wordmark" href="#inicio">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><a href="#inicio" class="back-top">Volver arriba ↑</a></footer>
+    <footer class="site-footer"><a class="wordmark" href="#inicio">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><a href="politica-de-cookies.html">Política de cookies</a><button class="privacy-settings-link" type="button" data-open-consent>Configurar cookies</button><a href="#inicio" class="back-top">Volver arriba ↑</a></footer>
+    <section class="consent-banner" id="consent-banner" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description" hidden>
+      <div class="consent-card">
+        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube y Google Maps. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
+        <div class="consent-actions"><button type="button" data-consent-action="accept">Aceptar todas</button><button type="button" data-consent-action="reject">Rechazar opcionales</button><button type="button" class="secondary" data-consent-action="configure">Configurar cookies</button></div>
+        <form class="consent-preferences" id="consent-preferences" hidden>
+          <p>Las cookies técnicas son necesarias para guardar estas preferencias. Las demás opciones empiezan desactivadas.</p>
+          <label class="consent-option"><input type="checkbox" checked disabled><span><strong>Técnicas o necesarias</strong><small>Funcionamiento básico y almacenamiento de tu elección.</small></span><em>Siempre activas</em></label>
+          <label class="consent-option"><input type="checkbox" name="preferences"><span><strong>Preferencias</strong><small>Recordar ajustes opcionales del sitio.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="analytics"><span><strong>Analítica</strong><small>Medición de uso mediante las etiquetas de Google configuradas en GTM.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="marketing"><span><strong>Marketing y publicidad</strong><small>Etiquetas de publicidad que pudieran configurarse en GTM.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="instagram"><span><strong>Instagram / Meta</strong><small>Cargar publicaciones incrustadas; puede implicar conexiones y tecnologías de Meta.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="youtube"><span><strong>YouTube</strong><small>Cargar el vídeo incrustado mediante youtube-nocookie.com.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo de Google.</small></span></label>
+          <div class="consent-actions"><button type="submit">Guardar selección</button><button type="button" class="secondary" data-consent-action="reject">Rechazar opcionales</button></div>
+        </form>
+      </div>
+    </section>
   </body>
 </html>
