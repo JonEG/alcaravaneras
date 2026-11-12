@@ -1,8 +1,15 @@
 {
   "source": "NÁYADE · Playa Alcaravaneras PM2",
   "sourceUrl": "https://nayadeciudadano.sanidad.gob.es/Splayas/ciudadano/",
-  "updatedAt": null,
+  "updatedAt": "2026-11-12T16:02:57+00:00",
   "samples": [
+    {
+      "date": "2026-11-09",
+      "dateLabel": "09/11/2026",
+      "ecoli": "5 UFC/100 mL",
+      "enterococci": "61 UFC/100 mL",
+      "observation": "Zona Apta para el baño"
+    },
     {
       "date": "2026-10-19",
       "dateLabel": "19/10/2026",
@@ -15,13 +22,6 @@
       "dateLabel": "21/09/2026",
       "ecoli": "5 UFC/100 mL",
       "enterococci": "2 UFC/100 mL",
-      "observation": "Zona Apta para el baño"
-    },
-    {
-      "date": "2026-09-14",
-      "dateLabel": "14/09/2026",
-      "ecoli": "6 UFC/100 mL",
-      "enterococci": "28 UFC/100 mL",
       "observation": "Zona Apta para el baño"
     }
   ]
