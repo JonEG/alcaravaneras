@@ -44,6 +44,16 @@ const beaufort = (speed) => {
   return [Math.max(0, index), name, copy];
 };
 
+const windSummaryDescription = (speed) => {
+  if (!Number.isFinite(speed)) return "—";
+  const [level] = beaufort(speed);
+  if (level === 0) return "Calma";
+  if (level <= 2) return "Suave";
+  if (level <= 4) return "Moderado";
+  if (level <= 6) return "Fuerte";
+  return "Muy fuerte";
+};
+
 const dateAt = (iso, options) => new Date(iso).toLocaleDateString("es-ES", { timeZone: "Atlantic/Canary", ...options });
 
 function renderDaily(data) {
@@ -452,6 +462,7 @@ function render(data) {
   setText("current-gusts", Math.round(current.wind_gusts_10m));
   setText("current-direction", directionName(current.wind_direction_10m));
   setText("summary-wind-speed", Math.round(current.wind_speed_10m));
+  setText("summary-wind-level", windSummaryDescription(current.wind_speed_10m));
   setText("summary-wind-direction", directionName(current.wind_direction_10m));
   setText("summary-wind-gusts", Math.round(current.wind_gusts_10m));
   setText("today-summary-updated", `Actualizado · ${dateAt(current.time, { hour: "2-digit", minute: "2-digit" })} h`);
@@ -496,7 +507,7 @@ async function loadForecast() {
   } catch (error) {
     console.error("No se pudo cargar la previsión meteorológica:", error);
     ["updated-at", "today-summary-updated"].forEach((id) => setText(id, "Previsión temporalmente no disponible"));
-    ["summary-weather-icon", "summary-weather-temp", "summary-wind-speed", "summary-wind-direction", "summary-wind-gusts"].forEach((id) => setText(id, "—"));
+    ["summary-weather-icon", "summary-weather-temp", "summary-wind-level", "summary-wind-speed", "summary-wind-direction", "summary-wind-gusts"].forEach((id) => setText(id, "—"));
     setText("summary-weather-condition", "Tiempo no disponible");
     ["current-temp", "today-high", "today-low", "current-rain", "current-wind-large", "current-gusts", "current-direction", "beaufort-number"].forEach((id) => setText(id, "—"));
     setText("current-condition", "Datos meteorológicos no disponibles");
