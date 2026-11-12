@@ -4,8 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f6f3ed">
-    <meta name="description" content="Consulta el tiempo y el viento, hoy y durante los próximos siete días, en Las Alcaravaneras, Las Palmas de Gran Canaria.">
-    <title>El tiempo y el viento — Las Alcaravaneras</title>
+    <meta name="description" content="Consulta el tiempo en Las Alcaravaneras, el viento, las mareas, la temperatura del agua y las condiciones actuales de la playa en Las Palmas de Gran Canaria.">
+    <link rel="canonical" href="https://www.alcaravaneras.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Las Alcaravaneras">
+    <meta property="og:title" content="Playa de Las Alcaravaneras | Tiempo, viento y mar">
+    <meta property="og:description" content="El tiempo, el viento, las mareas y la temperatura del agua en la playa de Las Alcaravaneras, Las Palmas de Gran Canaria.">
+    <meta property="og:url" content="https://www.alcaravaneras.com/">
+    <title>Playa de Las Alcaravaneras | Tiempo, viento y mar</title>
     <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%230d4847'/%3E%3Cpath d='M15 58c12-13 23 13 35 0s23 13 35 0M15 73c12-13 23 13 35 0s23 13 35 0' fill='none' stroke='%23f2bd78' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -17,6 +24,7 @@
       .site-header{position:absolute;z-index:5;top:0;left:0;width:100%;padding:27px 4.1vw;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
       .wordmark{font-family:var(--serif);font-size:clamp(20px,2.1vw,29px);font-weight:400;letter-spacing:-.65px;text-decoration:none}
       .site-header nav{display:flex;gap:31px;align-items:center}.site-header nav a{font-size:11px;text-decoration:none;color:rgba(24,59,57,.88);letter-spacing:.4px}
+      .skip-link{position:absolute;z-index:20;top:8px;left:8px;padding:10px 14px;transform:translateY(-160%);border-radius:5px;background:#fff;color:var(--ink);font-size:13px}.skip-link:focus-visible{transform:translateY(0)}
       .menu-toggle{display:none;background:transparent;border:0;width:35px;height:35px;cursor:pointer;padding:8px}.menu-toggle span{height:1px;display:block;background:currentColor;margin:6px 0}
       .hero{height:min(760px,96vh);min-height:570px;position:relative;display:flex;align-items:flex-end;overflow:hidden;background:#a9ced0;color:var(--ink)}
       .hero:before{content:"";position:absolute;width:clamp(210px,32vw,430px);height:clamp(210px,32vw,430px);right:13%;top:10%;border-radius:50%;background:radial-gradient(circle at 42% 38%,#f4e2ad 0,#efd49b 52%,rgba(239,212,155,.28) 53%,rgba(239,212,155,.18) 68%,transparent 69%);z-index:0}
@@ -33,25 +41,26 @@
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
     <script src="privacy-consent.js?v=consent-1" defer></script>
-    <script src="script.js?v=privacy-consent-1" defer></script>
+    <script src="script.js?v=topic-split-2" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <header class="site-header">
       <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
-        <nav id="site-nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="#tiempo">El tiempo</a><a href="#viento">El viento</a><a href="#marea">La marea</a><a href="#agua">El agua</a><a href="#video">La playa</a><a href="#instagram">Instagram</a><a href="#ubicacion">Ubicación</a>
+      <nav id="site-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a>
       </nav>
     </header>
 
-    <main>
+    <main id="contenido" tabindex="-1">
       <section class="hero" id="inicio" aria-labelledby="hero-title">
         <div class="hero-shade"></div>
         <div class="hero-content">
           <p class="hero-kicker">Las Palmas de Gran Canaria <span></span> Previsión local</p>
-          <h1 id="hero-title">Las<br>Alcaravaneras</h1>
-          <p class="hero-intro">El tiempo y el viento, hora a hora y día a día, en Las Palmas de Gran Canaria.</p>
-          <a class="hero-scroll" href="#tiempo"><span class="scroll-icon">↓</span> Ver previsión</a>
+          <h1 id="hero-title">Tiempo y condiciones en Las Alcaravaneras</h1>
+          <p class="hero-intro">Consulta el tiempo, el viento, las mareas y la temperatura del agua en la playa de Las Alcaravaneras, en Las Palmas de Gran Canaria.</p>
+          <a class="hero-scroll" href="tiempo.html"><span class="scroll-icon">↓</span> Ver previsión</a>
         </div>
         <div class="hero-stamp" aria-hidden="true"><span>28° 07′ N</span><i></i><span>15° 25′ O</span></div>
       </section>
@@ -64,27 +73,27 @@
               <span id="today-summary-updated">Actualizando datos…</span>
             </header>
             <div class="today-summary-grid">
-              <a class="today-summary-item" href="#tiempo">
+            <a class="today-summary-item" href="tiempo.html">
                 <span class="today-summary-label">Tiempo</span>
                 <span class="today-summary-main"><span id="summary-weather-icon" aria-hidden="true">☀</span><strong id="summary-weather-temp">--°</strong></span>
                 <span class="today-summary-detail" id="summary-weather-condition">Consultando…</span>
               </a>
-              <a class="today-summary-item" href="#viento">
+            <a class="today-summary-item" href="viento.html">
                 <span class="today-summary-label">Viento</span>
                 <span class="today-summary-main"><strong><span id="summary-wind-speed">--</span><small> km/h</small></strong></span>
                 <span class="today-summary-detail"><span id="summary-wind-direction">—</span> · rachas <span id="summary-wind-gusts">--</span> km/h</span>
               </a>
-              <a class="today-summary-item" href="#marea">
+            <a class="today-summary-item" href="mareas.html">
                 <span class="today-summary-label">Marea</span>
                 <span class="today-summary-main"><strong id="summary-tide-trend">Calculando…</strong></span>
                 <span class="today-summary-detail"><span id="summary-tide-next-label">Próxima pleamar o bajamar</span> · <span id="summary-tide-next-time">--:--</span></span>
               </a>
-              <a class="today-summary-item" href="#agua">
+            <a class="today-summary-item" href="temperatura-agua.html">
                 <span class="today-summary-label">Temperatura del agua</span>
                 <span class="today-summary-main"><strong id="summary-sea-temperature">--<small>°C</small></strong></span>
                 <span class="today-summary-detail">Temperatura superficial estimada</span>
               </a>
-              <a class="today-summary-item" href="#agua">
+            <a class="today-summary-item" href="calidad-agua.html">
                 <span class="today-summary-label">Calidad del agua</span>
                 <span class="today-summary-main"><strong id="summary-water-quality">Consultando…</strong></span>
                 <span class="today-summary-detail" id="summary-water-quality-date">Última muestra oficial</span>
@@ -94,195 +103,40 @@
         </div>
       </section>
 
-      <section class="weather-section" id="tiempo">
+      <section class="beach-intro" aria-labelledby="beach-intro-title">
         <div class="content-wrap">
-        <div class="section-heading">
-          <div><p class="eyebrow">El tiempo</p><h2>Tiempo en Las Alcaravaneras</h2><p class="section-description">Condiciones actuales y previsión para los próximos 7 días.</p></div>
-          <span class="updated"><i></i><span id="updated-at">Actualizando previsión…</span></span>
-        </div>
-
-        <div class="weather-dashboard">
-          <article class="weather-now">
-            <span class="weather-icon" id="current-icon" aria-hidden="true">☀</span>
-            <div class="current-temp-group"><span class="temperature" id="current-temp">--°</span><span class="condition" id="current-condition">Consultando el cielo</span></div>
-            <div class="current-stats"><div><span>Máx / Mín · <span id="summary-day">hoy</span></span><strong><span id="today-high">--</span>° / <span id="today-low">--</span>°</strong></div><div><span>Lluvia máx.</span><strong><span id="current-rain">--</span>%</strong></div></div>
-          </article>
-          <article class="forecast">
-            <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
-            <div class="forecast-list" id="daily-forecast"><div class="loading-row">Cargando previsión…</div></div>
-            <div class="wind-section-label" id="weather-hourly-title">Hoy · evolución por horas</div>
-            <div class="today-hourly weather-hourly" id="weather-hourly"><div class="loading-row">Cargando evolución de hoy…</div></div>
-          </article>
-        </div>
-        <p class="data-credit">Previsión meteorológica para Las Alcaravaneras · Datos de <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
+          <div class="beach-intro-copy">
+            <p class="eyebrow">Guía de la playa</p>
+            <h2 id="beach-intro-title">La playa de Las Alcaravaneras</h2>
+            <p>Las Alcaravaneras es una playa de Las Palmas de Gran Canaria. Aquí puedes consultar las condiciones meteorológicas y marítimas disponibles, junto con información para localizar la playa.</p>
+          </div>
+          <nav class="topic-links" aria-label="Consultar información de Las Alcaravaneras">
+            <a href="tiempo.html"><span>Previsión local</span><strong>Tiempo en Las Alcaravaneras</strong><span aria-hidden="true">→</span></a>
+            <a href="viento.html"><span>Velocidad y dirección</span><strong>Viento en Las Alcaravaneras</strong><span aria-hidden="true">→</span></a>
+            <a href="mareas.html"><span>Nivel del mar estimado</span><strong>Mareas en Las Alcaravaneras</strong><span aria-hidden="true">→</span></a>
+            <a href="temperatura-agua.html"><span>Dato del modelo marino</span><strong>Temperatura del agua</strong><span aria-hidden="true">→</span></a>
+            <a href="calidad-agua.html"><span>Controles sanitarios</span><strong>Calidad del agua</strong><span aria-hidden="true">→</span></a>
+            <a href="playa.html"><span>Guía e información práctica</span><strong>Playa de Las Alcaravaneras</strong><span aria-hidden="true">→</span></a>
+          </nav>
         </div>
       </section>
 
-      <section class="wind-section" id="viento">
-        <div class="content-wrap wind-wrap">
-          <div class="section-heading wind-heading">
-            <div><p class="eyebrow">Viento</p><h2>Condiciones de viento</h2><p class="section-description">Velocidad, dirección y rachas para navegantes y deportistas.</p></div>
-          </div>
-          <div class="wind-dashboard">
-            <article class="compass-card">
-              <div class="compass-layout">
-                <div class="compass" aria-label="Rosa de los vientos">
-                  <span class="direction dir-n">N</span><span class="direction dir-e">E</span><span class="direction dir-s">S</span><span class="direction dir-w">O</span>
-                  <span class="compass-ring ring-one"></span><span class="compass-ring ring-two"></span>
-                  <span class="compass-cross cross-v"></span><span class="compass-cross cross-h"></span>
-                  <span class="compass-needle" id="compass-needle"><i></i></span><span class="compass-center"></span>
-                </div>
-                <div class="wind-reading"><span class="wind-direction" id="current-direction">—</span><strong><span id="current-wind-large">--</span><small>km/h velocidad</small></strong></div>
-                <div class="gust-reading"><strong><span id="current-gusts">--</span></strong><span>km/h rachas</span></div>
-                <div class="beaufort-reading"><strong><span>Bf <b id="beaufort-number">—</b></span></strong><span id="beaufort-name">Escala Beaufort</span></div>
-              </div>
-            </article>
-            <article class="wind-forecast">
-              <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
-              <div class="wind-week" id="wind-forecast"><div class="loading-row">Cargando previsión…</div></div>
-              <div class="wind-section-label" id="wind-hourly-title">Hoy · evolución por horas</div>
-              <div class="wind-chart" id="hourly-forecast"><div class="loading-row">Cargando condiciones…</div></div>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      <section class="tide-section" id="marea">
-        <div class="content-wrap">
-          <div class="section-heading tide-heading">
-            <div><p class="eyebrow">Marea</p><h2>Nivel del mar</h2><p class="section-description">Estimación horaria sincronizada con el día seleccionado en las previsiones.</p></div>
-          </div>
-          <div class="tide-current">
-            <div class="tide-overview">
-              <div class="tide-current-primary"><span class="tide-label">La marea ahora</span><strong id="tide-trend">Calculando…</strong></div>
-              <div class="next-tide" aria-live="polite"><span id="next-tide-label">Próxima pleamar o bajamar</span><strong id="next-tide-time">--:--</strong></div>
-              <span class="tide-level-secondary">Nivel estimado ahora <strong><span id="current-tide">--</span> <small>m</small></strong><span class="tide-datum">respecto al nivel medio global</span></span>
-            </div>
-            <div class="tide-extremes" id="tide-extremes"><span>Calculando niveles del día…</span></div>
-          </div>
-          <div class="wind-week-title tide-week-title">Previsión de marea · 7 días <span class="week-hint">Selecciona un día para ver su curva</span></div>
-          <div class="tide-week" id="tide-week"><div class="loading-row">Cargando previsión semanal…</div></div>
-          <div class="tide-curve-heading"><div class="wind-section-label" id="tide-hourly-title">Hoy · nivel del mar por horas</div><span>Toca la curva o pasa el cursor para ver la hora y el nivel</span></div>
-          <div class="tide-chart-wrap" id="tide-chart"><p class="loading-row">Cargando previsión de marea…</p></div>
-          <p class="tide-disclaimer">Estimación de Météo-France / Copernicus Marine vía <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Open-Meteo</a>, con resolución aproximada de 8 km y precisión limitada en zonas costeras. Nivel relativo a la media global; no utilizar para navegación.</p>
-        </div>
-      </section>
 
-      <section class="water-section" id="agua" aria-labelledby="water-title">
-        <div class="content-wrap">
-          <div class="section-heading water-heading">
-            <div><p class="eyebrow">Temperatura y calidad</p><h2 id="water-title">El agua de Las Alcaravaneras</h2><p class="section-description">Temperatura superficial estimada y última clasificación sanitaria oficial.</p></div>
-          </div>
-          <div class="water-grid">
-            <article class="water-card water-temperature" aria-labelledby="water-temperature-title">
-              <div class="water-card-heading"><span class="water-card-kicker">Temperatura del mar</span><span aria-hidden="true">≈</span></div>
-              <h3 id="water-temperature-title" class="visually-hidden">Temperatura superficial del mar</h3>
-              <div class="water-temperature-value" id="sea-temperature" aria-live="polite">--<span>°C</span></div>
-              <p class="water-card-description">Temperatura superficial estimada en la zona.</p>
-              <p class="water-data-time" id="sea-temperature-time">Cargando dato del modelo…</p>
-              <a class="water-source" href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Modelo marino · Open-Meteo <span aria-hidden="true">↗</span></a>
-            </article>
-            <article class="water-card water-quality" aria-labelledby="water-quality-status">
-              <div class="water-card-heading"><span class="water-card-kicker">Calidad del agua de baño</span><span aria-hidden="true">●</span></div>
-              <h3 id="water-quality-status" class="water-quality-status" data-quality="loading">Consultando clasificación…</h3>
-              <p class="water-card-description" id="water-quality-season">Última temporada oficial disponible: 2025.</p>
-              <p class="water-data-time" id="water-quality-detail">Clasificación anual basada en los controles microbiológicos oficiales.</p>
-              <div class="water-samples">
-                <h4 id="water-samples-title">Tres últimas muestras publicadas · PM2 Centro</h4>
-                <div class="water-table-wrap" role="region" aria-labelledby="water-samples-title" tabindex="0">
-                  <table class="water-samples-table">
-                    <thead><tr><th scope="col">Resultado</th><th scope="col">Fecha</th><th scope="col">E. coli</th><th scope="col">Enterococos</th></tr></thead>
-                    <tbody id="water-samples"><tr><td colspan="4">Cargando muestras…</td></tr></tbody>
-                  </table>
-                </div>
-                <p class="water-data-time" id="water-samples-updated" aria-live="polite">Consultando las últimas muestras publicadas en NÁYADE…</p>
-              </div>
-              <div class="water-source-links">
-                <a class="water-source" id="water-quality-eea-link" href="https://www.eea.europa.eu/en/analysis/maps-and-charts/state-of-bathing-waters-in-2025" target="_blank" rel="noreferrer">Mapa y clasificación · EEA <span aria-hidden="true">↗</span></a>
-                <a class="water-source" href="https://nayadeciudadano.sanidad.gob.es/Splayas/" target="_blank" rel="noreferrer">Consultar avisos y controles en NÁYADE <span aria-hidden="true">↗</span></a>
-              </div>
-            </article>
-          </div>
-          <p class="water-note">La clasificación anual resume la temporada y no refleja incidencias puntuales del día. Para decidir si bañarte, consulta los avisos y controles vigentes de NÁYADE.</p>
-        </div>
-      </section>
 
-      <section class="video-section" id="video" aria-labelledby="video-title">
-        <div class="content-wrap">
-          <div class="section-heading video-heading">
-            <div><p class="eyebrow">Las Alcaravaneras en vídeo</p><h2 id="video-title">La playa en movimiento</h2><p class="section-description">Un vídeo compartido de Las Alcaravaneras.</p></div>
-          </div>
-          <div class="video-consent" id="youtube-consent" aria-describedby="youtube-consent-description">
-            <p id="youtube-consent-description">Al cargar el vídeo, tu navegador se conectará a YouTube/Google y compartirá tu dirección IP y datos técnicos. Usamos el modo de privacidad mejorada de YouTube. Guardaremos tu elección en este navegador hasta que la cambies o borres sus datos. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
-            <div class="video-consent-actions">
-              <button id="load-youtube-video" type="button">Aceptar y cargar vídeo</button>
-              <button class="video-consent-reject" id="keep-youtube-blocked" type="button">Seguir sin cargar</button>
-              <a href="https://www.youtube.com/watch?v=_9LTWEetwJY" target="_blank" rel="noreferrer">Ver en YouTube ↗</a>
-            </div>
-          </div>
-          <div class="video-controls" id="youtube-controls" hidden>
-            <span id="youtube-consent-status" aria-live="polite"></span>
-            <a href="https://www.youtube.com/watch?v=_9LTWEetwJY" target="_blank" rel="noreferrer">Si no carga, ver en YouTube ↗</a>
-            <button id="disable-youtube-video" type="button">Desactivar vídeo</button>
-          </div>
-          <div class="video-player" id="youtube-player" hidden></div>
-        </div>
-      </section>
 
-      <section class="instagram-section" id="instagram" aria-labelledby="instagram-title">
-        <div class="content-wrap">
-          <div class="section-heading instagram-heading">
-            <div><p class="eyebrow">La playa en Instagram</p><h2 id="instagram-title">Momentos de Alcaravaneras</h2><p class="section-description">Publicaciones compartidas desde la playa y sus alrededores.</p></div>
-          </div>
-          <div class="instagram-consent" id="instagram-consent" aria-describedby="instagram-consent-description">
-            <p id="instagram-consent-description">Las publicaciones se cargarán desde Instagram/Meta. Si aceptas, tu navegador se conectará con Meta y compartirá tu dirección IP y datos técnicos; Meta también podría usar cookies o tecnologías similares. Guardaremos tu elección en este navegador hasta que la cambies o borres sus datos. Consulta la <a href="https://privacycenter.instagram.com/policy/" target="_blank" rel="noreferrer">Política de privacidad de Meta</a>.</p>
-            <div class="instagram-consent-actions">
-              <button class="instagram-consent-accept" id="load-instagram-posts" type="button">Aceptar y cargar publicaciones</button>
-              <button class="instagram-consent-reject" id="keep-instagram-blocked" type="button">Seguir sin cargar</button>
-            </div>
-            <p class="instagram-consent-status" id="instagram-consent-status" aria-live="polite"></p>
-          </div>
-          <div class="instagram-controls" id="instagram-controls" hidden>
-            <span aria-live="polite">Publicaciones de Instagram activadas.</span>
-            <a href="https://www.instagram.com/explore/locations/756973/playa-de-las-alcaravaneras/" target="_blank" rel="noreferrer">Ver en Instagram ↗</a>
-            <button id="disable-instagram-posts" type="button">Desactivar</button>
-          </div>
-          <div class="instagram-grid">
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/vohobitti/p/CmrifqqrGvz/"><a href="https://www.instagram.com/vohobitti/p/CmrifqqrGvz/" target="_blank" rel="noreferrer">Ver publicación de @vohobitti en Instagram ↗</a></div>
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/cvjavolimpico_oficial/p/C_OEAW6IBRM/"><a href="https://www.instagram.com/cvjavolimpico_oficial/p/C_OEAW6IBRM/" target="_blank" rel="noreferrer">Ver publicación de @cvjavolimpico_oficial en Instagram ↗</a></div>
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/lina_brendle/p/By-yv13CTw9/"><a href="https://www.instagram.com/lina_brendle/p/By-yv13CTw9/" target="_blank" rel="noreferrer">Ver publicación de @lina_brendle en Instagram ↗</a></div>
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/juanjoruiz7/p/DDqy5VdMS9i/"><a href="https://www.instagram.com/juanjoruiz7/p/DDqy5VdMS9i/" target="_blank" rel="noreferrer">Ver publicación de @juanjoruiz7 en Instagram ↗</a></div>
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/crisgosu/p/C0QBLlNIaDS/"><a href="https://www.instagram.com/crisgosu/p/C0QBLlNIaDS/" target="_blank" rel="noreferrer">Ver publicación de @crisgosu en Instagram ↗</a></div>
-            <div class="instagram-post" data-instagram-post="https://www.instagram.com/unionamarilla/p/BYdUHhEgavW/"><a href="https://www.instagram.com/unionamarilla/p/BYdUHhEgavW/" target="_blank" rel="noreferrer">Ver publicación de @unionamarilla en Instagram ↗</a></div>
-          </div>
-        </div>
-      </section>
-      <section class="map-section" id="ubicacion" aria-labelledby="map-title">
-        <div class="content-wrap">
-          <div class="section-heading map-heading">
-            <div>
-              <p class="eyebrow">Ubicación</p>
-              <h2 id="map-title">Playa de las Alcaravaneras</h2>
-              <p class="section-description">Mapa interactivo de la ubicación.</p>
-            </div>
-          </div>
-          <div class="map-wrapper">
-            <div class="video-consent map-consent" id="map-placeholder" aria-describedby="map-consent-description">
-              <p id="map-consent-description">Al cargar el mapa, tu navegador se conectará a Google Maps y compartirá tu dirección IP y datos técnicos. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Política de privacidad de Google</a>.</p>
-              <div class="video-consent-actions">
-                <button type="button" data-accept-category="maps">Aceptar y cargar mapa</button>
-                <button class="video-consent-reject" type="button" data-reject-category="maps">Seguir sin cargar</button>
-                <a href="https://www.google.com/maps/place/Playa+de+las+Alcaravaneras" target="_blank" rel="noreferrer">Ver en Google Maps ↗</a>
-              </div>
-            </div>
-            <iframe id="map-iframe" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.5182075264083!2d-15.431565025421142!3d28.130708675942557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc40956d383c4fe3%3A0xeccb40a4e8a7fd48!2sPlaya%20de%20las%20Alcaravaneras!5e0!3m2!1ses!2sde!4v1794228459444!5m2%3F1ses%2F2de" title="Mapa de Playa de las Alcaravaneras en Google Maps" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" hidden></iframe>
-          </div>
-        </div>
-      </section>
+
 
     </main>
 
-    <footer class="site-footer"><a class="wordmark" href="#inicio">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><a href="politica-de-cookies.html">Política de cookies</a><button class="privacy-settings-link" type="button" data-open-consent>Configurar cookies</button><a href="#inicio" class="back-top">Volver arriba ↑</a></footer>
+    <footer class="site-footer">
+      <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
+      <span>Las Palmas de Gran Canaria · Islas Canarias</span>
+      <nav aria-label="Navegación del pie de página"><a href="tiempo.html">Tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a href="playa.html#ubicacion">Ubicación</a></nav>
+      <a href="politica-de-cookies.html">Política de cookies</a>
+      <button class="privacy-settings-link" type="button" data-open-consent>Configurar cookies</button>
+      <a href="#inicio" class="back-top">Volver arriba ↑</a>
+    </footer>
     <section class="consent-banner" id="consent-banner" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description" hidden>
       <div class="consent-card">
         <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube y Google Maps. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>

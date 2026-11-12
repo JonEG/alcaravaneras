@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Consulta la estimación del nivel del mar, las pleamares y bajamares aproximadas y la previsión de mareas en Las Alcaravaneras.">
+    <link rel="canonical" href="https://www.alcaravaneras.com/mareas.html">
+    <meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="Las Alcaravaneras"><meta property="og:title" content="Mareas en Las Alcaravaneras | Nivel del mar"><meta property="og:description" content="Evolución horaria del nivel del mar y cambios de marea estimados para la playa."><meta property="og:url" content="https://www.alcaravaneras.com/mareas.html">
+    <title>Mareas en Las Alcaravaneras | Nivel del mar</title>
+    <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="styles.css"><script src="script.js?v=topic-split-2" defer></script>
+  </head>
+  <body class="content-page" data-page="tide">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header"><a class="wordmark" href="index.html">Las Alcaravaneras</a><button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button><nav id="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a aria-current="page" href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav></header>
+    <main id="contenido" tabindex="-1">
+      <section class="page-hero"><div class="content-wrap"><p class="eyebrow">Mareas · Las Palmas de Gran Canaria</p><h1>Mareas en Las Alcaravaneras</h1><p>Consulta la evolución modelada del nivel del mar y las horas aproximadas de pleamar y bajamar.</p><a class="page-hero-link" href="#marea">Ver evolución ↓</a></div></section>
+      <section class="tide-section" id="marea">
+        <div class="content-wrap">
+          <div class="section-heading tide-heading">
+            <div><p class="eyebrow">Mareas</p><h2>Mareas en Las Alcaravaneras</h2><p class="section-description">Estimación horaria del nivel del mar, sincronizada con el día seleccionado en las previsiones.</p></div>
+          </div>
+          <div class="tide-current">
+            <div class="tide-overview">
+              <div class="tide-current-primary"><span class="tide-label">La marea ahora</span><strong id="tide-trend">Calculando…</strong></div>
+              <div class="next-tide" aria-live="polite"><span id="next-tide-label">Próxima pleamar o bajamar</span><strong id="next-tide-time">--:--</strong></div>
+              <span class="tide-level-secondary">Nivel estimado ahora <strong><span id="current-tide">--</span> <small>m</small></strong><span class="tide-datum">respecto al nivel medio global</span></span>
+            </div>
+            <div class="tide-extremes" id="tide-extremes"><span>Calculando niveles del día…</span></div>
+          </div>
+          <div class="wind-week-title tide-week-title">Previsión de marea · 7 días <span class="week-hint">Selecciona un día para ver su curva</span></div>
+          <div class="tide-week" id="tide-week"><div class="loading-row">Cargando previsión semanal…</div></div>
+          <div class="tide-curve-heading"><div class="wind-section-label" id="tide-hourly-title">Hoy · nivel del mar por horas</div><span>Toca la curva o pasa el cursor para ver la hora y el nivel</span></div>
+          <div class="tide-chart-wrap" id="tide-chart"><p class="loading-row">Cargando previsión de marea…</p></div>
+          <p class="tide-disclaimer">Estimación de Météo-France / Copernicus Marine vía <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Open-Meteo</a>, con resolución aproximada de 8 km y precisión limitada en zonas costeras. Nivel relativo a la media global; no utilizar para navegación.</p>
+        </div>
+      </section>
+      <section class="source-note"><div class="content-wrap"><p>Estimación de nivel del mar de Open-Meteo con datos de modelos marinos. La altura se expresa respecto al nivel medio global y la precisión es limitada en zonas costeras; no es una tabla oficial de mareas ni sirve para navegación.</p><p>Fuente: <a href="https://open-meteo.com/en/docs/marine-weather-api" target="_blank" rel="noreferrer">Open-Meteo Marine Weather API</a>. Actualización indicada en hora canaria.</p></div></section>
+    </main>
+    <footer class="site-footer"><a class="wordmark" href="index.html">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><nav aria-label="Navegación del pie de página"><a href="index.html">Inicio</a><a href="tiempo.html">Tiempo</a><a href="viento.html">Viento</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav><a href="politica-de-cookies.html">Política de cookies</a></footer>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Consulta la velocidad, dirección y rachas del viento en Las Alcaravaneras, con previsión horaria y para siete días.">
+    <link rel="canonical" href="https://www.alcaravaneras.com/viento.html">
+    <meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="Las Alcaravaneras">
+    <meta property="og:title" content="Viento en Las Alcaravaneras | Velocidad y previsión"><meta property="og:description" content="Viento actual, dirección, rachas y evolución para los próximos siete días en la playa."><meta property="og:url" content="https://www.alcaravaneras.com/viento.html">
+    <title>Viento en Las Alcaravaneras | Velocidad y previsión</title>
+    <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css"><script src="script.js?v=topic-split-2" defer></script>
+  </head>
+  <body class="content-page" data-page="wind">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header"><a class="wordmark" href="index.html">Las Alcaravaneras</a><button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button><nav id="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="tiempo.html">El tiempo</a><a aria-current="page" href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav></header>
+    <main id="contenido" tabindex="-1">
+      <section class="page-hero"><div class="content-wrap"><p class="eyebrow">Viento · Las Palmas de Gran Canaria</p><h1>Viento en Las Alcaravaneras</h1><p>Velocidad, dirección y rachas del viento, con una previsión horaria y diaria para la zona de la playa.</p><a class="page-hero-link" href="#viento">Ver previsión ↓</a></div></section>
+      <section class="wind-section" id="viento">
+        <div class="content-wrap wind-wrap">
+          <div class="section-heading wind-heading">
+            <div><p class="eyebrow">Viento</p><h2>Viento en Las Alcaravaneras</h2><p class="section-description">Velocidad, dirección, rachas y previsión para los próximos días.</p></div>
+          </div>
+          <div class="wind-dashboard">
+            <article class="compass-card">
+              <div class="compass-layout">
+                <div class="compass" aria-label="Rosa de los vientos">
+                  <span class="direction dir-n">N</span><span class="direction dir-e">E</span><span class="direction dir-s">S</span><span class="direction dir-w">O</span>
+                  <span class="compass-ring ring-one"></span><span class="compass-ring ring-two"></span>
+                  <span class="compass-cross cross-v"></span><span class="compass-cross cross-h"></span>
+                  <span class="compass-needle" id="compass-needle"><i></i></span><span class="compass-center"></span>
+                </div>
+                <div class="wind-reading"><span class="wind-direction" id="current-direction">—</span><strong><span id="current-wind-large">--</span><small>km/h velocidad</small></strong></div>
+                <div class="gust-reading"><strong><span id="current-gusts">--</span></strong><span>km/h rachas</span></div>
+                <div class="beaufort-reading"><strong><span>Bf <b id="beaufort-number">—</b></span></strong><span id="beaufort-name">Escala Beaufort</span></div>
+              </div>
+            </article>
+            <article class="wind-forecast">
+              <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
+              <div class="wind-week" id="wind-forecast"><div class="loading-row">Cargando previsión…</div></div>
+              <div class="wind-section-label" id="wind-hourly-title">Hoy · evolución por horas</div>
+              <div class="wind-chart" id="hourly-forecast"><div class="loading-row">Cargando condiciones…</div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="source-note"><div class="content-wrap"><p>Previsión de modelo para la zona de Las Alcaravaneras; el viento puede variar a escala local y entre la playa y el punto de cálculo. Fuente: <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>. Datos de viento a 10 m sobre el suelo.</p><p>Completa la información con el <a href="tiempo.html">tiempo en Las Alcaravaneras</a>.</p></div></section>
+    </main>
+    <footer class="site-footer"><a class="wordmark" href="index.html">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><nav aria-label="Navegación del pie de página"><a href="index.html">Inicio</a><a href="tiempo.html">Tiempo</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav><a href="politica-de-cookies.html">Política de cookies</a></footer>
+  </body>
+</html>

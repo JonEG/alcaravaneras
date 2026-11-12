@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Consulta el tiempo actual y la previsión de siete días para Las Alcaravaneras, en Las Palmas de Gran Canaria.">
+    <link rel="canonical" href="https://www.alcaravaneras.com/tiempo.html">
+    <meta property="og:type" content="website"><meta property="og:locale" content="es_ES"><meta property="og:site_name" content="Las Alcaravaneras">
+    <meta property="og:title" content="Tiempo en Las Alcaravaneras | Previsión local"><meta property="og:description" content="Temperatura, estado del cielo y previsión por horas y para los próximos siete días."><meta property="og:url" content="https://www.alcaravaneras.com/tiempo.html">
+    <title>Tiempo en Las Alcaravaneras | Previsión local</title>
+    <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js?v=topic-split-2" defer></script>
+  </head>
+  <body class="content-page" data-page="weather">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header"><a class="wordmark" href="index.html">Las Alcaravaneras</a><button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button><nav id="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a aria-current="page" href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav></header>
+    <main id="contenido" tabindex="-1">
+      <section class="page-hero"><div class="content-wrap"><p class="eyebrow">Previsión local · Las Palmas de Gran Canaria</p><h1>Tiempo en Las Alcaravaneras</h1><p>Consulta las condiciones actuales, la evolución por horas y la previsión meteorológica para los próximos siete días.</p><a class="page-hero-link" href="#tiempo">Ver previsión ↓</a></div></section>
+      <section class="weather-section" id="tiempo">
+        <div class="content-wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">El tiempo</p><h2>Tiempo en Las Alcaravaneras</h2><p class="section-description">Condiciones actuales y previsión para los próximos 7 días.</p></div>
+          <span class="updated"><i></i><span id="updated-at">Actualizando previsión…</span></span>
+        </div>
+
+        <div class="weather-dashboard">
+          <article class="weather-now">
+            <span class="weather-icon" id="current-icon" aria-hidden="true">☀</span>
+            <div class="current-temp-group"><span class="temperature" id="current-temp">--°</span><span class="condition" id="current-condition">Consultando el cielo</span></div>
+            <div class="current-stats"><div><span>Máx / Mín · <span id="summary-day">hoy</span></span><strong><span id="today-high">--</span>° / <span id="today-low">--</span>°</strong></div><div><span>Lluvia máx.</span><strong><span id="current-rain">--</span>%</strong></div></div>
+          </article>
+          <article class="forecast">
+            <div class="wind-week-title">Previsión 7 días <span class="week-hint">Selecciona un día para ver su evolución</span></div>
+            <div class="forecast-list" id="daily-forecast"><div class="loading-row">Cargando previsión…</div></div>
+            <div class="wind-section-label" id="weather-hourly-title">Hoy · evolución por horas</div>
+            <div class="today-hourly weather-hourly" id="weather-hourly"><div class="loading-row">Cargando evolución de hoy…</div></div>
+          </article>
+        </div>
+        <p class="data-credit">Previsión meteorológica para Las Alcaravaneras · Datos de <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
+        </div>
+      </section>
+      <section class="source-note"><div class="content-wrap"><p>Previsión de modelo para la zona de Las Alcaravaneras. Los datos pueden diferir de las condiciones observadas en la playa. Fuente: <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>. La hora indicada corresponde a Canarias.</p><p>Consulta también el <a href="viento.html">viento en Las Alcaravaneras</a>, las <a href="mareas.html">mareas</a>.</p></div></section>
+    </main>
+    <footer class="site-footer"><a class="wordmark" href="index.html">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span><nav aria-label="Navegación del pie de página"><a href="index.html">Inicio</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a></nav><a href="politica-de-cookies.html">Política de cookies</a></footer>
+  </body>
+</html>
