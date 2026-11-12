@@ -39,9 +39,15 @@
       @media(max-width:850px){.hero{align-items:flex-start}.hero-content{margin:130px 0 0 7vw}.content-wrap{width:88vw}.today-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.today-summary-item:nth-child(4){border-left:0}.today-summary-item:nth-child(n+4){border-top:1px solid rgba(24,59,57,.13)}}
       @media(max-height:650px) and (min-width:1401px){.hero{align-items:flex-start}.hero-content{margin:110px 0 0 8vw}.hero-kicker{margin-bottom:18px}.hero h1{font-size:clamp(44px,5.5vw,72px);line-height:.95;margin-bottom:22px}.hero-intro{font-size:12px;margin-bottom:18px}}
       @media(max-width:620px){.site-header{padding:20px 6vw}.menu-toggle{display:block;position:relative;z-index:7;color:var(--ink)}.site-header nav{display:none;position:absolute;top:0;right:0;left:0;padding:90px 7vw 28px;background:rgba(11,53,56,.97);flex-direction:column;align-items:flex-start;gap:22px}.site-header.nav-open nav{display:flex}.site-header.nav-open nav a{color:#f6f3ed;display:inline-flex;align-items:center;min-height:44px}.site-header nav a{font-size:13px}.hero{height:79svh;min-height:530px}.hero-shade{background:linear-gradient(110deg,rgba(247,243,222,.04),rgba(247,243,222,.34))}.hero-content{width:86vw;margin:110px 0 0 7vw}.hero-kicker{font-size:8px;letter-spacing:1.25px;gap:8px}.hero-kicker span{width:14px}.hero h1{font-size:clamp(38px,10vw,56px);letter-spacing:-.05em;line-height:1.02}.hero-intro{font-size:12px;max-width:290px}.photo-credit{right:5vw;bottom:18px;font-size:7px;max-width:68%;text-align:right;line-height:1.7}.hero-stamp{left:6vw;bottom:21px;font-size:7px;gap:7px}.hero-stamp i{width:20px}.hero:before{right:-8%;top:10%;width:250px;height:250px}.hero:after{width:90%;right:-30%;top:24%}.content-wrap{width:88vw}.today-summary{padding:12px 0}.today-summary-header{padding:12px 13px 7px}.today-summary-header h2{font-size:9px}.today-summary-header>span{font-size:7px}.today-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 5px 7px}.today-summary-item{gap:4px;padding:8px 8px 9px}.today-summary-item:nth-child(3),.today-summary-item:nth-child(5){border-left:0}.today-summary-item:nth-child(4){border-left:1px solid rgba(24,59,57,.13)}.today-summary-item:nth-child(3),.today-summary-item:nth-child(4),.today-summary-item:nth-child(5){border-top:1px solid rgba(24,59,57,.13)}.today-summary-item:nth-child(5){grid-column:1/-1}.today-summary-item:nth-child(5) .today-summary-main strong,.today-summary-item:nth-child(5) .today-summary-detail{overflow:visible;text-overflow:clip;white-space:normal}.today-summary-label{font-size:7px}.today-summary-main{min-height:27px}.today-summary-main strong{font-size:20px}.today-summary-main>span[aria-hidden="true"]{font-size:17px}.today-summary-detail{font-size:7px}}
+      .hero{height:auto;min-height:min(760px,100svh);display:block;padding-bottom:44px}
+      .hero-layout{position:relative;z-index:1;width:min(1120px,84vw);margin:108px auto 0;display:flex;flex-direction:column;align-items:stretch;gap:18px}
+      .hero-content{width:100%;margin:0}.hero-kicker{margin-bottom:18px}h1,.hero h1{max-width:760px;font-size:clamp(44px,5.5vw,72px);line-height:.95;letter-spacing:-.055em;margin:0 0 22px;text-wrap:balance}.hero-intro{font-size:12px;margin-bottom:0}
+      .hero-summary{position:relative;z-index:1;width:100%;padding:0;background:transparent}.hero-summary .content-wrap{width:100%}.hero-summary .today-summary-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+      @media(max-width:850px){.hero{height:auto;min-height:min(760px,100svh);padding-bottom:50px}.hero-layout{width:88vw;margin:0 auto;padding-top:110px;display:flex;flex-direction:column;align-items:stretch;gap:22px}.hero-summary{order:-1;width:100%}.hero-summary .today-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-content{width:100%;margin:0}}
+      @media(max-width:620px){.hero-layout{padding-top:90px;gap:18px}.hero h1{font-size:clamp(38px,10vw,56px);line-height:1.02}.hero-summary .today-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     </style>
-    <link rel="preload" href="styles.css?v=home-hero-layout-2" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="styles.css?v=home-hero-layout-2"></noscript>
+    <link rel="preload" href="styles.css?v=home-hero-summary-2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css?v=home-hero-summary-2"></noscript>
     <script src="privacy-consent.js?v=consent-1" defer></script>
     <script src="script.js?v=topic-split-2" defer></script>
   </head>
@@ -58,23 +64,19 @@
     <main id="contenido" tabindex="-1">
       <section class="hero" id="inicio" aria-labelledby="hero-title">
         <div class="hero-shade"></div>
-        <div class="hero-content">
-          <p class="hero-kicker">Las Palmas de Gran Canaria <span></span> Previsión local</p>
-          <h1 id="hero-title">Tiempo y condiciones en Las Alcaravaneras</h1>
-          <p class="hero-intro">Consulta el tiempo, el viento, las mareas y la temperatura del agua en la playa de Las Alcaravaneras, en Las Palmas de Gran Canaria.</p>
-          <a class="hero-scroll" href="tiempo.html"><span class="scroll-icon">↓</span> Ver previsión</a>
-        </div>
-        <div class="hero-stamp" aria-hidden="true"><span>28° 07′ N</span><i></i><span>15° 25′ O</span></div>
-      </section>
-
-      <section class="today-summary" id="resumen" aria-labelledby="today-summary-title">
-        <div class="content-wrap">
-          <article class="today-summary-card">
-            <header class="today-summary-header">
-              <h2 id="today-summary-title">Hoy en Las Alcaravaneras</h2>
-              <span id="today-summary-updated">Actualizando datos…</span>
-            </header>
-            <div class="today-summary-grid">
+        <div class="hero-layout">
+          <div class="hero-content">
+            <p class="hero-kicker">Las Palmas de Gran Canaria <span></span> Previsión local</p>
+            <h1 id="hero-title">Tiempo y condiciones en Las Alcaravaneras</h1>
+            <p class="hero-intro">Consulta el tiempo, el viento, las mareas y la temperatura del agua en la playa de Las Alcaravaneras, en Las Palmas de Gran Canaria.</p>
+          </div>
+          <section class="today-summary hero-summary" id="resumen" aria-labelledby="today-summary-title">
+            <article class="today-summary-card">
+              <header class="today-summary-header">
+                <h2 id="today-summary-title">Hoy en Las Alcaravaneras</h2>
+                <span id="today-summary-updated">Actualizando datos…</span>
+              </header>
+              <div class="today-summary-grid">
             <a class="today-summary-item" href="tiempo.html">
                 <span class="today-summary-label">Tiempo</span>
                 <span class="today-summary-main"><span id="summary-weather-icon" aria-hidden="true">☀</span><strong id="summary-weather-temp">--°</strong></span>
@@ -100,9 +102,11 @@
                 <span class="today-summary-main"><strong id="summary-water-quality">Consultando…</strong></span>
                 <span class="today-summary-detail" id="summary-water-quality-date">Última muestra oficial</span>
               </a>
-            </div>
-          </article>
+              </div>
+            </article>
+          </section>
         </div>
+        <div class="hero-stamp" aria-hidden="true"><span>28° 07′ N</span><i></i><span>15° 25′ O</span></div>
       </section>
 
       <section class="beach-intro" aria-labelledby="beach-intro-title">
