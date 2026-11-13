@@ -1,0 +1,36 @@
+name: Update Open-Meteo forecast
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-forecast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch and render Open-Meteo data
+        run: python scripts/update_open_meteo.py
+
+      - name: Publish updated forecast and pages
+        run: |
+          if git diff --quiet -- data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml; then
+            echo "No forecast page changes to publish."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml
+          git commit -m "Update Open-Meteo conditions"
+          git push
