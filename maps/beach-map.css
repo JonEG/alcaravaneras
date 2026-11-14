@@ -53,7 +53,7 @@
 .facility-marker.category-sports{background:#26724d}
 .facility-marker.category-water{background:#087aa0}
 .facility-marker.icon-rescue{background:#fff;color:#d62828;border-color:#d62828}
-.official-panel-section{padding:0 0 64px;background:#e7f2f1}
+.official-panel-section{padding:28px 0 64px;background:#e7f2f1}
 .official-panel-card{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 28px;border:1px solid rgba(7,85,138,.14);border-radius:14px;background:#fff}
 .official-panel-copy h3{margin:0 0 8px;font-size:20px;color:#123e57}
 .official-panel-copy p{max-width:700px;margin:5px 0;color:#49626c;font-size:11px;line-height:1.6}
