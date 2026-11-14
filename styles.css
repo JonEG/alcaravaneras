@@ -352,6 +352,35 @@
 @media(max-width:1050px){.content-page .site-header{padding-right:3vw;padding-left:3vw}.content-page .site-header nav{gap:15px}.content-page .site-header nav a{font-size:10px}.content-page .wordmark{font-size:19px}.current-data-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.data-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){.content-page .site-header{padding:17px 6vw}.content-page .site-header nav{gap:18px}.content-page .site-header nav a{font-size:13px}.content-page .page-hero{padding:48px 0 55px}.content-page .page-hero h1{font-size:clamp(40px,10.5vw,58px)}.content-page .page-hero p:not(.eyebrow){font-size:12px}.page-content{padding:47px 0 52px}.content-page .section-heading{gap:10px;margin-bottom:20px}.content-page .section-heading h2{font-size:35px}.data-updated{font-size:9px}.current-data-grid,.data-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.current-data-card,.data-card{padding:13px}.current-data-card{min-height:122px;gap:8px}.current-data-card strong{font-size:23px}.current-weather-condition{font-size:9px}.data-card-note{font-size:9px}.hourly-data-grid{grid-auto-columns:112px;gap:7px}.chart-panel{min-height:160px;padding:9px 5px}.source-note .content-wrap{flex-direction:column;gap:10px}.source-note p{font-size:9px}.location-card{align-items:flex-start;flex-direction:column;padding:18px}.tide-extremes-grid{margin-top:8px}}
 
+/* Accessibility refinements for contrast and touch target size. */
+.beach-intro-copy>.eyebrow,.consent-copy>.eyebrow{color:#53625b}
+.site-header nav a{display:inline-flex;align-items:center;min-height:44px}
+.hero-scroll{min-height:44px}
+.photo-credit a{display:inline-flex;align-items:center;min-height:24px}
+.page-hero-link,.consent-copy>a{display:inline-flex;align-items:center;min-height:44px}
+.site-footer nav a,.site-footer>a:not(.wordmark),.site-footer .privacy-settings-link{display:inline-flex;align-items:center;min-height:44px}
+.site-footer>span,.site-footer .back-top,.site-footer nav a,.site-footer>a:not(.wordmark),.site-footer .privacy-settings-link{color:#53625b}
+.tide-gridlabel,.tide-hour-label{fill:#53625b}
+.wind-section .week-hint,.wind-section .hour-dir,.wind-section .hour-time{color:#4e514a}
+.wind-section .hour-arrow,.wind-section .wind-glyph{color:#24586b}
+.wind-section .compass-needle:after{border-top-color:#385c58}
+.content-page .eyebrow{color:#4e514a}
+.content-page .page-hero .eyebrow{color:#3f514a}
+.page-content-muted .section-heading .eyebrow{color:#53625b}
+.page-content-muted .chart-panel svg text{fill:#53625b}
+@media(max-width:620px){
+  .site-footer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;justify-content:initial;gap:8px 12px;padding:22px 6vw}
+  .site-footer .wordmark,.site-footer>span,.site-footer nav{grid-column:1/-1}
+  .site-footer .wordmark{font-size:20px}
+  .site-footer>span{width:auto;order:initial;font-size:10px}
+  .site-footer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;order:initial;justify-content:initial;gap:4px 8px;margin:5px 0;padding:10px 0;border-block:1px solid rgba(24,59,57,.15)}
+  .site-footer nav a{min-width:0;min-height:44px;padding:5px 9px;border-radius:6px;background:rgba(255,255,255,.55);font-size:10px;line-height:1.3}
+  .site-footer>a:not(.wordmark),.site-footer .privacy-settings-link{width:100%;justify-content:flex-start;padding:4px 8px;text-align:left}
+  .site-footer .back-top{grid-column:1/-1}
+  .content-page .site-footer{align-items:center}
+  .privacy-policy .site-footer{padding:22px 6vw}
+}
+
 /* Keep today's conditions visible inside the homepage hero. */
 .hero{height:auto;min-height:min(760px,100svh);display:block;padding-bottom:44px}
 .hero-layout{position:relative;z-index:1;width:min(1120px,84vw);margin:108px auto 0;display:flex;flex-direction:column;align-items:stretch;gap:18px}
