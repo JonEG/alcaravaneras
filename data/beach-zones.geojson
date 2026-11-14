@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "name": "Las Alcaravaneras mapped beach zones",
+  "metadata": {
+    "coordinateOrder": "longitude, latitude",
+    "accuracy": "The beach, beach-volleyball, and canoe geometries come from mapped OpenStreetMap ways. No swimming or diving area is drawn; those activities appear only as approximate point icons in the facilities data.",
+    "source": "OpenStreetMap contributors, OSM ways 30663319, 1151366367, and 1151366368; retrieved 2026-11-14. https://www.openstreetmap.org/copyright",
+    "missingActivityZones": ["OSM has no leisure=swimming_area or diving boundary in the queried extent."]
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "beach",
+      "properties": {
+        "zone": "beach",
+        "name": { "es": "Arenal · OpenStreetMap", "en": "Beach · OpenStreetMap" },
+        "accuracy": "mapped_osm",
+        "osm": "way/30663319",
+        "tags": { "natural": "beach", "surface": "sand", "name": "Playa de Las Alcaravaneras" }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-15.4286519,28.1328425],[-15.4287088,28.1326523],[-15.4289777,28.1323839],[-15.4292432,28.132443],[-15.4292042,28.1325855],[-15.429233,28.1325963],[-15.429272,28.1325874],[-15.4293969,28.1325077],[-15.4294446,28.1324658],[-15.4294775,28.1324291],[-15.4295115,28.1323651],[-15.4295194,28.1323394],[-15.4294592,28.1323118],[-15.4294903,28.1322528],[-15.4295048,28.1321588],[-15.429505,28.1321438],[-15.4295038,28.1316559],[-15.4296233,28.1316532],[-15.4296164,28.1308792],[-15.4296165,28.1308723],[-15.4296009,28.1308726],[-15.4295807,28.130854],[-15.4295796,28.1308145],[-15.4296025,28.1307941],[-15.4296156,28.1307936],[-15.4296189,28.1302965],[-15.42961,28.1296922],[-15.429588,28.1293921],[-15.4295806,28.1293921],[-15.4295701,28.1293928],[-15.4295581,28.1293805],[-15.4295526,28.1293325],[-15.4295581,28.1293144],[-15.4295719,28.1293109],[-15.4295809,28.1293097],[-15.4295239,28.129061],[-15.429391,28.1287762],[-15.4292728,28.1285753],[-15.4290374,28.1286937],[-15.4288978,28.1287576],[-15.4289358,28.1288373],[-15.4283379,28.1290451],[-15.4286038,28.1295387],[-15.4287028,28.1298612],[-15.4288573,28.1303532],[-15.42889,28.1312009],[-15.4288192,28.1318939],[-15.4286698,28.1322944],[-15.4284752,28.1325688],[-15.4284231,28.1327402],[-15.42856,28.1327837],[-15.4286519,28.1328425]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "beach-volleyball",
+      "properties": {
+        "zone": "beachvolleyball",
+        "name": { "es": "Vóley playa · OpenStreetMap", "en": "Beach volleyball · OpenStreetMap" },
+        "accuracy": "mapped_osm",
+        "osm": "way/1151366367",
+        "tags": { "leisure": "pitch", "sport": "beachvolleyball", "surface": "sand" }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-15.4294635,28.131837],[-15.4291162,28.131837],[-15.4291162,28.1314043],[-15.4294635,28.1314043],[-15.4294635,28.131837]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "canoeing-area",
+      "properties": {
+        "zone": "canoeing",
+        "name": { "es": "Área de piragüismo · OpenStreetMap", "en": "Canoeing area · OpenStreetMap" },
+        "accuracy": "mapped_osm",
+        "osm": "way/1151366368",
+        "tags": { "area": "yes", "sport": "canoe" }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-15.4284344,28.1296117],[-15.4275454,28.1298858],[-15.4274056,28.1295332],[-15.4282946,28.1292591],[-15.4284344,28.1296117]]]
+      }
+    }
+  ]
+}

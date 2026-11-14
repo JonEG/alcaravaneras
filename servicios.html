@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f3ed">
+    <meta name="description" content="Localiza los servicios de la playa de Las Alcaravaneras: socorrismo, accesibilidad, aseos, duchas, instalaciones deportivas y actividades acuáticas.">
+    <link rel="canonical" href="https://www.alcaravaneras.com/servicios.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="Las Alcaravaneras">
+    <meta property="og:title" content="Mapa de servicios de la Playa de Las Alcaravaneras | Gran Canaria">
+    <meta property="og:description" content="Explora un mapa interactivo de los servicios y zonas de actividad de la playa de Las Alcaravaneras.">
+    <meta property="og:url" content="https://www.alcaravaneras.com/servicios.html">
+    <title>Mapa de servicios de la Playa de Las Alcaravaneras | Gran Canaria</title>
+    <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="maps/beach-map.css">
+    <script src="privacy-consent.js?v=consent-1" defer></script>
+    <script src="script.js?v=beach-services-1" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="maps/beach-map.js?v=1" defer></script>
+  </head>
+  <body class="content-page" data-page="beach-services">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <a class="wordmark" href="index.html">Las Alcaravaneras</a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
+      <nav id="site-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a aria-current="page" href="servicios.html">Servicios</a>
+      </nav>
+    </header>
+    <main id="contenido" tabindex="-1">
+      <section class="page-hero" aria-labelledby="page-title">
+        <div class="content-wrap">
+          <p class="eyebrow">Guía de la playa · Gran Canaria</p>
+          <h1 id="page-title">Mapa interactivo de la playa de Las Alcaravaneras</h1>
+          <p>Explora las ubicaciones y zonas de actividad que figuran en OpenStreetMap. Los servicios sin un punto mapeado se indican de forma aproximada.</p>
+          <a class="page-hero-link" href="#mapa">Explorar el mapa ↓</a>
+        </div>
+      </section>
+
+      <section class="beach-map-section" id="mapa" aria-labelledby="map-title">
+        <div class="content-wrap">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow beach-map-kicker">OpenStreetMap · Las Palmas de Gran Canaria</p>
+              <h2 id="map-title">Mapa interactivo de la playa de Las Alcaravaneras</h2>
+              <p class="section-description">Activa o desactiva categorías para encontrar servicios. Selecciona un marcador o una zona para ver más información.</p>
+            </div>
+          </div>
+          <div class="beach-map-layout" id="beach-map-layout">
+            <aside class="beach-map-legend" aria-label="Leyenda y filtros del mapa">
+              <details open>
+                <summary><h3>Leyenda y filtros</h3></summary>
+                <p>Elige qué servicios y zonas quieres ver.</p>
+                <fieldset class="beach-map-filters">
+                  <legend>Servicios por categoría</legend>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="safety" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Seguridad</span></label>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="accessibility" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Accesibilidad</span></label>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="facilities" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Servicios</span></label>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="family" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Parque</span></label>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="sports" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Deportes</span></label>
+                  <label class="beach-map-filter"><input type="checkbox" data-facility-filter="water" checked><span class="beach-map-filter-icons" aria-hidden="true"></span><span>Actividades acuáticas</span></label>
+                </fieldset>
+                <p class="beach-map-zone-heading">Zonas geográficas</p>
+                <div class="beach-map-zones">
+                  <label class="beach-map-zone"><input type="checkbox" data-zone-filter="beach" checked><span class="zone-swatch" style="color:#a98800;background:rgba(245,211,59,.42)"></span><span>Arenal · OSM</span></label>
+                  <label class="beach-map-zone"><input type="checkbox" data-zone-filter="beachvolleyball" checked><span class="zone-swatch" style="color:#ad5720;background:rgba(234,144,75,.33)"></span><span>Vóley playa · OSM</span></label>
+                  <label class="beach-map-zone"><input type="checkbox" data-zone-filter="canoeing" checked><span class="zone-swatch" style="color:#087f9d;background:rgba(0,169,214,.3)"></span><span>Piragüismo · OSM</span></label>
+                </div>
+                <div class="beach-map-tools"><button id="beach-map-fullscreen" class="beach-map-button" type="button">Pantalla completa</button></div>
+              </details>
+            </aside>
+            <div class="beach-map-shell" id="beach-map-shell">
+              <div id="alcaravaneras-beach-map" role="region" aria-label="Mapa interactivo de servicios y zonas de la playa de Las Alcaravaneras" tabindex="0"></div>
+              <p class="beach-map-status" id="beach-map-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+          <p class="beach-map-note">El arenal, vóley playa y piragüismo proceden de geometrías de OpenStreetMap. Nado y buceo se muestran solo con iconos aproximados sobre el agua; no se dibujan zonas ni límites porque OSM no los proporciona. Los iconos no representan áreas oficiales de seguridad. Sigue siempre la señalización y las indicaciones del personal de salvamento.</p>
+          <p class="beach-map-note"><a class="beach-map-link" href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener noreferrer">Informar de un problema del mapa</a> · <a class="beach-map-link" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">Licencia y atribución de OpenStreetMap</a></p>
+        </div>
+      </section>
+
+      <section class="lifeguard-schedule" aria-labelledby="schedule-title">
+        <div class="content-wrap">
+          <div class="section-heading"><div><p class="eyebrow">Servicio estacional</p><h2 id="schedule-title">Horarios de salvamento y socorrismo</h2></div></div>
+          <div class="lifeguard-schedule-grid">
+            <article class="lifeguard-schedule-card"><h3>1 de julio–15 de septiembre<br>1 July–15 September</h3><p>10:00–20:00</p></article>
+            <article class="lifeguard-schedule-card"><h3>Festivos de Semana Santa<br>Easter holidays</h3><p>11:00–19:00</p></article>
+            <article class="lifeguard-schedule-card"><h3>Puentes de mayo y octubre · San Juan<br>May and October bank holidays · San Juan</h3><p>11:00–19:00</p></article>
+            <article class="lifeguard-schedule-card"><h3>Puente de diciembre<br>December bank holiday</h3><p>12:00–18:30</p></article>
+          </div>
+          <p class="lifeguard-schedule-caveat">Estos son horarios estacionales de referencia, no un horario de apertura durante todo el año. Confirma el servicio y sus horarios vigentes con el Ayuntamiento antes de tu visita. / These are seasonal reference schedules, not year-round operating hours. Check current service details with the City Council before visiting.</p>
+        </div>
+      </section>
+
+      <section class="official-panel-section" aria-labelledby="official-panel-title">
+        <div class="content-wrap">
+          <div class="official-panel-card">
+            <div class="official-panel-copy">
+              <h3 id="official-panel-title">Información oficial de la playa</h3>
+              <p>Consulta el cartel informativo oficial de la Playa de Las Alcaravaneras publicado por el Ayuntamiento de Las Palmas de Gran Canaria.</p>
+              <p>Consult the official beach information panel published by Las Palmas City Council.</p>
+            </div>
+            <a class="official-panel-link" href="https://lpamar.laspalmasgc.es/export/lpamar/.galleries/documents/CARTEL-600-X-1600-alcaravaneras.pdf" target="_blank" rel="noopener noreferrer">Consultar cartel oficial (PDF) ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content" aria-labelledby="more-info-title">
+        <div class="content-wrap">
+          <div class="section-heading"><div><p class="eyebrow">Más información</p><h2 id="more-info-title">Planifica tu visita</h2><p class="section-description">Consulta también la guía de la playa, las condiciones del mar y los datos disponibles para la zona.</p></div></div>
+          <nav class="topic-links" aria-label="Información relacionada de Las Alcaravaneras">
+            <a href="playa.html"><span>Guía de la playa</span><strong>La playa y cómo llegar</strong><span aria-hidden="true">→</span></a>
+            <a href="mareas.html"><span>Estado del mar</span><strong>Mareas en Las Alcaravaneras</strong><span aria-hidden="true">→</span></a>
+            <a href="temperatura-agua.html"><span>Modelo marino</span><strong>Temperatura del agua</strong><span aria-hidden="true">→</span></a>
+            <a href="calidad-agua.html"><span>Controles sanitarios</span><strong>Calidad del agua</strong><span aria-hidden="true">→</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <a class="wordmark" href="index.html">Las Alcaravaneras</a><span>Las Palmas de Gran Canaria · Islas Canarias</span>
+      <nav aria-label="Navegación del pie de página"><a href="index.html">Inicio</a><a href="tiempo.html">Tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a href="servicios.html" aria-current="page">Servicios</a></nav>
+      <a href="politica-de-cookies.html">Política de cookies</a><button class="privacy-settings-link" type="button" data-open-consent>Configurar cookies</button>
+    </footer>
+    <section class="consent-banner" id="consent-banner" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description" hidden>
+      <div class="consent-card">
+        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube y Google Maps. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
+        <div class="consent-actions"><button type="button" data-consent-action="accept">Aceptar todas</button><button type="button" data-consent-action="reject">Rechazar opcionales</button><button type="button" class="secondary" data-consent-action="configure">Configurar cookies</button></div>
+        <form class="consent-preferences" id="consent-preferences" hidden><p>Las cookies técnicas son necesarias para guardar estas preferencias. Las demás opciones empiezan desactivadas.</p><label class="consent-option"><input type="checkbox" checked disabled><span><strong>Técnicas o necesarias</strong><small>Funcionamiento básico y almacenamiento de tu elección.</small></span><em>Siempre activas</em></label><label class="consent-option"><input type="checkbox" name="preferences"><span><strong>Preferencias</strong><small>Recordar ajustes opcionales del sitio.</small></span></label><label class="consent-option"><input type="checkbox" name="analytics"><span><strong>Analítica</strong><small>Medición de uso mediante las etiquetas de Google configuradas en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="marketing"><span><strong>Marketing y publicidad</strong><small>Etiquetas de publicidad que pudieran configurarse en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="instagram"><span><strong>Instagram / Meta</strong><small>Cargar publicaciones incrustadas; puede implicar conexiones y tecnologías de Meta.</small></span></label><label class="consent-option"><input type="checkbox" name="youtube"><span><strong>YouTube</strong><small>Cargar el vídeo incrustado mediante youtube-nocookie.com.</small></span></label><label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo de Google.</small></span></label><div class="consent-actions"><button type="submit">Guardar selección</button><button type="button" class="secondary" data-consent-action="reject">Rechazar opcionales</button></div></form>
+      </div>
+    </section>
+  </body>
+</html>

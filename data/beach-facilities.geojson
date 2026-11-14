@@ -1,0 +1,79 @@
+{
+  "type": "FeatureCollection",
+  "name": "Las Alcaravaneras beach services",
+  "metadata": {
+    "coordinateOrder": "longitude, latitude",
+    "accuracy": "Features tagged in OpenStreetMap use their mapped node positions. Municipal services without a corresponding OSM object remain approximate.",
+    "sources": [
+      "OpenStreetMap contributors, nodes 10652144281, 11407573192, 4583581792, 4836934722, 5034162669, 5034162670, 5035071178, 5072576724, and 4228110891; retrieved 2026-11-14. https://www.openstreetmap.org/copyright",
+      "Las Palmas de Gran Canaria City Council, Las Alcaravaneras information and services pages",
+      "City Council beach information panel, used as a factual reference only"
+    ]
+  },
+  "features": [
+    {
+      "type": "Feature", "id": "lifeguard-south", "geometry": { "type": "Point", "coordinates": [-15.4291347, 28.130831] },
+      "properties": { "category": "safety", "icon": "rescue", "name": { "es": "Socorrismo", "en": "Lifeguard" }, "description": { "es": "Punto de socorrismo mapeado en OpenStreetMap.", "en": "Lifeguard point mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/10652144281", "provenance": "OpenStreetMap node tagged emergency=lifeguard; source=survey." }
+    },
+    {
+      "type": "Feature", "id": "lifeguard-base", "geometry": { "type": "Point", "coordinates": [-15.4295952, 28.1319118] },
+      "properties": { "category": "safety", "icon": "rescue", "name": { "es": "Base de socorrismo", "en": "Lifeguard base" }, "description": { "es": "Base de socorrismo mapeada en OpenStreetMap.", "en": "Lifeguard base mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/11407573192", "provenance": "OpenStreetMap node tagged emergency=lifeguard and lifeguard=base; source=survey." }
+    },
+    {
+      "type": "Feature", "id": "prm-access", "geometry": { "type": "Point", "coordinates": [-15.42955, 28.13235] },
+      "properties": { "category": "accessibility", "icon": "access", "name": { "es": "Acceso PMR", "en": "Accessible access" }, "description": { "es": "El cartel municipal señala un acceso para personas con movilidad reducida (PMR). La posición sigue de forma aproximada el símbolo del panel oficial; consulta allí las condiciones de acceso.", "en": "The City Council panel identifies an access point for people with reduced mobility (PRM). Its position follows the official panel approximately; check access conditions on site." }, "accuracy": "approximate", "provenance": "Approximate placement based on the supplied official beach panel and the OSM shoreline; no separate OSM point was found." }
+    },
+    {
+      "type": "Feature", "id": "assisted-bathing", "geometry": { "type": "Point", "coordinates": [-15.42902, 28.13155] },
+      "properties": { "category": "accessibility", "icon": "assist", "name": { "es": "Baño asistido", "en": "Assisted bathing" }, "description": { "es": "La playa dispone de servicio de baño asistido. La posición es aproximada y sigue el símbolo del panel oficial junto al acceso norte.", "en": "Assisted bathing is available at the beach. The approximate position follows the symbol beside the north access in the official panel." }, "accuracy": "approximate", "provenance": "Approximate placement based on the supplied official beach panel and OSM shoreline; no precise OSM point was found." }
+    },
+    {
+      "type": "Feature", "id": "toilets-north", "geometry": { "type": "Point", "coordinates": [-15.4295134, 28.1321722] },
+      "properties": { "category": "facilities", "icon": "toilet", "name": { "es": "Aseos públicos", "en": "Public toilets" }, "description": { "es": "Aseo público en la ubicación mapeada en OpenStreetMap.", "en": "Public toilet at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/4583581792", "provenance": "OpenStreetMap node tagged amenity=toilets." }
+    },
+    {
+      "type": "Feature", "id": "toilets-south", "geometry": { "type": "Point", "coordinates": [-15.4284807, 28.12769] },
+      "properties": { "category": "facilities", "icon": "toilet", "name": { "es": "Aseos públicos", "en": "Public toilets" }, "description": { "es": "Aseo público en la ubicación mapeada en OpenStreetMap.", "en": "Public toilet at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/4836934722", "provenance": "OpenStreetMap node tagged amenity=toilets." }
+    },
+    {
+      "type": "Feature", "id": "shower-south", "geometry": { "type": "Point", "coordinates": [-15.4294827, 28.1295128] },
+      "properties": { "category": "facilities", "icon": "shower", "name": { "es": "Duchas", "en": "Showers" }, "description": { "es": "Ducha pública en la ubicación mapeada en OpenStreetMap.", "en": "Public shower at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/5034162669", "provenance": "OpenStreetMap node tagged amenity=shower." }
+    },
+    {
+      "type": "Feature", "id": "shower-central", "geometry": { "type": "Point", "coordinates": [-15.4294436, 28.1307861] },
+      "properties": { "category": "facilities", "icon": "shower", "name": { "es": "Duchas", "en": "Showers" }, "description": { "es": "Ducha pública en la ubicación mapeada en OpenStreetMap.", "en": "Public shower at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/5034162670", "provenance": "OpenStreetMap node tagged amenity=shower." }
+    },
+    {
+      "type": "Feature", "id": "shower-north-1", "geometry": { "type": "Point", "coordinates": [-15.4293718, 28.1321425] },
+      "properties": { "category": "facilities", "icon": "shower", "name": { "es": "Duchas", "en": "Showers" }, "description": { "es": "Ducha pública en la ubicación mapeada en OpenStreetMap.", "en": "Public shower at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/5035071178", "provenance": "OpenStreetMap node tagged amenity=shower." }
+    },
+    {
+      "type": "Feature", "id": "shower-north-2", "geometry": { "type": "Point", "coordinates": [-15.4295838, 28.1321817] },
+      "properties": { "category": "facilities", "icon": "shower", "name": { "es": "Duchas", "en": "Showers" }, "description": { "es": "Ducha pública en la ubicación mapeada en OpenStreetMap.", "en": "Public shower at the location mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/5072576724", "provenance": "OpenStreetMap node tagged amenity=shower." }
+    },
+    {
+      "type": "Feature", "id": "playground", "geometry": { "type": "Point", "coordinates": [-15.4293661, 28.1323652] },
+      "properties": { "category": "family", "icon": "playground", "name": { "es": "Juegos infantiles", "en": "Children’s playground" }, "description": { "es": "Zona de juegos infantiles mapeada en OpenStreetMap.", "en": "Children’s playground mapped in OpenStreetMap." }, "accuracy": "mapped_osm", "osm": "node/4228110891", "provenance": "OpenStreetMap node tagged leisure=playground." }
+    },
+    {
+      "type": "Feature", "id": "beach-volleyball-marker", "geometry": { "type": "Point", "coordinates": [-15.42928985, 28.13162065] },
+      "properties": { "category": "sports", "icon": "sports", "name": { "es": "Vóley playa", "en": "Beach volleyball" }, "description": { "es": "El marcador señala el centro aproximado de la pista delimitada en OpenStreetMap.", "en": "The marker indicates the approximate center of the court mapped in OpenStreetMap." }, "accuracy": "approximate", "osm": "way/1151366367", "provenance": "Marker position derived from the center of the OSM-mapped beach volleyball pitch." }
+    },
+    {
+      "type": "Feature", "id": "sports-area", "geometry": { "type": "Point", "coordinates": [-15.42915, 28.13025] },
+      "properties": { "category": "sports", "icon": "sports", "name": { "es": "Fútbol playa", "en": "Beach soccer" }, "description": { "es": "Zona de fútbol sobre la arena, situada entre las calles Alfredo Calderón e Ingeniero Salinas y entre los puntos de duchas mapeados. La posición es aproximada.", "en": "Beach soccer area between Alfredo Calderón and Ingeniero Salinas streets and between the mapped shower points. Position is approximate." }, "accuracy": "approximate", "provenance": "Approximate location based on the user’s correction, OSM street geometry, mapped shower points, and OSM beach outline." }
+    },
+    {
+      "type": "Feature", "id": "swimming", "geometry": { "type": "Point", "coordinates": [-15.42775, 28.13030] },
+      "properties": { "category": "water", "icon": "swim", "name": { "es": "Nado", "en": "Swimming" }, "description": { "es": "Actividad indicada en el panel oficial. El icono señala de forma aproximada el agua frente a la playa y no delimita una zona de baño.", "en": "Activity identified in the official panel. The icon approximately marks the water off the beach and does not define a bathing area." }, "accuracy": "approximate", "provenance": "Approximate water-side point based on the supplied official beach panel and OSM beach outline; no swim boundary is mapped in OSM." }
+    },
+    {
+      "type": "Feature", "id": "diving", "geometry": { "type": "Point", "coordinates": [-15.42780, 28.13115] },
+      "properties": { "category": "water", "icon": "dive", "name": { "es": "Buceo", "en": "Diving" }, "description": { "es": "Actividad indicada en el panel oficial. El icono se coloca de forma aproximada sobre el agua y no delimita una zona de buceo.", "en": "Activity identified in the official panel. The icon is placed approximately on the water and does not define a diving area." }, "accuracy": "approximate", "provenance": "Approximate water-side point based on the supplied official beach panel and OSM beach outline; no diving boundary is mapped in OSM." }
+    },
+    {
+      "type": "Feature", "id": "canoeing-area-marker", "geometry": { "type": "Point", "coordinates": [-15.4280229, 28.1295803] },
+      "properties": { "category": "water", "icon": "kayak", "name": { "es": "Área de piragüismo", "en": "Canoeing area" }, "description": { "es": "El icono marca el centro aproximado del polígono sport=canoe de OpenStreetMap; no señala un punto de entrada al agua.", "en": "The icon marks the approximate center of the OpenStreetMap sport=canoe polygon; it is not a water entry point." }, "accuracy": "approximate", "osm": "way/1151366368", "provenance": "Marker position derived from the center of the OSM-mapped canoe polygon." }
+    }
+  ]
+}
