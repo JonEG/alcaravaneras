@@ -176,11 +176,14 @@
   });
 
   const fullscreenButton = document.getElementById("beach-map-fullscreen");
+  const exitFullscreenButton = document.getElementById("beach-map-exit-fullscreen");
   const shell = document.getElementById("beach-map-shell");
   function updateFullscreenButton() {
     const full = document.fullscreenElement === shell || shell.classList.contains("is-fullscreen-fallback");
-    fullscreenButton.textContent = full ? labels.exitFullscreen : labels.fullscreen;
-    fullscreenButton.setAttribute("aria-label", fullscreenButton.textContent);
+    fullscreenButton.textContent = labels.fullscreen;
+    fullscreenButton.setAttribute("aria-label", labels.fullscreen);
+    exitFullscreenButton.textContent = labels.exitFullscreen;
+    exitFullscreenButton.hidden = !full;
     window.setTimeout(() => map.invalidateSize(), 80);
   }
   fullscreenButton.addEventListener("click", async () => {
@@ -190,6 +193,15 @@
       else shell.classList.toggle("is-fullscreen-fallback");
     } catch (error) {
       shell.classList.toggle("is-fullscreen-fallback");
+    }
+    updateFullscreenButton();
+  });
+  exitFullscreenButton.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement === shell) await document.exitFullscreen();
+      else shell.classList.remove("is-fullscreen-fallback");
+    } catch (error) {
+      shell.classList.remove("is-fullscreen-fallback");
     }
     updateFullscreenButton();
   });
