@@ -117,7 +117,8 @@
     const description = textFor(properties.description);
     const approximate = properties.accuracy === "approximate";
     const markerIcon = L.divIcon({ className: "", html: '<span class="facility-marker category-' + escapeHtml(properties.category) + ' icon-' + escapeHtml(properties.icon) + '">' + svgIcon(properties.icon, "") + "</span>", iconSize: [38, 38], iconAnchor: [19, 19], popupAnchor: [0, -17] });
-    const marker = L.marker(latlng, { icon: markerIcon, title: title, alt: title, keyboard: true });
+    const priority = properties.category === "safety" || properties.category === "accessibility" ? 10000 : 0;
+    const marker = L.marker(latlng, { icon: markerIcon, title: title, alt: title, keyboard: true, zIndexOffset: priority });
     marker.bindPopup('<p class="beach-popup-category">' + escapeHtml(categoryName(properties.category)) + '</p><h3 class="beach-popup-title">' + escapeHtml(title) + '</h3><p class="beach-popup-description">' + escapeHtml(description) + (approximate ? '</p><span class="beach-popup-approx">' + escapeHtml(labels.approximate) + "</span>" : "</p>"), { minWidth: 190, maxWidth: 270, closeButton: true, autoPanPadding: [20, 25] });
     if (!categoryLayers[properties.category]) {
       categoryLayers[properties.category] = L.featureGroup();
