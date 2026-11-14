@@ -23,14 +23,14 @@
     <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles.css">
-    <script src="privacy-consent.js?v=consent-1" defer></script>
+    <script src="privacy-consent.js?v=consent-2" defer></script>
   </head>
   <body>
     <main class="privacy-policy">
       <a href="index.html">← Volver a Las Alcaravaneras</a>
       <p class="eyebrow">Privacidad</p>
       <h1>Política de cookies</h1>
-      <p><strong>Última actualización:</strong> 10 de noviembre de 2026.</p>
+      <p><strong>Última actualización:</strong> 14 de noviembre de 2026.</p>
       <h2>Qué son las cookies</h2>
       <p>Las cookies son pequeños datos que un sitio puede guardar o leer en el navegador. También pueden utilizarse tecnologías similares, como el almacenamiento local. Esta página describe las conexiones y el almacenamiento que se han podido comprobar en el código del sitio; el navegador y los proveedores externos pueden cambiar su comportamiento.</p>
 
@@ -59,6 +59,9 @@
       <h3>Google Maps</h3>
       <p>El mapa interactivo está bloqueado hasta que autorizas Google Maps. El código no carga el <code>iframe</code> ni solicita su URL antes de esa elección. Google recibe la solicitud cuando se carga el mapa. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">política de privacidad de Google</a>.</p>
 
+      <h3>Mapa interactivo (OpenStreetMap)</h3>
+      <p>El mapa de servicios permanece bloqueado hasta que autorizas esta categoría. Antes de aceptar, no se carga Leaflet desde el CDN de unpkg ni se solicitan mosaicos a OpenStreetMap. Al activarlo, esos proveedores reciben la dirección IP y datos técnicos de la solicitud. Si retiras el permiso, se oculta el mapa y se detienen las solicitudes futuras de mosaicos; no se pueden deshacer las conexiones ya realizadas. Consulta la <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noreferrer">política de privacidad de OpenStreetMap</a>.</p>
+
       <h2>Solicitudes necesarias para mostrar la información</h2>
       <p>Al abrir la página, el navegador solicita datos meteorológicos y marinos a Open‑Meteo y datos de calidad del agua a la Agencia Europea de Medio Ambiente (EEA). Estas peticiones son necesarias para presentar las previsiones y datos que ofrece la página y transmiten datos técnicos de conexión, como la dirección IP. El sitio también carga los archivos de datos de calidad del agua alojados junto con la propia página. No son etiquetas de analítica. Consulta la <a href="https://open-meteo.com/en/terms" target="_blank" rel="noreferrer">información de Open‑Meteo</a> y la <a href="https://www.eea.europa.eu/en/legal-notice" target="_blank" rel="noreferrer">información legal de la EEA</a>.</p>
       <p>Los enlaces a páginas externas solo se abren cuando los seleccionas. El código no contiene una conexión a Google Analytics independiente de GTM.</p>
@@ -71,7 +74,7 @@
     </main>
     <section class="consent-banner" id="consent-banner" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description" hidden>
       <div class="consent-card">
-        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube y Google Maps. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
+        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube, Google Maps y OpenStreetMap. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
         <div class="consent-actions"><button type="button" data-consent-action="accept">Aceptar todas</button><button type="button" data-consent-action="reject">Rechazar opcionales</button><button type="button" class="secondary" data-consent-action="configure">Configurar cookies</button></div>
         <form class="consent-preferences" id="consent-preferences" hidden>
           <p>Las cookies técnicas son necesarias para guardar estas preferencias. Las demás opciones empiezan desactivadas.</p>
@@ -81,7 +84,7 @@
           <label class="consent-option"><input type="checkbox" name="marketing"><span><strong>Marketing y publicidad</strong><small>Etiquetas de publicidad que pudieran configurarse en GTM.</small></span></label>
           <label class="consent-option"><input type="checkbox" name="instagram"><span><strong>Instagram / Meta</strong><small>Cargar publicaciones incrustadas y tecnologías asociadas.</small></span></label>
           <label class="consent-option"><input type="checkbox" name="youtube"><span><strong>YouTube</strong><small>Cargar el vídeo incrustado.</small></span></label>
-          <label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo.</small></span></label>
+          <label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo.</small></span></label><label class="consent-option"><input type="checkbox" name="openstreetmap"><span><strong>Mapa interactivo (OpenStreetMap)</strong><small>Cargar Leaflet desde un CDN y mosaicos del mapa desde OpenStreetMap.</small></span></label>
           <div class="consent-actions"><button type="submit">Guardar selección</button><button type="button" class="secondary" data-consent-action="reject">Rechazar opcionales</button></div>
         </form>
       </div>

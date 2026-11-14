@@ -16,12 +16,10 @@
     <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
     <link rel="stylesheet" href="maps/beach-map.css">
-    <script src="privacy-consent.js?v=consent-1" defer></script>
+    <script src="privacy-consent.js?v=consent-2" defer></script>
     <script src="script.js?v=beach-services-1" defer></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
-    <script src="maps/beach-map.js?v=1" defer></script>
+    <script src="maps/beach-map.js?v=2" defer></script>
   </head>
   <body class="content-page" data-page="beach-services">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -75,7 +73,15 @@
               </details>
             </aside>
             <div class="beach-map-shell" id="beach-map-shell">
-              <div id="alcaravaneras-beach-map" role="region" aria-label="Mapa interactivo de servicios y zonas de la playa de Las Alcaravaneras" tabindex="0"></div>
+              <div class="beach-map-consent" id="beach-map-consent" aria-describedby="beach-map-consent-description">
+                <p id="beach-map-consent-description">El mapa interactivo se carga desde OpenStreetMap. Al activarlo, tu navegador solicitará archivos de Leaflet a un CDN y mosaicos del mapa a OpenStreetMap; se compartirán tu dirección IP y datos técnicos. Consulta la <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noreferrer">política de privacidad de OpenStreetMap</a>.</p>
+                <div class="video-consent-actions">
+                  <button type="button" data-accept-category="openstreetmap">Aceptar y cargar mapa</button>
+                  <button class="video-consent-reject" type="button" data-reject-category="openstreetmap">Seguir sin cargar</button>
+                  <button class="beach-map-settings" type="button" data-open-consent>Ajustes de cookies</button>
+                </div>
+              </div>
+              <div id="alcaravaneras-beach-map" role="region" aria-label="Mapa interactivo de servicios y zonas de la playa de Las Alcaravaneras" tabindex="0" hidden></div>
               <p class="beach-map-status" id="beach-map-status" role="status" aria-live="polite"></p>
             </div>
           </div>
@@ -128,9 +134,9 @@
     </footer>
     <section class="consent-banner" id="consent-banner" role="dialog" aria-modal="true" aria-labelledby="consent-title" aria-describedby="consent-description" hidden>
       <div class="consent-card">
-        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube y Google Maps. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
+        <div class="consent-copy"><p class="eyebrow">Privacidad</p><h2 id="consent-title">Tu privacidad importa</h2><p id="consent-description">Utilizamos almacenamiento técnico para que esta web funcione y, con tu permiso, analítica y contenido de Instagram, YouTube, Google Maps y OpenStreetMap. Puedes aceptar, rechazar o configurar cada uso.</p><a href="politica-de-cookies.html">Lee la política de cookies</a></div>
         <div class="consent-actions"><button type="button" data-consent-action="accept">Aceptar todas</button><button type="button" data-consent-action="reject">Rechazar opcionales</button><button type="button" class="secondary" data-consent-action="configure">Configurar cookies</button></div>
-        <form class="consent-preferences" id="consent-preferences" hidden><p>Las cookies técnicas son necesarias para guardar estas preferencias. Las demás opciones empiezan desactivadas.</p><label class="consent-option"><input type="checkbox" checked disabled><span><strong>Técnicas o necesarias</strong><small>Funcionamiento básico y almacenamiento de tu elección.</small></span><em>Siempre activas</em></label><label class="consent-option"><input type="checkbox" name="preferences"><span><strong>Preferencias</strong><small>Recordar ajustes opcionales del sitio.</small></span></label><label class="consent-option"><input type="checkbox" name="analytics"><span><strong>Analítica</strong><small>Medición de uso mediante las etiquetas de Google configuradas en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="marketing"><span><strong>Marketing y publicidad</strong><small>Etiquetas de publicidad que pudieran configurarse en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="instagram"><span><strong>Instagram / Meta</strong><small>Cargar publicaciones incrustadas; puede implicar conexiones y tecnologías de Meta.</small></span></label><label class="consent-option"><input type="checkbox" name="youtube"><span><strong>YouTube</strong><small>Cargar el vídeo incrustado mediante youtube-nocookie.com.</small></span></label><label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo de Google.</small></span></label><div class="consent-actions"><button type="submit">Guardar selección</button><button type="button" class="secondary" data-consent-action="reject">Rechazar opcionales</button></div></form>
+        <form class="consent-preferences" id="consent-preferences" hidden><p>Las cookies técnicas son necesarias para guardar estas preferencias. Las demás opciones empiezan desactivadas.</p><label class="consent-option"><input type="checkbox" checked disabled><span><strong>Técnicas o necesarias</strong><small>Funcionamiento básico y almacenamiento de tu elección.</small></span><em>Siempre activas</em></label><label class="consent-option"><input type="checkbox" name="preferences"><span><strong>Preferencias</strong><small>Recordar ajustes opcionales del sitio.</small></span></label><label class="consent-option"><input type="checkbox" name="analytics"><span><strong>Analítica</strong><small>Medición de uso mediante las etiquetas de Google configuradas en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="marketing"><span><strong>Marketing y publicidad</strong><small>Etiquetas de publicidad que pudieran configurarse en GTM.</small></span></label><label class="consent-option"><input type="checkbox" name="instagram"><span><strong>Instagram / Meta</strong><small>Cargar publicaciones incrustadas; puede implicar conexiones y tecnologías de Meta.</small></span></label><label class="consent-option"><input type="checkbox" name="youtube"><span><strong>YouTube</strong><small>Cargar el vídeo incrustado mediante youtube-nocookie.com.</small></span></label><label class="consent-option"><input type="checkbox" name="maps"><span><strong>Google Maps</strong><small>Cargar el mapa interactivo de Google.</small></span></label><label class="consent-option"><input type="checkbox" name="openstreetmap"><span><strong>Mapa interactivo (OpenStreetMap)</strong><small>Cargar Leaflet desde un CDN y mosaicos del mapa desde OpenStreetMap.</small></span></label><div class="consent-actions"><button type="submit">Guardar selección</button><button type="button" class="secondary" data-consent-action="reject">Rechazar opcionales</button></div></form>
       </div>
     </section>
   </body>

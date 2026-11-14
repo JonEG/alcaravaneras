@@ -2,8 +2,60 @@
   "use strict";
 
   const mapElement = document.getElementById("alcaravaneras-beach-map");
-  if (!mapElement || !window.L) return;
+  const consentPlaceholder = document.getElementById("beach-map-consent");
+  const mapStatus = document.getElementById("beach-map-status");
+  if (!mapElement || !consentPlaceholder) return;
 
+  let activeMap = null;
+  let activeTileLayer = null;
+  let leafletPromise = null;
+
+  function loadLeaflet() {
+    if (window.L) return Promise.resolve();
+    if (leafletPromise) return leafletPromise;
+    leafletPromise = new Promise((resolve, reject) => {
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+      stylesheet.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";
+      stylesheet.crossOrigin = "";
+      document.head.append(stylesheet);
+
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+      script.integrity = "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";
+      script.crossOrigin = "";
+      script.onload = resolve;
+      script.onerror = () => reject(new Error("leaflet"));
+      document.head.append(script);
+    });
+    return leafletPromise;
+  }
+
+  function disableMap() {
+    if (activeTileLayer) activeTileLayer.remove();
+    mapElement.hidden = true;
+    consentPlaceholder.hidden = false;
+  }
+
+  function enableMap() {
+    if (!window.AlcaravanerasConsent?.has("openstreetmap")) return;
+    if (activeMap) {
+      mapElement.hidden = false;
+      consentPlaceholder.hidden = true;
+      activeTileLayer?.addTo(activeMap);
+      window.setTimeout(() => activeMap.invalidateSize(), 80);
+      return;
+    }
+    loadLeaflet().then(initializeMap).catch(() => {
+      consentPlaceholder.hidden = false;
+      mapStatus.textContent = "No se pudo cargar el mapa. Comprueba tu conexión o inténtalo más tarde.";
+      leafletPromise = null;
+    });
+  }
+
+  function initializeMap() {
+  if (activeMap || !window.L || !window.AlcaravanerasConsent?.has("openstreetmap")) return;
   const language = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "es";
   const labels = {
     es: { safety: "Seguridad", accessibility: "Accesibilidad", facilities: "Servicios", family: "Parque", sports: "Deportes", water: "Actividades acuáticas", approximate: "Ubicación aproximada", osmSource: "Geometría de OpenStreetMap", tileError: "No se pudieron cargar algunos mosaicos del mapa. Comprueba tu conexión o inténtalo más tarde.", dataError: "No se pudo cargar la información del mapa.", fullscreen: "Pantalla completa", exitFullscreen: "Salir de pantalla completa", mapTitle: "Mapa interactivo de servicios de la playa de Las Alcaravaneras", zones: { beach: "Arenal", beachvolleyball: "Vóley playa", canoeing: "Piragüismo" } },
@@ -45,13 +97,15 @@
     return labels[category] || labels.water;
   }
 
-  const map = L.map(mapElement, { center: [28.1310, -15.428721], zoom: 17, scrollWheelZoom: false, zoomControl: true, attributionControl: true });
-  L.tileLayer(tileUrl, {
+  mapElement.hidden = false;
+  consentPlaceholder.hidden = true;
+  const map = activeMap = L.map(mapElement, { center: [28.1310, -15.428721], zoom: 17, scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+  activeTileLayer = L.tileLayer(tileUrl, {
     maxZoom: 20,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a>',
     crossOrigin: true,
   }).addTo(map).on("tileerror", function () {
-    document.getElementById("beach-map-status").textContent = labels.tileError;
+    mapStatus.textContent = labels.tileError;
   });
 
   const categoryLayers = {};
@@ -149,4 +203,12 @@
   });
   window.addEventListener("resize", () => map.invalidateSize({ debounceMoveend: true }));
   window.setTimeout(() => map.invalidateSize(), 250);
+  }
+
+  document.addEventListener("site-consent-change", (event) => {
+    if (event.detail?.openstreetmap) enableMap();
+    else disableMap();
+  });
+  if (window.AlcaravanerasConsent?.has("openstreetmap")) enableMap();
+  else disableMap();
 })();

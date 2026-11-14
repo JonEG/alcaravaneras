@@ -1,10 +1,10 @@
 (() => {
   "use strict";
 
-  const POLICY_VERSION = "2026-11-10.1";
+  const POLICY_VERSION = "2026-11-14.1";
   const CONSENT_KEY = "alcaravaneras.consent";
   const GTM_ID = "GTM-MM258425";
-  const EMPTY = { preferences: false, analytics: false, marketing: false, instagram: false, youtube: false, maps: false };
+  const EMPTY = { preferences: false, analytics: false, marketing: false, instagram: false, youtube: false, maps: false, openstreetmap: false };
   const banner = document.getElementById("consent-banner");
   const form = document.getElementById("consent-preferences");
   let consent = readConsent();
