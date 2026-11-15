@@ -1,10 +1,10 @@
 {
   "source": "Open-Meteo",
-  "updatedAt": "2026-11-15T14:49:43+00:00",
+  "updatedAt": "2026-11-15T20:25:41+00:00",
   "data": {
     "latitude": 28.125,
     "longitude": -15.2916565,
-    "generationtime_ms": 0.13327598571777344,
+    "generationtime_ms": 0.3343820571899414,
     "utc_offset_seconds": 0,
     "timezone": "Atlantic/Canary",
     "timezone_abbreviation": "GMT",
@@ -16,10 +16,10 @@
       "sea_surface_temperature": "°C"
     },
     "current": {
-      "time": "2026-11-15T14:45",
+      "time": "2026-11-15T20:15",
       "interval": 900,
-      "sea_level_height_msl": -0.01,
-      "sea_surface_temperature": 23.9
+      "sea_level_height_msl": -0.46,
+      "sea_surface_temperature": 23.8
     },
     "hourly_units": {
       "time": "iso8601",
