@@ -737,11 +737,11 @@ document.addEventListener("site-consent-change", (event) => {
   const choices = event.detail;
   const instagramPanel = $("instagram-consent");
   const instagramControls = $("instagram-controls");
-  if (choices.instagram) {
+  if (instagramPanel && instagramControls && choices.instagram) {
     instagramPanel.hidden = true;
     instagramControls.hidden = true;
     loadInstagramPosts();
-  } else {
+  } else if (instagramPanel && instagramControls) {
     document.querySelectorAll("[data-instagram-post]").forEach(restoreInstagramLink);
     instagramPanel.hidden = false;
     instagramControls.hidden = true;
@@ -750,7 +750,7 @@ document.addEventListener("site-consent-change", (event) => {
   const youtubePanel = $("youtube-consent");
   const youtubeControls = $("youtube-controls");
   const player = $("youtube-player");
-  if (choices.youtube) {
+  if (youtubePanel && youtubeControls && player && choices.youtube) {
     youtubePanel.hidden = true;
     youtubeControls.hidden = true;
     if (!player.querySelector("iframe")) {
@@ -764,11 +764,35 @@ document.addEventListener("site-consent-change", (event) => {
       player.replaceChildren(frame);
       player.hidden = false;
     }
-  } else {
+  } else if (youtubePanel && youtubeControls && player) {
     player.replaceChildren();
     player.hidden = true;
     youtubePanel.hidden = false;
     youtubeControls.hidden = true;
+  }
+
+  const facebookPanel = $("facebook-consent");
+  const facebookPlayer = $("facebook-player");
+  if (!facebookPanel || !facebookPlayer) return;
+  if (choices.facebook) {
+    facebookPanel.hidden = true;
+    const frame = document.createElement("iframe");
+    const videoUrl = new URL("https://www.facebook.com/plugins/video.php");
+    videoUrl.searchParams.set("href", "https://www.facebook.com/reel/925329129940031/");
+    videoUrl.searchParams.set("show_text", "false");
+    videoUrl.searchParams.set("width", "420");
+    frame.src = videoUrl.toString();
+    frame.title = "Vídeo de la playa de Las Alcaravaneras en Facebook";
+    frame.loading = "lazy";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+    frame.setAttribute("allowfullscreen", "");
+    facebookPlayer.replaceChildren(frame);
+    facebookPlayer.hidden = false;
+  } else {
+    facebookPlayer.replaceChildren();
+    facebookPlayer.hidden = true;
+    facebookPanel.hidden = false;
   }
 });
 
@@ -801,4 +825,16 @@ if ($("water-quality-status")) loadBathingWaterQuality();
 if ($("water-samples") || $("summary-water-quality")) loadWaterSamples();
 if ($("youtube-consent")) initializeYoutubeConsent();
 if ($("instagram-consent")) initializeInstagramConsent();
+if ($("facebook-consent")) {
+  const panel = $("facebook-consent");
+  const player = $("facebook-player");
+  const consent = window.AlcaravanerasConsent;
+  if (consent?.has("facebook")) {
+    document.dispatchEvent(new CustomEvent("site-consent-change", { detail: { facebook: true } }));
+  }
+  if (!consent?.has("facebook")) {
+    panel.hidden = false;
+    player.hidden = true;
+  }
+}
 if ($("tide-chart")) bindTideHover();
