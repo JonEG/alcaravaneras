@@ -41,18 +41,6 @@
               "addressRegion": "Canarias",
               "addressCountry": "ES"
             }
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": "https://www.alcaravaneras.com/#breadcrumb",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Inicio",
-                "item": "https://www.alcaravaneras.com/"
-              }
-            ]
           }
         ]
       }
@@ -101,8 +89,29 @@
       <a class="wordmark" href="#inicio">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
       <nav id="site-nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a href="servicios.html">Servicios</a><a href="accesibilidad-playa.html">Accesibilidad</a>
-      </nav>
+  <ul class="site-nav-list">
+    <li><a href="#inicio" aria-current="page">Inicio</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Condiciones de la playa</summary>
+      <ul class="nav-group-panel">
+        <li><a href="tiempo.html">El tiempo</a></li>
+        <li><a href="viento.html">Viento</a></li>
+        <li><a href="mareas.html">Mareas</a></li>
+        <li><a href="temperatura-agua.html">Temperatura del agua</a></li>
+        <li><a href="calidad-agua.html">Calidad del agua</a></li>
+      </ul>
+    </details></li>
+    <li><a href="playa.html">La playa</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Servicios</summary>
+      <ul class="nav-group-panel">
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="accesibilidad-playa.html">Accesibilidad</a></li>
+        <li><a href="socorrismo.html">Socorrismo</a></li>
+      </ul>
+    </details></li>
+  </ul>
+</nav>
     </header>
 
     <main id="contenido" tabindex="-1">

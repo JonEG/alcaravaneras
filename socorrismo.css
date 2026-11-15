@@ -1,6 +1,3 @@
-.page-breadcrumbs{display:flex;flex-wrap:wrap;align-items:center;gap:9px;width:min(1120px,84vw);margin:0 auto;padding:16px 0;color:#53625b;font-size:11px}
-.page-breadcrumbs a{text-underline-offset:3px}
-.page-breadcrumbs [aria-current="page"]{font-weight:700}
 .lifeguard-overview{padding-top:48px;padding-bottom:52px}
 .lifeguard-overview .beach-guide-copy h2{max-width:800px}
 .lifeguard-overview .beach-guide-copy p:last-child{font-size:11px}
@@ -37,6 +34,6 @@
 .lifeguard-plan .primary-link{flex:none}
 .lifeguard-back-link{margin:25px 0 0;font-size:12px}
 .lifeguard-back-link a{text-underline-offset:3px}
-.page-breadcrumbs a:focus-visible,.lifeguard-back-link a:focus-visible,.schedule-table-wrap:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.lifeguard-back-link a:focus-visible,.schedule-table-wrap:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
 @media(max-width:760px){.beach-flag-list{grid-template-columns:1fr}.beach-flag-card{min-height:0}.beach-safety ul{grid-template-columns:1fr}.lifeguard-plan .location-card{align-items:flex-start}.lifeguard-plan .primary-link{white-space:normal}}
-@media(max-width:620px){.page-breadcrumbs{width:88vw;padding:12px 0;font-size:10px}.lifeguard-overview{padding:39px 0 42px}.lifeguard-table{min-width:500px}.lifeguard-table th,.lifeguard-table td{padding:12px 13px}.beach-flags-section{padding:48px 0 52px}.beach-flag-card{grid-template-columns:64px minmax(0,1fr);gap:12px;padding:15px}.beach-flag-illustration{width:64px;height:60px}.beach-flag-card h3{font-size:13px}.beach-flag-card p{font-size:10px}.beach-safety ul{font-size:12px}.lifeguard-plan .location-card{gap:14px}}
+@media(max-width:620px){.lifeguard-overview{padding:39px 0 42px}.lifeguard-table{min-width:500px}.lifeguard-table th,.lifeguard-table td{padding:12px 13px}.beach-flags-section{padding:48px 0 52px}.beach-flag-card{grid-template-columns:64px minmax(0,1fr);gap:12px;padding:15px}.beach-flag-illustration{width:64px;height:60px}.beach-flag-card h3{font-size:13px}.beach-flag-card p{font-size:10px}.beach-safety ul{font-size:12px}.lifeguard-plan .location-card{gap:14px}}

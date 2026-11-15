@@ -21,6 +21,7 @@
     <script src="script.js?v=facebook-video-1" defer></script>
     <script src="maps/beach-map.js?v=2" defer></script>
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <script src="breadcrumbs.js?v=1" defer></script>
   </head>
   <body class="content-page" data-page="beach-services">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -28,8 +29,29 @@
       <a class="wordmark" href="index.html">Las Alcaravaneras</a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
       <nav id="site-nav" aria-label="Navegación principal">
-        <a href="index.html">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a aria-current="page" href="servicios.html">Servicios</a><a href="accesibilidad-playa.html">Accesibilidad</a>
-      </nav>
+  <ul class="site-nav-list">
+    <li><a href="index.html">Inicio</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Condiciones de la playa</summary>
+      <ul class="nav-group-panel">
+        <li><a href="tiempo.html">El tiempo</a></li>
+        <li><a href="viento.html">Viento</a></li>
+        <li><a href="mareas.html">Mareas</a></li>
+        <li><a href="temperatura-agua.html">Temperatura del agua</a></li>
+        <li><a href="calidad-agua.html">Calidad del agua</a></li>
+      </ul>
+    </details></li>
+    <li><a href="playa.html">La playa</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Servicios</summary>
+      <ul class="nav-group-panel">
+        <li><a href="servicios.html" aria-current="page">Servicios</a></li>
+        <li><a href="accesibilidad-playa.html">Accesibilidad</a></li>
+        <li><a href="socorrismo.html">Socorrismo</a></li>
+      </ul>
+    </details></li>
+  </ul>
+</nav>
     </header>
     <main id="contenido" tabindex="-1">
       <section class="page-hero" aria-labelledby="page-title">
@@ -89,6 +111,13 @@
           </div>
           <p class="beach-map-note">El arenal, vóley playa y piragüismo proceden de geometrías de OpenStreetMap. Nado y buceo se muestran solo con iconos aproximados sobre el agua; no se dibujan zonas ni límites porque OSM no los proporciona. Los iconos no representan áreas oficiales de seguridad. Sigue siempre la señalización y las indicaciones del personal de salvamento.</p>
           <p class="beach-map-note"><a class="beach-map-link" href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener noreferrer">Informar de un problema del mapa</a> · <a class="beach-map-link" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">Licencia y atribución de OpenStreetMap</a></p>
+        </div>
+      </section>
+
+      <section class="page-content page-content-muted" aria-labelledby="accessibility-page-title">
+        <div class="content-wrap">
+          <div class="section-heading"><div><p class="eyebrow">Accesibilidad</p><h2 id="accessibility-page-title">Accesibilidad en la playa</h2><p class="section-description">Consulta la información sobre accesos PMR, pasarelas y cómo confirmar la disponibilidad del baño asistido.</p></div></div>
+          <a class="primary-link" href="accesibilidad-playa.html">Ver información de accesibilidad →</a>
         </div>
       </section>
 

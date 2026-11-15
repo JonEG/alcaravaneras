@@ -25,15 +25,38 @@
         "@context": "https://schema.org",
         "@graph": [
           {"@type":"Beach","@id":"https://www.alcaravaneras.com/#beach","name":"Playa de Las Alcaravaneras","url":"https://www.alcaravaneras.com/playa.html","publicAccess":true,"isAccessibleForFree":true,"geo":{"@type":"GeoCoordinates","latitude":28.1167,"longitude":-15.4167},"address":{"@type":"PostalAddress","addressLocality":"Las Palmas de Gran Canaria","addressRegion":"Canarias","addressCountry":"ES"}},
-          {"@type":"WebPage","name":"Accesibilidad en la playa de Las Alcaravaneras","url":"https://www.alcaravaneras.com/accesibilidad-playa.html","about":{"@id":"https://www.alcaravaneras.com/#beach"},"inLanguage":"es"},
-          {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://www.alcaravaneras.com/"},{"@type":"ListItem","position":2,"name":"Accesibilidad","item":"https://www.alcaravaneras.com/accesibilidad-playa.html"}]}
+          {"@type":"WebPage","name":"Accesibilidad en la playa de Las Alcaravaneras","url":"https://www.alcaravaneras.com/accesibilidad-playa.html","about":{"@id":"https://www.alcaravaneras.com/#beach"},"inLanguage":"es"}
         ]
       }
     </script>
+    <script src="breadcrumbs.js?v=1" defer></script>
   </head>
   <body class="content-page" data-page="accessibility">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
-    <header class="site-header"><a class="wordmark" href="index.html">Las Alcaravaneras</a><button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button><nav id="site-nav" aria-label="Navegación principal"><a href="index.html">Inicio</a><a href="tiempo.html">El tiempo</a><a href="viento.html">Viento</a><a href="mareas.html">Mareas</a><a href="temperatura-agua.html">Temperatura del agua</a><a href="calidad-agua.html">Calidad del agua</a><a href="playa.html">La playa</a><a href="servicios.html">Servicios</a><a aria-current="page" href="accesibilidad-playa.html">Accesibilidad</a></nav></header>
+    <header class="site-header"><a class="wordmark" href="index.html">Las Alcaravaneras</a><button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button><nav id="site-nav" aria-label="Navegación principal">
+  <ul class="site-nav-list">
+    <li><a href="index.html">Inicio</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Condiciones de la playa</summary>
+      <ul class="nav-group-panel">
+        <li><a href="tiempo.html">El tiempo</a></li>
+        <li><a href="viento.html">Viento</a></li>
+        <li><a href="mareas.html">Mareas</a></li>
+        <li><a href="temperatura-agua.html">Temperatura del agua</a></li>
+        <li><a href="calidad-agua.html">Calidad del agua</a></li>
+      </ul>
+    </details></li>
+    <li><a href="playa.html">La playa</a></li>
+    <li class="nav-group-item"><details class="nav-group">
+      <summary>Servicios</summary>
+      <ul class="nav-group-panel">
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="accesibilidad-playa.html" aria-current="page">Accesibilidad</a></li>
+        <li><a href="socorrismo.html">Socorrismo</a></li>
+      </ul>
+    </details></li>
+  </ul>
+</nav></header>
     <main id="contenido" tabindex="-1">
       <section class="page-hero"><div class="content-wrap"><p class="eyebrow">Guía práctica · Las Palmas de Gran Canaria</p><h1>Accesibilidad en Las Alcaravaneras</h1><p>Accesos PMR, plataformas hasta la orilla y cómo consultar el baño asistido antes de tu visita.</p><a class="page-hero-link" href="#accesos">Ver accesos y servicios ↓</a></div></section>
 
