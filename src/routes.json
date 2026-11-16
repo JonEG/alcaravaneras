@@ -10,6 +10,7 @@
     "servicios.html": {"en": "services.html", "de": "service.html"},
     "accesibilidad-playa.html": {"en": "beach-accessibility.html", "de": "barrierefreiheit.html"},
     "socorrismo.html": {"en": "lifeguards.html", "de": "rettungsschwimmer.html"},
-    "politica-de-cookies.html": {"en": "cookie-policy.html", "de": "cookie-richtlinie.html"}
+    "politica-de-cookies.html": {"en": "cookie-policy.html", "de": "cookie-richtlinie.html"},
+    "historia/origen-nombre-playa-alcaravaneras.html": {"en": "history/origin-of-the-beach-name.html", "de": "geschichte/herkunft-des-strandnamens.html"}
   }
 }

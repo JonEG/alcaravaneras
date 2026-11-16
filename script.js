@@ -705,15 +705,20 @@ function initializeYoutubeConsent() {
   const player = $("youtube-player");
   if (!consent || !loadButton || !rejectButton || !controls || !player) return;
 
-  const loadVideo = () => {
+  const createFrame = (loading) => {
     const iframe = document.createElement("iframe");
-    iframe.src = "https://www.youtube-nocookie.com/embed/_9LTWEetwJY?feature=oembed";
-    iframe.title = t("video.youtubeTitle");
-    iframe.loading = "eager";
+    const videoId = consent.dataset.videoId || "_9LTWEetwJY";
+    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?feature=oembed`;
+    iframe.title = player.getAttribute("aria-label") || t("video.youtubeTitle");
+    iframe.loading = loading;
     iframe.referrerPolicy = "strict-origin-when-cross-origin";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.setAttribute("allowfullscreen", "");
-    player.replaceChildren(iframe);
+    return iframe;
+  };
+
+  const loadVideo = () => {
+    player.replaceChildren(createFrame("eager"));
     player.hidden = false;
     consent.hidden = true;
     controls.hidden = true;
@@ -757,12 +762,14 @@ document.addEventListener("site-consent-change", (event) => {
     youtubePanel.hidden = true;
     youtubeControls.hidden = true;
     if (!player.querySelector("iframe")) {
+      const consent = $("youtube-consent");
       const frame = document.createElement("iframe");
-      frame.src = "https://www.youtube-nocookie.com/embed/_9LTWEetwJY?feature=oembed";
-      frame.title = t("video.youtubeTitle");
+      const videoId = consent?.dataset.videoId || "_9LTWEetwJY";
+      frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?feature=oembed`;
+      frame.title = player.getAttribute("aria-label") || t("video.youtubeTitle");
       frame.loading = "lazy";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
-      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       frame.setAttribute("allowfullscreen", "");
       player.replaceChildren(frame);
       player.hidden = false;
