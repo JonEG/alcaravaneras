@@ -70,6 +70,8 @@ class PageRenderer(HTMLParser):
     def _local_url(self, value: str) -> str:
         if value.startswith(("//", "http:", "https:", "mailto:", "tel:", "data:")):
             return value
+        if value.startswith("#"):
+            return value
         parsed = urlsplit(value)
         path = parsed.path.lstrip("/")
         if not path or path == "index.html":
