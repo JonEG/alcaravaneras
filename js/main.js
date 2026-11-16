@@ -5,10 +5,15 @@
   const latitude = 28.1308;
   const longitude = -15.4282;
   const timezone = "Atlantic/Canary";
+  const locale = window.AlcaravanerasI18n?.locale || "es-ES";
+  const t = window.t || ((key) => key);
   const menuButton = $(".menu-toggle");
   const header = $(".site-header");
-  const directionName = (degrees) => ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "O", "ONO", "NO", "NNO"][Math.round(degrees / 22.5) % 16];
-  const dateLabel = (iso) => new Date(`${iso.slice(0, 10)}T12:00`).toLocaleDateString("es-ES", { timeZone: timezone, weekday: "short", day: "numeric" });
+  const directionName = (degrees) => {
+    const names = locale === "de-DE" ? ["N", "NNO", "NO", "ONO", "O", "OSO", "SO", "SSO", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] : locale === "en-GB" ? ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] : ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO"];
+    return names[Math.round(degrees / 22.5) % 16];
+  };
+  const dateLabel = (iso) => new Date(`${iso.slice(0, 10)}T12:00`).toLocaleDateString(locale, { timeZone: timezone, weekday: "short", day: "numeric" });
   const make = (tag, className, text) => {
     const element = document.createElement(tag);
     if (className) element.className = className;
@@ -20,12 +25,12 @@
     menuButton.addEventListener("click", () => {
       const open = header.classList.toggle("nav-open");
       menuButton.setAttribute("aria-expanded", String(open));
-      menuButton.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      menuButton.setAttribute("aria-label", t(open ? "menu.close" : "menu.open"));
     });
     document.querySelectorAll("#site-nav a").forEach((link) => link.addEventListener("click", () => {
       header.classList.remove("nav-open");
       menuButton.setAttribute("aria-expanded", "false");
-      menuButton.setAttribute("aria-label", "Abrir menú");
+      menuButton.setAttribute("aria-label", t("menu.open"));
     }));
   }
 
@@ -55,21 +60,21 @@
     }).join("");
     const labels = [coords[0], coords[Math.floor((coords.length - 1) / 2)], coords.at(-1)]
       .map((point) => `<text class="tide-hour-label" x="${point.x}" y="248" text-anchor="middle">${point.time.slice(11, 16)}</text>`).join("");
-    container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Previsión horaria de la altura significativa del oleaje"><g>${grid}</g><path class="tide-area" d="${path} L${right},${bottom} L${left},${bottom} Z"/><path class="tide-line" d="${path}"/><g>${labels}</g></svg>`;
+    container.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${t("waves.chartTitle")}"><g>${grid}</g><path class="tide-area" d="${path} L${right},${bottom} L${left},${bottom} Z"/><path class="tide-line" d="${path}"/><g>${labels}</g></svg>`;
   }
 
   function render(data) {
     const current = data.current;
-    const asValue = (value, unit, digits = 1) => Number.isFinite(value) ? `${value.toFixed(digits)} ${unit}` : "No disponible";
+    const asValue = (value, unit, digits = 1) => Number.isFinite(value) ? `${value.toFixed(digits)} ${unit}` : t("waves.noData");
     const set = (selector, value) => {
       const element = $(selector);
       if (element) element.textContent = value;
     };
     set("[data-wave-height]", asValue(current.wave_height, "m"));
     set("[data-wave-period]", asValue(current.wave_period, "s"));
-    set("[data-wave-direction]", Number.isFinite(current.wave_direction) ? `${directionName(current.wave_direction)} · ${Math.round(current.wave_direction)}°` : "No disponible");
+    set("[data-wave-direction]", Number.isFinite(current.wave_direction) ? `${directionName(current.wave_direction)} · ${Math.round(current.wave_direction)}°` : t("waves.noData"));
     set("[data-swell-height]", asValue(current.swell_wave_height, "m"));
-    set("[data-updated]", `Hora de referencia del dato · ${current.time.replace("T", " · ")} h (Canarias)`);
+    set("[data-updated]", t("waves.updated", { time: current.time.slice(11, 16) }));
 
     const points = data.hourly.time.map((time, index) => ({ time, value: data.hourly.wave_height[index] }))
       .filter((point, index) => Number.isFinite(point.value) && index % 2 === 0);
@@ -78,12 +83,12 @@
     const daily = $("[data-wave-days]");
     if (daily) daily.replaceChildren(...data.daily.time.map((day, index) => {
       const card = make("article", "data-card");
-      card.append(make("span", "data-card-label", index === 0 ? "Hoy" : dateLabel(day)));
-      card.append(make("strong", "", Number.isFinite(data.daily.wave_height_max[index]) ? `${data.daily.wave_height_max[index].toFixed(1)} m` : "No disponible"));
+      card.append(make("span", "data-card-label", index === 0 ? t("common.today") : dateLabel(day)));
+      card.append(make("strong", "", Number.isFinite(data.daily.wave_height_max[index]) ? `${data.daily.wave_height_max[index].toFixed(1)} m` : t("waves.noData")));
       const period = data.daily.wave_period_max[index];
       const direction = data.daily.wave_direction_dominant[index];
-      card.append(make("span", "data-card-note", `Altura significativa máxima · periodo máx. ${Number.isFinite(period) ? `${Math.round(period)} s` : "no disponible"}`));
-      card.append(make("span", "data-card-note", `Dirección dominante ${Number.isFinite(direction) ? directionName(direction) : "no disponible"}`));
+      card.append(make("span", "data-card-note", t("waves.maxHeight", { period: Number.isFinite(period) ? `${Math.round(period)} s` : t("waves.noData") })));
+      card.append(make("span", "data-card-note", t("waves.direction", { direction: Number.isFinite(direction) ? directionName(direction) : t("waves.noData") })));
       return card;
     }));
   }
@@ -105,11 +110,11 @@
     })
     .then(render)
     .catch((error) => {
-      console.error("No se pudo cargar la previsión del oleaje:", error);
+      console.error(error);
       const updated = $("[data-updated]");
-      if (updated) updated.textContent = "Datos temporalmente no disponibles. Inténtalo de nuevo más tarde.";
+      if (updated) updated.textContent = t("waves.updateError");
       document.querySelectorAll("[data-loading]").forEach((element) => {
-        element.textContent = "No se pudo cargar este dato. Comprueba la conexión e inténtalo más tarde.";
+        element.textContent = t("waves.loadError");
       });
     });
 })();

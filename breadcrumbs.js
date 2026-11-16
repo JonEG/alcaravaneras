@@ -1,50 +1,64 @@
 (() => {
   "use strict";
 
-  const siteRoot = "https://alcaravaneras.com";
+  const siteRoot = "https://www.alcaravaneras.com";
+  const language = document.documentElement.lang || "es";
+  const translate = window.t || ((key) => key);
+  const pagePaths = {
+    "index.html": { es: "/", en: "/en/", de: "/de/" },
+    "playa.html": { es: "/playa.html", en: "/en/beach.html", de: "/de/strand.html" },
+    "servicios.html": { es: "/servicios.html", en: "/en/services.html", de: "/de/service.html" },
+    "accesibilidad-playa.html": { es: "/accesibilidad-playa.html", en: "/en/beach-accessibility.html", de: "/de/barrierefreiheit.html" },
+    "socorrismo.html": { es: "/socorrismo.html", en: "/en/lifeguards.html", de: "/de/rettungsschwimmer.html" },
+    "tiempo.html": { es: "/tiempo.html", en: "/en/weather.html", de: "/de/wetter.html" },
+    "viento.html": { es: "/viento.html", en: "/en/wind.html", de: "/de/wind.html" },
+    "mareas.html": { es: "/mareas.html", en: "/en/tides.html", de: "/de/gezeiten.html" },
+    "temperatura-agua.html": { es: "/temperatura-agua.html", en: "/en/water-temperature.html", de: "/de/wassertemperatur.html" },
+    "calidad-agua.html": { es: "/calidad-agua.html", en: "/en/water-quality.html", de: "/de/wasserqualitaet.html" },
+  };
   const routes = {
     beach: [
-      { label: "Inicio", path: "/" },
-      { label: "La playa", path: "/playa.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.beach", path: "playa.html" },
     ],
     "beach-services": [
-      { label: "Inicio", path: "/" },
-      { label: "Servicios", path: "/servicios.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.services", path: "servicios.html" },
     ],
     accessibility: [
-      { label: "Inicio", path: "/" },
-      { label: "Servicios", path: "/servicios.html" },
-      { label: "Accesibilidad", path: "/accesibilidad-playa.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.services", path: "servicios.html" },
+      { label: "crumb.accessibility", path: "accesibilidad-playa.html" },
     ],
     lifeguard: [
-      { label: "Inicio", path: "/" },
-      { label: "Servicios", path: "/servicios.html" },
-      { label: "Socorrismo", path: "/socorrismo.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.services", path: "servicios.html" },
+      { label: "crumb.lifeguards", path: "socorrismo.html" },
     ],
     weather: [
-      { label: "Inicio", path: "/" },
-      { label: "Condiciones de la playa", structured: false },
-      { label: "Tiempo", path: "/tiempo.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.conditions", structured: false },
+      { label: "crumb.weather", path: "tiempo.html" },
     ],
     wind: [
-      { label: "Inicio", path: "/" },
-      { label: "Condiciones de la playa", structured: false },
-      { label: "Viento", path: "/viento.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.conditions", structured: false },
+      { label: "crumb.wind", path: "viento.html" },
     ],
     tide: [
-      { label: "Inicio", path: "/" },
-      { label: "Condiciones de la playa", structured: false },
-      { label: "Mareas", path: "/mareas.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.conditions", structured: false },
+      { label: "crumb.tides", path: "mareas.html" },
     ],
     water: [
-      { label: "Inicio", path: "/" },
-      { label: "Condiciones de la playa", structured: false },
-      { label: "Temperatura del agua", path: "/temperatura-agua.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.conditions", structured: false },
+      { label: "crumb.waterTemperature", path: "temperatura-agua.html" },
     ],
     "water-quality": [
-      { label: "Inicio", path: "/" },
-      { label: "Condiciones de la playa", structured: false },
-      { label: "Calidad del agua", path: "/calidad-agua.html" },
+      { label: "crumb.home", path: "index.html" },
+      { label: "crumb.conditions", structured: false },
+      { label: "crumb.waterQuality", path: "calidad-agua.html" },
     ],
   };
 
@@ -54,7 +68,7 @@
 
   const nav = document.createElement("nav");
   nav.className = "page-breadcrumbs";
-  nav.setAttribute("aria-label", "Migas de pan");
+  nav.setAttribute("aria-label", translate("crumb.label"));
   const list = document.createElement("ol");
 
   items.forEach((item, index) => {
@@ -63,15 +77,15 @@
     if (isCurrent) {
       const current = document.createElement("span");
       current.setAttribute("aria-current", "page");
-      current.textContent = item.label;
+      current.textContent = translate(item.label);
       entry.append(current);
     } else if (item.path) {
       const link = document.createElement("a");
-      link.href = item.path;
-      link.textContent = item.label;
+      link.href = pagePaths[item.path]?.[language] || "/";
+      link.textContent = translate(item.label);
       entry.append(link);
     } else {
-      entry.textContent = item.label;
+      entry.textContent = translate(item.label);
     }
 
     if (index > 0) {
@@ -94,8 +108,8 @@
     itemListElement: schemaItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: item.label,
-      item: `${siteRoot}${item.path}`,
+      name: translate(item.label),
+      item: `${siteRoot}${pagePaths[item.path]?.[language] || "/"}`,
     })),
   };
   const schema = document.createElement("script");

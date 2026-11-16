@@ -1,0 +1,15 @@
+{
+  "pages": {
+    "index.html": {"en": "index.html", "de": "index.html"},
+    "tiempo.html": {"en": "weather.html", "de": "wetter.html"},
+    "viento.html": {"en": "wind.html", "de": "wind.html"},
+    "mareas.html": {"en": "tides.html", "de": "gezeiten.html"},
+    "temperatura-agua.html": {"en": "water-temperature.html", "de": "wassertemperatur.html"},
+    "calidad-agua.html": {"en": "water-quality.html", "de": "wasserqualitaet.html"},
+    "playa.html": {"en": "beach.html", "de": "strand.html"},
+    "servicios.html": {"en": "services.html", "de": "service.html"},
+    "accesibilidad-playa.html": {"en": "beach-accessibility.html", "de": "barrierefreiheit.html"},
+    "socorrismo.html": {"en": "lifeguards.html", "de": "rettungsschwimmer.html"},
+    "politica-de-cookies.html": {"en": "cookie-policy.html", "de": "cookie-richtlinie.html"}
+  }
+}

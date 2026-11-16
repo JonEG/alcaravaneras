@@ -49,18 +49,19 @@
     }
     loadLeaflet().then(initializeMap).catch(() => {
       consentPlaceholder.hidden = false;
-      mapStatus.textContent = "No se pudo cargar el mapa. Comprueba tu conexión o inténtalo más tarde.";
+      mapStatus.textContent = window.t("errors.map");
       leafletPromise = null;
     });
   }
 
   function initializeMap() {
   if (activeMap || !window.L || !window.AlcaravanerasConsent?.has("openstreetmap")) return;
-  const language = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "es";
+  const t = window.t;
   const labels = {
-    es: { safety: "Seguridad", accessibility: "Accesibilidad", facilities: "Servicios", family: "Parque", sports: "Deportes", water: "Actividades acuáticas", approximate: "Ubicación aproximada", osmSource: "Geometría de OpenStreetMap", tileError: "No se pudieron cargar algunos mosaicos del mapa. Comprueba tu conexión o inténtalo más tarde.", dataError: "No se pudo cargar la información del mapa.", fullscreen: "Pantalla completa", exitFullscreen: "Salir de pantalla completa", mapTitle: "Mapa interactivo de servicios de la playa de Las Alcaravaneras", zones: { beach: "Arenal", beachvolleyball: "Vóley playa", canoeing: "Piragüismo" } },
-    en: { safety: "Safety", accessibility: "Accessibility", facilities: "Facilities", family: "Park", sports: "Sports", water: "Water activities", approximate: "Approximate location", osmSource: "OpenStreetMap geometry", tileError: "Some map tiles could not be loaded. Check your connection or try again later.", dataError: "Map information could not be loaded.", fullscreen: "Fullscreen", exitFullscreen: "Exit fullscreen", zones: { beach: "Beach", beachvolleyball: "Beach volleyball", canoeing: "Canoeing" } }
-  }[language];
+    safety: t("map.safety"), accessibility: t("map.accessibility"), facilities: t("map.facilities"), family: t("map.family"), sports: t("map.sports"), water: t("map.water"),
+    approximate: t("map.approximate"), osmSource: t("map.osmSource"), tileError: t("map.tilesError"), dataError: t("map.dataError"), fullscreen: t("map.fullscreen"),
+    exitFullscreen: t("map.exitFullscreen"), mapTitle: t("map.title"), zones: { beach: t("map.zoneBeach"), beachvolleyball: t("map.zoneVolleyball"), canoeing: t("map.zoneCanoeing") }
+  };
 
   // Switch this URL to another OSM-compatible provider when needed. Keep that provider's attribution and usage policy.
   const tileUrl = window.ALCARAVANERAS_MAP_TILE_URL || mapElement.dataset.tileUrl || "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -91,7 +92,8 @@
     return String(value || "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
   }
   function textFor(value) {
-    return typeof value === "string" ? value : (value && (value[language] || value.es || value.en)) || "";
+    const language = (document.documentElement.lang || "es").toLowerCase().split("-")[0];
+    return typeof value === "string" ? value : (value && (value[language] || value.en || value.es)) || "";
   }
   function categoryName(category) {
     return labels[category] || labels.water;
@@ -129,7 +131,7 @@
     return marker;
   }
 
-  fetch("data/beach-facilities.geojson")
+  fetch("/data/beach-facilities.geojson")
     .then((response) => { if (!response.ok) throw new Error("facilities"); return response.json(); })
     .then((data) => data.features.forEach((feature) => {
       const [longitude, latitude] = feature.geometry.coordinates;
@@ -137,7 +139,7 @@
     }))
     .catch(() => { document.getElementById("beach-map-status").textContent = labels.dataError; });
 
-  fetch("data/beach-zones.geojson")
+  fetch("/data/beach-zones.geojson")
     .then((response) => { if (!response.ok) throw new Error("zones"); return response.json(); })
     .then((data) => {
       L.geoJSON(data, {

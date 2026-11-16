@@ -23,14 +23,19 @@ jobs:
       - name: Fetch and render Open-Meteo data
         run: python scripts/update_open_meteo.py
 
+      - name: Build and validate localized pages
+        run: |
+          python scripts/build_i18n.py
+          python scripts/validate_i18n.py
+
       - name: Publish updated forecast and pages
         run: |
-          if git diff --quiet -- data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml; then
+          if git diff --quiet -- data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml en de; then
             echo "No forecast page changes to publish."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml
+          git add data/open-meteo-forecast.json data/open-meteo-marine.json index.html tiempo.html viento.html mareas.html temperatura-agua.html sitemap.xml en de
           git commit -m "Update Open-Meteo conditions"
           git push
