@@ -120,6 +120,8 @@ def render(source: str, page: str, language: str, dictionary: dict) -> str:
     parser = PageRenderer(page, language, dictionary["strings"])
     parser.feed(source)
     html = "".join(parser.parts)
+    if page == "historia/origen-nombre-playa-alcaravaneras.html":
+        html = re.sub(r"(?m)^[ \t]+(?=\r?$)", "", html)
     structured = dictionary.get("structured", {})
     if page == "playa.html" and structured:
         html = html.replace('"name": "Playa de Las Alcaravaneras"', '"name": ' + json.dumps(structured["beach_name"], ensure_ascii=False))
@@ -137,8 +139,32 @@ def render(source: str, page: str, language: str, dictionary: dict) -> str:
     html = set_meta(html, r'(<meta\s+property="og:title"\s+content=")[^"]*(")', rf'\g<1>{escape(title, quote=True)}\2')
     html = set_meta(html, r'(<meta\s+property="og:description"\s+content=")[^"]*(")', rf'\g<1>{escape(description, quote=True)}\2')
     html = set_meta(html, r'(<meta\s+property="og:url"\s+content=")[^"]*(")', rf'\g<1>{canonical}\2')
+    html = set_meta(html, r'(<meta\s+name="twitter:title"\s+content=")[^"]*(")', rf'\g<1>{escape(title, quote=True)}\2')
+    html = set_meta(html, r'(<meta\s+name="twitter:description"\s+content=")[^"]*(")', rf'\g<1>{escape(description, quote=True)}\2')
     if structured.get("image_alt"):
         html = set_meta(html, r'(<meta\s+property="og:image:alt"\s+content=")[^"]*(")', rf'\g<1>{escape(structured["image_alt"], quote=True)}\2')
+    if page == "historia/origen-nombre-playa-alcaravaneras.html":
+        image_url = "https://www.fotosantiguascanarias.org/oaistore/srvimg/img102/00007001_00007500/00007451/guarda/00007451_0001.jpg"
+        image_alt = dictionary["strings"].get("Arenales de Santa Catalina, fotografía histórica de Luis Ojeda Pérez", "Arenales en Santa Catalina")
+        html = set_meta(html, r'(<meta\s+property="og:image:alt"\s+content=")[^"]*(")', rf'\g<1>{escape(image_alt, quote=True)}\2')
+        heading = re.search(r"<h1\b[^>]*>(.*?)</h1>", html, re.I | re.S)
+        headline = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", heading.group(1))).strip() if heading else title
+        article_schema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": headline,
+            "description": description,
+            "image": [image_url],
+            "mainEntityOfPage": {"@type": "WebPage", "@id": canonical},
+            "inLanguage": dictionary["locale"],
+            "publisher": {"@type": "Organization", "name": "Las Alcaravaneras", "url": BASE_URL},
+        }
+        schema_script = '<script type="application/ld+json">' + json.dumps(article_schema, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+        schema_pattern = r'<script\s+type="application/ld\+json">.*?</script>'
+        if re.search(schema_pattern, html, re.I | re.S):
+            html = re.sub(schema_pattern, schema_script, html, count=1, flags=re.I | re.S)
+        else:
+            html = html.replace("</head>", schema_script + "</head>", 1)
     canonical_link = f'<link rel="canonical" href="{canonical}">'
     alternates = "".join(f'<link rel="alternate" hreflang="{lang}" href="{BASE_URL + route_path(page, lang)}">' for lang in LANGUAGES)
     alternates += f'<link rel="alternate" hreflang="x-default" href="{BASE_URL + route_path(page, "es")}">'
